@@ -1,23 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:kyari_app/ui/common/common_widgets.dart';
+import 'package:kyari_app/ui/helpers/helpers.dart';
+import 'package:provider/provider.dart';
 
 class Noticias_Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      endDrawer: MenuDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Boton_menu(),
-            ],
-          ),
-        ],
+    return Consumer<DrawerProvider>(
+      builder: (context, drawerProvider, _) => Scaffold(
+        endDrawer: MenuDrawer(),
+        // floatingActionButton: Boton_menu(),
+        // endDrawerEnableOpenDragGesture: false,
+        drawerScrimColor: Colors.transparent,
+        onEndDrawerChanged: (isOpened) {
+          print('el del Scaffolt: $isOpened');
+          drawerProvider.setIsOpenDrawer = isOpened;
+          if (isOpened) {
+            drawerProvider.getAnimationController.forward(from: 0);
+          } else {
+            drawerProvider.getAnimationController.reverse(from: 1);
+          }
+
+          print(drawerProvider.getIsOpenDrawer());
+        },
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Boton_menu(),
+          ],
+        ),
+        // drawer: MenuDrawer(),
       ),
-      // drawer: MenuDrawer(),
     );
   }
 }
