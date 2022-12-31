@@ -6,27 +6,26 @@ import 'package:provider/provider.dart';
 class Noticias_Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Consumer<DrawerProvider>(
       builder: (context, drawerProvider, _) => Scaffold(
         endDrawer: MenuDrawer(),
-        // floatingActionButton: Boton_menu(),
+        floatingActionButton: Boton_menu(),
         // endDrawerEnableOpenDragGesture: false,
         drawerScrimColor: Colors.transparent,
         onEndDrawerChanged: (isOpened) {
-          print('el del Scaffolt: $isOpened');
           drawerProvider.setIsOpenDrawer = isOpened;
           if (isOpened) {
             drawerProvider.getAnimationController.forward(from: 0);
           } else {
             drawerProvider.getAnimationController.reverse(from: 1);
           }
-
-          print(drawerProvider.getIsOpenDrawer());
         },
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+        body: Stack(
           children: [
-            Boton_menu(),
+            TarjetaNoticias(),
+            TituloBanner(),
           ],
         ),
         // drawer: MenuDrawer(),

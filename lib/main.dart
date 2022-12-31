@@ -11,6 +11,8 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DrawerProvider>(create: (_) => DrawerProvider()),
+        ChangeNotifierProvider<NoticiasProvider>(
+            create: (_) => NoticiasProvider()),
         ChangeNotifierProvider<ButtonDrawerProvider>(
             create: (_) => ButtonDrawerProvider()),
         // Provider<ImageBackgroundWee>(

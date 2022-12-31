@@ -45,8 +45,8 @@ class _Boton_menuState extends State<Boton_menu>
                 : Curves.easeInCubic.transform(_animationController.value);
 
             final paddinAnimate = EdgeInsets.lerp(
-                const EdgeInsets.only(right: 30, bottom: 30),
-                const EdgeInsets.only(right: 15, bottom: 15),
+                const EdgeInsets.only(right: 30),
+                const EdgeInsets.only(right: 10),
                 valorAnimacion);
 
             final interiorContainer =
@@ -62,67 +62,62 @@ class _Boton_menuState extends State<Boton_menu>
 
             final giroAngulo = lerpDouble(0, -pi, valorAnimacion) ?? 0.0;
 
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Transform.translate(
-                  offset: Offset(offsetX!, 0),
-                  child: Padding(
-                    padding: paddinAnimate!,
-                    child: Material(
-                      color: Colors.pinkAccent,
-                      shape: const CircleBorder(),
-                      // elevation: sombra!,
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(100),
-                        onTap: () {
-                          print('Se Toco');
-                          Scaffold.of(context).openEndDrawer();
+            return Transform.translate(
+              offset: Offset(offsetX!, 0),
+              child: Padding(
+                padding: paddinAnimate!,
+                child: Material(
+                  color: Colors.pinkAccent,
+                  shape: const CircleBorder(),
+                  // elevation: sombra!,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(100),
+                    onTap: () {
+                      print('Se Toco');
+                      Scaffold.of(context).openEndDrawer();
 
-                          _animationController.forward(from: 0);
+                      _animationController.forward(from: 0);
 
-                          // if (!drawerProvider.getIsOpenDrawer()) {
-                          //   _animationController.forward(from: 0);
-                          //   Scaffold.of(context).openEndDrawer();
-                          // } else {
-                          //   _animationController.reverse(from: 1);
-                          //   Scaffold.of(context).closeEndDrawer();
-                          //   // Navigator.pop(context);
-                          // }
-                          // drawerProvider.setIsOpenDrawer =
-                          //     !drawerProvider.getIsOpenDrawer();
-                        },
-                        child: SizedBox(
-                          // margin: paddinAnimate!,
-                          width: tamanoContainer,
-                          height: tamanoContainer,
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Container(
-                                width: interiorContainer,
-                                height: interiorContainer,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              Transform.rotate(
-                                angle: giroAngulo,
-                                child: Icon(
-                                  Icons.menu,
-                                  color: colorIcono,
-                                  size: iconoSize,
-                                ),
-                              ),
-                            ],
+                      // if (!drawerProvider.getIsOpenDrawer()) {
+                      //   _animationController.forward(from: 0);
+                      //   Scaffold.of(context).openEndDrawer();
+                      // } else {
+                      //   _animationController.reverse(from: 1);
+                      //   Scaffold.of(context).closeEndDrawer();
+                      //   // Navigator.pop(context);
+                      // }
+                      // drawerProvider.setIsOpenDrawer =
+                      //     !drawerProvider.getIsOpenDrawer();
+                    },
+                    child: SizedBox(
+                      // margin: paddinAnimate!,
+                      width: tamanoContainer,
+                      height: tamanoContainer,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            width: interiorContainer,
+                            height: interiorContainer,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
                           ),
-                        ),
+                          Transform.rotate(
+                            angle: giroAngulo,
+                            child: Icon(
+                              Icons.menu,
+                              color: colorIcono,
+                              size: iconoSize,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-              ],
+              ),
             );
           },
         );

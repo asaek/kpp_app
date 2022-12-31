@@ -6,10 +6,13 @@ import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
 class MenuDrawer extends StatelessWidget {
+  final colorBackGound = const Color.fromARGB(176, 0, 0, 0);
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final widthDrawer = size.width * 0.65;
+
     return Drawer(
       elevation: 0,
       width: widthDrawer,
@@ -19,7 +22,7 @@ class MenuDrawer extends StatelessWidget {
         height: double.infinity,
         child: Material(
           // color: Colors.pinkAccent,
-          borderRadius: BorderRadius.circular(20),
+          // borderRadius: BorderRadius.circular(20),
           child: ClipRRect(
             child: Stack(
               // alignment: AlignmentDirectional.centerEnd,
@@ -46,7 +49,7 @@ class MenuDrawer extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  left: 0,
+                  left: 20,
                   bottom: 0,
                   child: Transform.rotate(
                     angle: -pi / 10.0,
@@ -68,7 +71,7 @@ class MenuDrawer extends StatelessWidget {
                 ),
                 ClipRRect(
                   child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                    filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
                     child: Container(
                       height: double.infinity,
                       // color: Colors.pinkAccent,
@@ -148,8 +151,8 @@ class MenuDrawer extends StatelessWidget {
                       titulo: 'Enlaces Fans Mexico',
                     ),
                     Expanded(
-                      child: Container(
-                        color: const Color.fromARGB(176, 0, 0, 0),
+                      child: Material(
+                        color: colorBackGound,
                       ),
                     ),
                   ],
@@ -176,46 +179,60 @@ class _OpcionDeDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // const colorBackGound = Color.fromARGB(176, 0, 0, 0);
+    const colorBackGound = Color.fromARGB(129, 255, 255, 255);
+
     return Consumer<ButtonDrawerProvider>(
       builder: (context, buttonDrawerProvider, _) {
         return Material(
-          color: (buttonDrawerProvider.getSeleccionado == numeroBoton)
-              ? const Color.fromARGB(133, 255, 54, 54)
-              : const Color.fromARGB(176, 0, 0, 0),
+          // color: (buttonDrawerProvider.getSeleccionado == numeroBoton)
+          //     ? const Color.fromARGB(141, 255, 70, 70)
+          //     : colorBackGound,
+          color: Colors.transparent,
           child: InkWell(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const SizedBox(
-                  width: 20,
-                ),
-                Container(
-                  height: (buttonDrawerProvider.getSeleccionado == numeroBoton)
-                      ? 80
-                      : 60,
-                  padding: const EdgeInsets.only(right: 5),
-                  child: Center(
-                    child: Text(
-                      titulo,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: (buttonDrawerProvider.getSeleccionado ==
-                                numeroBoton)
-                            ? 22
-                            : 18,
-                        fontWeight: (buttonDrawerProvider.getSeleccionado ==
-                                numeroBoton)
-                            ? FontWeight.bold
-                            : FontWeight.w300,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeInOut,
+              color: (buttonDrawerProvider.getSeleccionado == numeroBoton)
+                  ? const Color.fromARGB(141, 255, 70, 70)
+                  : colorBackGound,
+              height: (buttonDrawerProvider.getSeleccionado == numeroBoton)
+                  ? 80
+                  : 60,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: Center(
+                      child: Text(
+                        titulo,
+                        style: TextStyle(
+                          color: (buttonDrawerProvider.getSeleccionado ==
+                                  numeroBoton)
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: (buttonDrawerProvider.getSeleccionado ==
+                                  numeroBoton)
+                              ? 22
+                              : 18,
+                          fontWeight: (buttonDrawerProvider.getSeleccionado ==
+                                  numeroBoton)
+                              ? FontWeight.bold
+                              : FontWeight.w300,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             onTap: () {
               buttonDrawerProvider.setSeleccionado = numeroBoton;
-
+              // Navigator.pop(context);
               print('Sigue asi y tocaras a kyary');
             },
           ),
