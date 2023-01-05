@@ -12,7 +12,6 @@ class Noticias_Page extends StatelessWidget {
       builder: (context, drawerProvider, _) => Scaffold(
         endDrawer: MenuDrawer(),
         floatingActionButton: Boton_menu(),
-        // endDrawerEnableOpenDragGesture: false,
         drawerScrimColor: Colors.transparent,
         onEndDrawerChanged: (isOpened) {
           drawerProvider.setIsOpenDrawer = isOpened;
