@@ -18,7 +18,7 @@ class NoticiasProvider with ChangeNotifier {
   final List<PageController> _pageControllerList = [
     PageController(),
     PageController(),
-    PageController()
+    PageController(),
   ];
 
   List<PageController> get getPageControllerList => _pageControllerList;

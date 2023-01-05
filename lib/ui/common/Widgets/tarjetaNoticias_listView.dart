@@ -82,15 +82,6 @@ class TarjetaNoticias extends StatelessWidget {
                                                         milliseconds: 200),
                                                     curve: Curves.easeIn);
 
-                                            // final pageController =
-                                            //     noticiasProvider
-                                            //         .getPageController;
-
-                                            // noticiasProvider.getPageController
-                                            //     .previousPage(
-                                            //         duration: const Duration(
-                                            //             milliseconds: 200),
-                                            //         curve: Curves.easeIn);
                                             print('Me precionaste');
                                           },
                                         ),
@@ -103,15 +94,10 @@ class TarjetaNoticias extends StatelessWidget {
                                             size: 45,
                                           ),
                                           onPressed: () {
-                                            print(index);
-                                            // noticiasProvider.getPageController
-                                            //     .nextPage(
-                                            //         duration: const Duration(
-                                            //             milliseconds: 200),
-                                            //         curve: Curves.easeIn);
                                             final listaControllers =
                                                 noticiasProvider
                                                     .getPageControllerList;
+
                                             print(
                                                 'Pagina actual del controller $index --- ${listaControllers[index].page}');
                                             listaControllers[index].nextPage(
@@ -192,7 +178,7 @@ class _PinchZoomImageState extends State<_PinchZoomImage>
   double maxScale = 5.0;
   double minScale = 1;
 
-  final PageController _pageControllerPropio = PageController(initialPage: 0);
+  late PageController _pageControllerPropio;
 
   @override
   void initState() {
@@ -210,6 +196,11 @@ class _PinchZoomImageState extends State<_PinchZoomImage>
 
     // Provider.of<NoticiasProvider>(context, listen: false)
     //     .addPageControllerToList(_pageControllerPropio);
+    // print('Se agrego PageController');
+
+    _pageControllerPropio =
+        Provider.of<NoticiasProvider>(context, listen: false)
+            .getPageControllerList[widget.index];
 
     super.initState();
   }
@@ -218,7 +209,7 @@ class _PinchZoomImageState extends State<_PinchZoomImage>
   void dispose() {
     controllerTransform.dispose();
     animationController.dispose();
-    _pageControllerPropio.dispose();
+    // _pageControllerPropio.dispose();
 
     super.dispose();
   }
@@ -239,7 +230,7 @@ class _PinchZoomImageState extends State<_PinchZoomImage>
                 itemCount: imagenesTEMPORALES.length,
                 scrollDirection: Axis.horizontal,
                 controller: _pageControllerPropio,
-                // physics: const NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, indexx) {
                   noticiasProvider.setSlotPageViewList(
                       slot: widget.index, valor: indexx);
