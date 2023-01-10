@@ -11,14 +11,17 @@ class NoticiaPropiaApi extends NoticiaPropiaGateway {
 
   @override
   Future<List<NoticiaPropia>> getAllNoticias() async {
-    final url = Uri.https(_baseURL, '.json');
+    final url = Uri.https(_baseURL, 'noticiasPropias.json');
     final resp = await http.get(url);
 
     if (resp.statusCode == 200) {
-      return _noticiaMapper.fromMap(jsonDecode(resp.body));
+      final Map<String, dynamic> jsonRaw = json.decode(resp.body);
+      print('Esta es la propiedad:  ${jsonRaw['asaekKpp']['urlImagenes']}');
+
+      return _noticiaMapper.fromMapAll(jsonRaw);
     }
 
-    throw Exception('no fue posible conectar a la URL');
+    throw Exception('No fue posible conectar a la URL');
   }
 
   @override

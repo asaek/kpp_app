@@ -16,10 +16,12 @@ class OurText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,
-        style: TextStyle(color: colorText, fontSize: fontSize),
-        textAlign: TextAlign.center,
-        maxLines: 4);
+    return Text(
+      text,
+      style: TextStyle(color: colorText, fontSize: fontSize),
+      textAlign: TextAlign.center,
+      maxLines: 4,
+    );
   }
 }
 

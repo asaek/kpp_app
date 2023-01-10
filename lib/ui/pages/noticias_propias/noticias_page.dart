@@ -23,7 +23,7 @@ class Noticias_Page extends StatelessWidget {
         },
         body: Stack(
           children: [
-            TarjetaNoticias(),
+            MiddleScreen(),
             TituloBanner(),
           ],
         ),

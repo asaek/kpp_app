@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kyari_app/domain/models/models.dart';
 
 class NoticiasProvider with ChangeNotifier {
+  List<NoticiaPropia> _noticiasCargadas = [];
+  List<NoticiaPropia> get getNoticiasCargadas => _noticiasCargadas;
+  set setNoticiasCargadas(List<NoticiaPropia> dato) {
+    _noticiasCargadas = dato;
+    // notifyListeners();
+  }
+
   bool _cargando = false;
   bool get getCargando => _cargando;
   set setCargando(bool dato) {
@@ -19,41 +27,32 @@ class NoticiasProvider with ChangeNotifier {
     PageController(),
     PageController(),
     PageController(),
+    PageController(),
   ];
 
   List<PageController> get getPageControllerList => _pageControllerList;
 
-  addPageControllerToList(PageController dato) {
-    _pageControllerList.add(dato);
-    print('Se agrego');
-  }
+  // addPageControllerToList(PageController dato) {
+  //   _pageControllerList.add(dato);
+  //   print('Se agrego');
+  // }
 
-  final List<int> _slotPageViewList = [0, 0, 0];
+  final List<int> _slotPageViewList = [0, 0, 0, 0];
   List<int> get getSlotPageView => _slotPageViewList;
   setSlotPageViewList({required int slot, required int valor}) {
     _slotPageViewList[slot] = valor;
     print('Aca seteado $_slotPageViewList');
   }
 
-  addSlotPageViewList(int dato) {
-    _slotPageViewList.add(dato);
-    print('se a;adio a la lista $dato');
-  }
+  // addSlotPageViewList(int dato) {
+  //   _slotPageViewList.add(dato);
+  //   print('se a;adio a la lista $dato');
+  // }
 
   int _slotController = 0;
   int get getSlotController => _slotController;
   set setSlotController(int dato) {
     _slotController = dato;
     print('Seteo controller seleccionado');
-  }
-
-  nextPageController() {
-    // _slotPageView = _slotPageView + 1;
-
-    // _pageController.animateToPage(_slotPageView,
-    //     duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
-
-    // _pageController.nextPage(
-    //     duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
   }
 }

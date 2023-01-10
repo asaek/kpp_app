@@ -12,8 +12,6 @@ Widget asyncSnapshotNoticiaPropiashelper(AsyncSnapshot snapshot) {
       height: double.infinity,
       fit: BoxFit.cover,
     );
-  } else {
-    // element =
   }
   return element;
 }
