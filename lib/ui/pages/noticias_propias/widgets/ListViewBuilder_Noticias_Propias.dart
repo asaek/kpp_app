@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:kyari_app/ui/common/tokens/colores.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
+import 'package:kyari_app/ui/helpers/url_launcher.dart';
 import 'package:kyari_app/ui/pages/noticias_propias/widgets/widgets_noticias_page.dart';
 import 'package:provider/provider.dart';
 
@@ -96,16 +98,29 @@ class ListViewBuilderNoticiasPropias extends StatelessWidget {
                           horizontal: 10,
                           vertical: 10,
                         ),
-                        child: Text(
-                          noticiasProvider.getNoticiasCargadas[index].texto,
+                        child: TextNoticia(
+                          text:
+                              noticiasProvider.getNoticiasCargadas[index].texto,
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 10, bottom: 20),
+                        padding: const EdgeInsets.only(right: 25, bottom: 20),
                         child: Align(
                           alignment: Alignment.centerRight,
-                          child: Text(noticiasProvider
-                              .getNoticiasCargadas[index].fuente),
+                          child: GestureDetector(
+                            child: Text(
+                              URLhost(
+                                  urlString: noticiasProvider
+                                      .getNoticiasCargadas[index].fuente),
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 255, 0, 85),
+                                fontSize: 19,
+                              ),
+                            ),
+                            onTap: () => URLauncher(
+                                urlString: noticiasProvider
+                                    .getNoticiasCargadas[index].fuente),
+                          ),
                         ),
                       ),
                     ],

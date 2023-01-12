@@ -47,14 +47,17 @@ class H2 extends StatelessWidget {
   }
 }
 
-class NormalText extends StatelessWidget {
+class TextNoticia extends StatelessWidget {
   final String text;
-  const NormalText({Key? key, required this.text}) : super(key: key);
+  const TextNoticia({Key? key, required this.text}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return OurText(
-      text: text,
-      colorText: Colors.orangeAccent,
+    return Text(
+      text,
+      style: const TextStyle(
+        color: Colors.black,
+        fontSize: 18,
+      ),
     );
   }
 }

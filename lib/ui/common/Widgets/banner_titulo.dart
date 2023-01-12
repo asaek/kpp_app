@@ -13,7 +13,7 @@ class TituloBanner extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              '   Noticias',
+              '   Blog Noticias',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 25,

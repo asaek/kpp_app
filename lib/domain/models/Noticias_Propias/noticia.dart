@@ -19,35 +19,28 @@ class NoticiaPropia {
   String fuente;
   String? idFirebase;
 
-  factory NoticiaPropia.fromJson(String str) =>
-      NoticiaPropia.fromMapa(json.decode(str));
+  // factory NoticiaPropia.fromJson(String str) =>
+  //     NoticiaPropia.fromMapa(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory NoticiaPropia.fromMapa(Map<String, dynamic> json) {
-    final List<String> urlImagenesTEMPORAL = [];
+  // factory NoticiaPropia.fromMapa(Map<String, dynamic> json) {
+  //   final List<String> urlImagenesTEMPORAL = [];
+  //   json["urlImagenes"].forEach(
+  //     (key, value) {
+  //       print('Esta es la key: $key  y el valo: $value');
+  //       urlImagenesTEMPORAL.add(value);
+  //     },
+  //   );
 
-    // if (json["urlImagenes"] == null) {
-    //   print('Esta Vacia ----------');
-    // } else {
-    //   print('Esta llena ----------');
-    // }
-
-    json["urlImagenes"].forEach(
-      (key, value) {
-        print('Esta es la key: $key  y el valo: $value');
-        urlImagenesTEMPORAL.add(value);
-      },
-    );
-
-    return NoticiaPropia(
-      titulo: json["titulo"],
-      idFirebase: json["idFirebase"],
-      texto: json["texto"],
-      fuente: json["fuente"],
-      urlImagenes: urlImagenesTEMPORAL,
-    );
-  }
+  //   return NoticiaPropia(
+  //     titulo: json["titulo"],
+  //     idFirebase: json["idFirebase"],
+  //     texto: json["texto"],
+  //     fuente: json["fuente"],
+  //     urlImagenes: urlImagenesTEMPORAL,
+  //   );
+  // }
 
   Map<String, dynamic> toMap() => {
         "titulo": titulo,
