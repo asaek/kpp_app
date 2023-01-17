@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:kyari_app/ui/common/tokens/colores.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:kyari_app/ui/helpers/url_launcher.dart';
 import 'package:kyari_app/ui/pages/noticias_propias/widgets/widgets_noticias_page.dart';
+import 'package:kyari_app/ui/pages/pages.dart';
 import 'package:provider/provider.dart';
 
 class ListViewBuilderNoticiasPropias extends StatelessWidget {
@@ -41,57 +43,95 @@ class ListViewBuilderNoticiasPropias extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              FloatingActionButton(
+                              Material(
                                 elevation: 0,
-                                backgroundColor: Colors.transparent,
-                                child: const Icon(
-                                  Icons.arrow_back,
-                                  color: Color_All_Interface_X,
-                                  size: 45,
+                                color: Colors.transparent,
+                                shape: const CircleBorder(),
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: const Icon(
+                                    Icons.arrow_back,
+                                    color: Color_All_Interface_X,
+                                    size: 45,
+                                  ),
+                                  onTap: () {
+                                    final listaControllers =
+                                        noticiasProvider.getPageControllerList;
+                                    print(
+                                        'Pagina actual del controller $index --- ${listaControllers[index].page}');
+
+                                    listaControllers[index].previousPage(
+                                        duration:
+                                            const Duration(milliseconds: 200),
+                                        curve: Curves.easeIn);
+
+                                    print('Me precionaste');
+                                  },
                                 ),
-                                onPressed: () {
-                                  final listaControllers =
-                                      noticiasProvider.getPageControllerList;
-                                  print(
-                                      'Pagina actual del controller $index --- ${listaControllers[index].page}');
-
-                                  listaControllers[index].previousPage(
-                                      duration:
-                                          const Duration(milliseconds: 200),
-                                      curve: Curves.easeIn);
-
-                                  print('Me precionaste');
-                                },
                               ),
-                              FloatingActionButton(
+                              Material(
                                 elevation: 0,
-                                backgroundColor: Colors.transparent,
-                                child: const Icon(
-                                  Icons.arrow_forward,
-                                  color: Color_All_Interface_X,
-                                  size: 45,
-                                ),
-                                onPressed: () {
-                                  final listaControllers =
-                                      noticiasProvider.getPageControllerList;
+                                color: Colors.transparent,
+                                shape: const CircleBorder(),
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: const Icon(
+                                    Icons.arrow_forward,
+                                    color: Color_All_Interface_X,
+                                    size: 45,
+                                  ),
+                                  onTap: () {
+                                    final listaControllers =
+                                        noticiasProvider.getPageControllerList;
 
-                                  print(
-                                      'Pagina actual del controller $index --- ${listaControllers[index].page}');
-                                  listaControllers[index].nextPage(
-                                      duration:
-                                          const Duration(milliseconds: 200),
-                                      curve: Curves.easeIn);
-                                  print('Me precionaste');
-                                },
-                              )
+                                    print(
+                                        'Pagina actual del controller $index --- ${listaControllers[index].page}');
+                                    listaControllers[index].nextPage(
+                                        duration:
+                                            const Duration(milliseconds: 200),
+                                        curve: Curves.easeIn);
+                                    print('Me precionaste');
+                                  },
+                                ),
+                              ),
+                              // FloatingActionButton(
+                              //   key: Key('derecha $index'),
+                              //   elevation: 0,
+                              //   backgroundColor: Colors.transparent,
+                              //   child: const Icon(
+                              //     Icons.arrow_forward,
+                              //     color: Color_All_Interface_X,
+                              //     size: 45,
+                              //   ),
+                              //   onPressed: () {
+                              //     final listaControllers =
+                              //         noticiasProvider.getPageControllerList;
+
+                              //     print(
+                              //         'Pagina actual del controller $index --- ${listaControllers[index].page}');
+                              //     listaControllers[index].nextPage(
+                              //         duration:
+                              //             const Duration(milliseconds: 200),
+                              //         curve: Curves.easeIn);
+                              //     print('Me precionaste');
+                              //   },
+                              // )
                             ],
                           ),
                         ],
                       ),
-                      Text(
-                        noticiasProvider.getNoticiasCargadas[index].titulo,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 25),
+                      GestureDetector(
+                        child: Text(
+                          noticiasProvider.getNoticiasCargadas[index].titulo,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 25),
+                        ),
+                        onTap: () => Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (BuildContext context) => Noticias_Page(),
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(

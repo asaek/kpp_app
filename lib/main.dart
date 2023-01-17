@@ -15,9 +15,6 @@ class AppState extends StatelessWidget {
             create: (_) => NoticiasProvider()),
         ChangeNotifierProvider<ButtonDrawerProvider>(
             create: (_) => ButtonDrawerProvider()),
-        // Provider<ImageBackgroundWee>(
-        //   create: (context) => ImageBackgroundWee(),
-        // )
       ],
       child: MyApp(),
     );
@@ -30,6 +27,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Noticias_Page(),
+      // initialRoute: '/Noticias_Propias',
+      // routes: _routes,
     );
   }
 }
+
+final _routes = {
+  '/Noticias_Propias': (context) => Noticias_Page(),
+  '/Twitter': (context) => const TwitterPage(),
+  '/Construccion': (context) => Noticias_Page(),
+};

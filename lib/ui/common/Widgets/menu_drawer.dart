@@ -1,8 +1,10 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
+import 'package:kyari_app/ui/pages/pages.dart';
 import 'package:provider/provider.dart';
 
 class MenuDrawer extends StatelessWidget {
@@ -78,29 +80,28 @@ class MenuDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
-                Column(
-                  children: [
-                    DrawerHeader(
-                      margin: EdgeInsets.zero,
-                      padding: EdgeInsets.zero,
-                      decoration: const BoxDecoration(
-                        borderRadius:
-                            BorderRadius.only(topLeft: Radius.circular(20)),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              'https://cdn-japantimes.com/wp-content/uploads/2015/05/z6-sp-expomilano1-a-20150501-e1430724912692.jpg'),
-                        ),
-                      ),
-                      child: Stack(
-                        children: const <Widget>[
+                Consumer<ButtonDrawerProvider>(
+                  builder: (context, buttonDrawerProvider, _) => Column(
+                    children: [
+                      Stack(
+                        children: const [
+                          FadeInImage(
+                            height: 200,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            placeholder: AssetImage(
+                                'assets/loadings/kyaryLoading_3.gif'),
+                            image: NetworkImage(
+                              'https://cdn-japantimes.com/wp-content/uploads/2015/05/z6-sp-expomilano1-a-20150501-e1430724912692.jpg',
+                            ),
+                          ),
                           Positioned(
                             bottom: 10.0,
                             left: 15.0,
                             child: Text(
                               "Kyary Pamyu Pamyu",
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.pinkAccent,
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -108,54 +109,54 @@ class MenuDrawer extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
-                    //Aqui se creara las figuras  de colores el blur y mas -----------------
-                    const _OpcionDeDrawer(
-                      numeroBoton: 0,
-                      seleccionado: true,
-                      titulo: 'Noticias',
-                    ),
-                    const _OpcionDeDrawer(
-                      numeroBoton: 1,
-                      seleccionado: false,
-                      titulo: 'Twitter',
-                    ),
-                    const _OpcionDeDrawer(
-                      numeroBoton: 2,
-                      seleccionado: false,
-                      titulo: 'Reloj',
-                    ),
-                    const _OpcionDeDrawer(
-                      numeroBoton: 3,
-                      seleccionado: false,
-                      titulo: 'Merca de la Patrona',
-                    ),
-                    const _OpcionDeDrawer(
-                      numeroBoton: 4,
-                      seleccionado: false,
-                      titulo: 'Mmm Patas',
-                    ),
-                    const _OpcionDeDrawer(
-                      numeroBoton: 5,
-                      seleccionado: false,
-                      titulo: 'Wallpapers Kyary',
-                    ),
-                    const _OpcionDeDrawer(
-                      numeroBoton: 6,
-                      seleccionado: false,
-                      titulo: 'Evolucion Kyary',
-                    ),
-                    const _OpcionDeDrawer(
-                      numeroBoton: 7,
-                      seleccionado: false,
-                      titulo: 'Enlaces Fans Mexico',
-                    ),
-                    Expanded(
-                      child: Material(
-                        color: colorBackGound,
+                      //Aqui se creara las figuras  de colores el blur y mas -----------------
+                      const _OpcionDeDrawer(
+                        numeroBoton: 0,
+                        titulo: 'Blog Noticias',
+                        key: ValueKey(0),
                       ),
-                    ),
-                  ],
+                      const _OpcionDeDrawer(
+                        numeroBoton: 1,
+                        titulo: 'Twitter',
+                        key: ValueKey(1),
+                      ),
+                      const _OpcionDeDrawer(
+                        numeroBoton: 2,
+                        titulo: 'Reloj',
+                        key: ValueKey(2),
+                      ),
+                      const _OpcionDeDrawer(
+                        numeroBoton: 3,
+                        titulo: 'Merca de la Patrona',
+                        // key: ValueKey(3),
+                      ),
+                      const _OpcionDeDrawer(
+                        numeroBoton: 4,
+                        titulo: 'Cuidado de Kyary',
+                        // key: ValueKey(4),
+                      ),
+                      const _OpcionDeDrawer(
+                        numeroBoton: 5,
+                        titulo: 'Wallpapers Kyary',
+                        // key: ValueKey(5),
+                      ),
+                      const _OpcionDeDrawer(
+                        numeroBoton: 6,
+                        titulo: 'Evolucion Kyary',
+                        // key: ValueKey(6),
+                      ),
+                      const _OpcionDeDrawer(
+                        numeroBoton: 7,
+                        titulo: 'Enlaces Fans Mexico',
+                        // key: ValueKey(7),
+                      ),
+                      Expanded(
+                        child: Material(
+                          color: colorBackGound,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -168,13 +169,13 @@ class MenuDrawer extends StatelessWidget {
 
 class _OpcionDeDrawer extends StatelessWidget {
   final String titulo;
-  final bool seleccionado;
   final int numeroBoton;
 
+  @override
   const _OpcionDeDrawer({
     required this.titulo,
-    required this.seleccionado,
     required this.numeroBoton,
+    super.key,
   });
 
   @override
@@ -183,6 +184,7 @@ class _OpcionDeDrawer extends StatelessWidget {
     const colorBackGound = Color.fromARGB(129, 255, 255, 255);
 
     return Consumer<ButtonDrawerProvider>(
+      key: key,
       builder: (context, buttonDrawerProvider, _) {
         return Material(
           // color: (buttonDrawerProvider.getSeleccionado == numeroBoton)
@@ -232,8 +234,14 @@ class _OpcionDeDrawer extends StatelessWidget {
             ),
             onTap: () {
               buttonDrawerProvider.setSeleccionado = numeroBoton;
-              // Navigator.pop(context);
-              print('Sigue asi y tocaras a kyary');
+              if (numeroBoton == 1) {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (BuildContext context) => const TwitterPage(),
+                  ),
+                );
+              }
             },
           ),
         );
