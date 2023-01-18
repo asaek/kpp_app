@@ -24,7 +24,9 @@ class Noticias_Page extends StatelessWidget {
         body: Stack(
           children: [
             MiddleScreen(),
-            TituloBanner(),
+            const TituloBanner(
+              titulo: '   Blog Noticias',
+            ),
           ],
         ),
         // drawer: MenuDrawer(),

@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:kyari_app/ui/pages/pages.dart';
@@ -235,12 +234,13 @@ class _OpcionDeDrawer extends StatelessWidget {
             onTap: () {
               buttonDrawerProvider.setSeleccionado = numeroBoton;
               if (numeroBoton == 1) {
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (BuildContext context) => const TwitterPage(),
-                  ),
-                );
+                Provider.of<MadreLienzoProvider>(context, listen: false)
+                    .setPaginaActual = const TwitterPage();
+
+                // Navigator.push(
+                //   context,
+                //   CupertinoPageRoute(builder: (context) => const TwitterPage()),
+                // );
               }
             },
           ),

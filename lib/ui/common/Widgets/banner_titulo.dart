@@ -1,10 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TituloBanner extends StatelessWidget {
+  final String titulo;
+
+  const TituloBanner({super.key, required this.titulo});
+
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       bottom: false,
       child: SizedBox(
         height: 50,
@@ -14,8 +17,8 @@ class TituloBanner extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              '   Blog Noticias',
-              style: TextStyle(
+              titulo,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 25,
                 fontWeight: FontWeight.w300,

@@ -11,6 +11,8 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DrawerProvider>(create: (_) => DrawerProvider()),
+        ChangeNotifierProvider<MadreLienzoProvider>(
+            create: (_) => MadreLienzoProvider()),
         ChangeNotifierProvider<NoticiasProvider>(
             create: (_) => NoticiasProvider()),
         ChangeNotifierProvider<ButtonDrawerProvider>(
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Noticias_Page(),
+      home: MadreLienzoPage(),
       // initialRoute: '/Noticias_Propias',
       // routes: _routes,
     );
