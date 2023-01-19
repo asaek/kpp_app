@@ -186,9 +186,6 @@ class _OpcionDeDrawer extends StatelessWidget {
       key: key,
       builder: (context, buttonDrawerProvider, _) {
         return Material(
-          // color: (buttonDrawerProvider.getSeleccionado == numeroBoton)
-          //     ? const Color.fromARGB(141, 255, 70, 70)
-          //     : colorBackGound,
           color: Colors.transparent,
           child: InkWell(
             child: AnimatedContainer(
@@ -233,14 +230,18 @@ class _OpcionDeDrawer extends StatelessWidget {
             ),
             onTap: () {
               buttonDrawerProvider.setSeleccionado = numeroBoton;
+
+              if (numeroBoton == 0) {
+                Provider.of<MadreLienzoProvider>(context, listen: false)
+                    .setPaginaActual = BlogNoticiasPage();
+                // Navigator.pop(context);
+              }
               if (numeroBoton == 1) {
                 Provider.of<MadreLienzoProvider>(context, listen: false)
                     .setPaginaActual = const TwitterPage();
 
-                // Navigator.push(
-                //   context,
-                //   CupertinoPageRoute(builder: (context) => const TwitterPage()),
-                // );
+                // Navigator.pop(context);
+
               }
             },
           ),

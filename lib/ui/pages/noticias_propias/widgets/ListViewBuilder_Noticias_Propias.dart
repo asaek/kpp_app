@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:kyari_app/ui/common/tokens/colores.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:kyari_app/ui/helpers/url_launcher.dart';
 import 'package:kyari_app/ui/pages/noticias_propias/widgets/widgets_noticias_page.dart';
-import 'package:kyari_app/ui/pages/pages.dart';
 import 'package:provider/provider.dart';
 
 class ListViewBuilderNoticiasPropias extends StatelessWidget {
@@ -120,18 +118,10 @@ class ListViewBuilderNoticiasPropias extends StatelessWidget {
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        child: Text(
-                          noticiasProvider.getNoticiasCargadas[index].titulo,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 25),
-                        ),
-                        onTap: () => Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (BuildContext context) => Noticias_Page(),
-                          ),
-                        ),
+                      Text(
+                        noticiasProvider.getNoticiasCargadas[index].titulo,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 25),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(

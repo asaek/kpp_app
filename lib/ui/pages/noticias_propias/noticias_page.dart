@@ -1,35 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:kyari_app/config/use_case_config.dart';
 import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
+import 'package:kyari_app/ui/pages/noticias_propias/widgets/widgets_noticias_page.dart';
 import 'package:provider/provider.dart';
 
-class Noticias_Page extends StatelessWidget {
+class BlogNoticiasPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    UseCaseConfig useCaseConfig = UseCaseConfig();
 
-    return Consumer<DrawerProvider>(
-      builder: (context, drawerProvider, _) => Scaffold(
-        endDrawer: MenuDrawer(),
-        floatingActionButton: Boton_menu(),
-        drawerScrimColor: Colors.transparent,
-        onEndDrawerChanged: (isOpened) {
-          drawerProvider.setIsOpenDrawer = isOpened;
-          if (isOpened) {
-            drawerProvider.getAnimationController.forward(from: 0);
-          } else {
-            drawerProvider.getAnimationController.reverse(from: 1);
+    return FutureBuilder(
+      future: useCaseConfig.getAlbumUseCase.getAllNoticiaUseCase(),
+      builder: (context, snapshot) => Consumer<NoticiasProvider>(
+        builder: (context, noticiasProvider, child) {
+          if (snapshot.hasData) {
+            noticiasProvider.setNoticiasCargadas = snapshot.data!;
           }
-        },
-        body: Stack(
-          children: [
-            MiddleScreen(),
-            const TituloBanner(
-              titulo: '   Blog Noticias',
+          return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            transitionBuilder: (widgetListBuilder, animation) => FadeTransition(
+              opacity: animation,
+              child: widgetListBuilder,
             ),
-          ],
-        ),
-        // drawer: MenuDrawer(),
+            child: (snapshot.hasData)
+                ? const ListViewBuilderNoticiasPropias()
+                : const LoadingGIF2(),
+          );
+        },
       ),
     );
   }

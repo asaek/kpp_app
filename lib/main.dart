@@ -34,9 +34,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-final _routes = {
-  '/Noticias_Propias': (context) => Noticias_Page(),
-  '/Twitter': (context) => const TwitterPage(),
-  '/Construccion': (context) => Noticias_Page(),
-};
