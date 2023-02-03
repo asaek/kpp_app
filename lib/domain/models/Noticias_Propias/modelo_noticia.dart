@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-class NoticiaPropia {
-  NoticiaPropia({
+class NoticiaPropiaObjeto {
+  NoticiaPropiaObjeto({
     required this.titulo,
     required this.urlImagenes,
     required this.texto,

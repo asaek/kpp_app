@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kyari_app/domain/models/models.dart';
 
 class NoticiasProvider with ChangeNotifier {
-  List<NoticiaPropia> _noticiasCargadas = [];
-  List<NoticiaPropia> get getNoticiasCargadas => _noticiasCargadas;
-  set setNoticiasCargadas(List<NoticiaPropia> dato) {
+  List<NoticiaPropiaObjeto> _noticiasCargadas = [];
+  List<NoticiaPropiaObjeto> get getNoticiasCargadas => _noticiasCargadas;
+  set setNoticiasCargadas(List<NoticiaPropiaObjeto> dato) {
     _noticiasCargadas = dato;
     // notifyListeners();
   }

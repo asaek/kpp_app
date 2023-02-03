@@ -5,11 +5,11 @@ class GetNoticiaCase {
   final NoticiaPropiaGateway _noticiaPropia;
   GetNoticiaCase(this._noticiaPropia);
 
-  Future<NoticiaPropia> getNoticiaByIDUseCaase(String id) async {
+  Future<NoticiaPropiaObjeto> getNoticiaByIDUseCaase(String id) async {
     return _noticiaPropia.getByID(id);
   }
 
-  Future<List<NoticiaPropia>> getAllNoticiaUseCase() async {
+  Future<List<NoticiaPropiaObjeto>> getAllNoticiaUseCase() async {
     return _noticiaPropia.getAllNoticias();
   }
 }

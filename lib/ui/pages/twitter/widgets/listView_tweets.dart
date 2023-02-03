@@ -3,11 +3,10 @@ import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:kyari_app/ui/common/tokens/colores.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:kyari_app/ui/helpers/url_launcher.dart';
-import 'package:kyari_app/ui/pages/noticias_propias/widgets/widgets_noticias_page.dart';
 import 'package:provider/provider.dart';
 
-class ListViewBuilderNoticiasPropias extends StatelessWidget {
-  const ListViewBuilderNoticiasPropias({super.key});
+class ListTweets extends StatelessWidget {
+  const ListTweets({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +34,9 @@ class ListViewBuilderNoticiasPropias extends StatelessWidget {
                       Stack(
                         alignment: AlignmentDirectional.center,
                         children: [
-                          PageViewZOOM(
-                            index: index,
-                          ),
+                          // PageViewZOOM(
+                          //   index: index,
+                          // ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

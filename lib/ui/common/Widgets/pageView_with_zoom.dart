@@ -18,11 +18,11 @@ class PageViewZOOM extends StatefulWidget {
 
 class _PageViewZOOMState extends State<PageViewZOOM>
     with SingleTickerProviderStateMixin {
-  final imagenesTEMPORALES = [
-    'https://pbs.twimg.com/media/FlTzHPNWAAE3uKr?format=jpg&name=large',
-    'https://pbs.twimg.com/media/FlTzHPOXoAcqokd?format=jpg&name=large',
-    'https://pbs.twimg.com/media/FlTzHPMWYAIbRpO?format=jpg&name=large'
-  ];
+  // final imagenesTEMPORALES = [
+  //   'https://pbs.twimg.com/media/FlTzHPNWAAE3uKr?format=jpg&name=large',
+  //   'https://pbs.twimg.com/media/FlTzHPOXoAcqokd?format=jpg&name=large',
+  //   'https://pbs.twimg.com/media/FlTzHPMWYAIbRpO?format=jpg&name=large'
+  // ];
   final events = [];
   final edgesImage = BorderRadius.circular(25);
 

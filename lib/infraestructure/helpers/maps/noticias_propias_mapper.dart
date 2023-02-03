@@ -1,7 +1,7 @@
-import 'package:kyari_app/domain/models/Noticias_Propias/noticia.dart';
+import 'package:kyari_app/domain/models/Noticias_Propias/modelo_noticia.dart';
 import 'package:kyari_app/infraestructure/helpers/common/base_mapper.dart';
 
-class NoticiaMapper implements BaseMapper<NoticiaPropia> {
+class NoticiaMapper implements BaseMapper<NoticiaPropiaObjeto> {
   @override
   fromMap(Map<String, dynamic> json) {
     final List<String> urlImagenesTEMPORAL = [];
@@ -13,7 +13,7 @@ class NoticiaMapper implements BaseMapper<NoticiaPropia> {
       },
     );
 
-    return NoticiaPropia(
+    return NoticiaPropiaObjeto(
       titulo: json["titulo"],
       urlImagenes: urlImagenesTEMPORAL,
       texto: json["texto"],
@@ -24,10 +24,10 @@ class NoticiaMapper implements BaseMapper<NoticiaPropia> {
 
   @override
   fromMapAll(Map<String, dynamic> json) {
-    final List<NoticiaPropia> noticiasMapper = [];
+    final List<NoticiaPropiaObjeto> noticiasMapper = [];
 
     json.forEach((key, value) {
-      NoticiaPropia tempNoticia = fromMap(value);
+      NoticiaPropiaObjeto tempNoticia = fromMap(value);
       tempNoticia.idFirebase = key;
       noticiasMapper.add(tempNoticia);
     });

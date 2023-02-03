@@ -1,6 +1,6 @@
-import 'package:kyari_app/domain/models/Noticias_Propias/noticia.dart';
+import 'package:kyari_app/domain/models/Noticias_Propias/modelo_noticia.dart';
 
 abstract class NoticiaPropiaGateway {
-  Future<NoticiaPropia> getByID(String id);
-  Future<List<NoticiaPropia>> getAllNoticias();
+  Future<NoticiaPropiaObjeto> getByID(String id);
+  Future<List<NoticiaPropiaObjeto>> getAllNoticias();
 }

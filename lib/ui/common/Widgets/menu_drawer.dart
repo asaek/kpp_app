@@ -234,11 +234,17 @@ class _OpcionDeDrawer extends StatelessWidget {
               if (numeroBoton == 0) {
                 Provider.of<MadreLienzoProvider>(context, listen: false)
                     .setPaginaActual = BlogNoticiasPage();
+
+                Provider.of<MadreLienzoProvider>(context, listen: false)
+                    .setNombrePagActual = '   Blog Noticias';
                 // Navigator.pop(context);
               }
               if (numeroBoton == 1) {
                 Provider.of<MadreLienzoProvider>(context, listen: false)
-                    .setPaginaActual = const TwitterPage();
+                    .setPaginaActual = TwitterPage();
+
+                Provider.of<MadreLienzoProvider>(context, listen: false)
+                    .setNombrePagActual = '   Tweets';
 
                 // Navigator.pop(context);
 

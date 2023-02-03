@@ -23,7 +23,7 @@ class MadreLienzoPage extends StatelessWidget {
           builder: (context, madreLienzoProvider, child) => Stack(
             children: [
               AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 400),
                 transitionBuilder: (child, animation) => FadeTransition(
                   opacity: animation,
                   child: child,
