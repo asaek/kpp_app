@@ -11,6 +11,8 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DrawerProvider>(create: (_) => DrawerProvider()),
+        ChangeNotifierProvider<TwitterSDKKyary>(
+            create: (_) => TwitterSDKKyary()),
         ChangeNotifierProvider<MadreLienzoProvider>(
             create: (_) => MadreLienzoProvider()),
         ChangeNotifierProvider<NoticiasProvider>(

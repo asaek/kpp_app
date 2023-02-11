@@ -36,25 +36,106 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
       mediaFields: [
         MediaField.mediaKey,
         MediaField.url,
-        MediaField.previewImageUrl,
-        MediaField.altText,
       ],
       expansions: [
         TweetExpansion.attachmentsMediaKeys,
         TweetExpansion.attachmentsPollIds,
       ],
-      // tweetFields: [
-      //   TweetField.text,
-      //   TweetField.attachments,
-      // ],
+      userFields: [
+        UserField.location,
+        UserField.username,
+        UserField.description,
+      ],
+      tweetFields: [
+        TweetField.text,
+        TweetField.attachments,
+        TweetField.entities,
+        TweetField.geo,
+      ],
       maxResults: 10,
     );
-    final tweetsKyary = tweets.data;
-    final imagenesTweets = tweets;
-    print(tweets);
 
-    return [];
+    final tweetsKyaryData = tweets.data;
+    final List<TweetKyaryObjeto> listaTweets = [];
+    TweetKyaryObjeto tweetAdd = TweetKyaryObjeto(
+      textoTweet: '',
+      tweetId: '',
+      imagenesId: [],
+    );
+
+    final List<MediaData> imagenesTweetsMedia = tweets.includes!.media!;
+
+    for (var tweet in tweetsKyaryData) {
+      tweetAdd.tweetId = tweet.id;
+      tweetAdd.textoTweet = procesadoTextoTweet(tweet.text);
+      tweetAdd.tweetURL = sacandoLaURLdelTweet(tweet.text);
+      if (tweet.attachments == null) {
+        listaTweets.add(tweetAdd);
+      } else {
+        final List<String> imagenesTweet = [];
+        final List<String>? mediaKeysData = tweet.attachments?.mediaKeys;
+
+        if (mediaKeysData!.length == 1) {
+          imagenesTweet
+              .add(redimencionamientoImagenJPG(imagenesTweetsMedia[0].url!));
+          tweetAdd.imagenesId!.add(mediaKeysData[0]);
+          tweetAdd.imagenesTweet = List<String>.from(imagenesTweet);
+          imagenesTweet.clear();
+          listaTweets.add(tweetAdd);
+        } else {
+          for (var mediaKeyData in mediaKeysData) {
+            for (var imageKeyMedia in imagenesTweetsMedia) {
+              if (mediaKeyData == imageKeyMedia.key) {
+                imagenesTweet
+                    .add(redimencionamientoImagenJPG(imageKeyMedia.url!));
+                tweetAdd.imagenesId!.add(imageKeyMedia.key);
+              }
+            }
+          }
+
+          tweetAdd.imagenesTweet = List<String>.from(imagenesTweet);
+          imagenesTweet.clear();
+          listaTweets.add(tweetAdd);
+        }
+      }
+      tweetAdd = TweetKyaryObjeto(
+        textoTweet: '',
+        tweetId: '',
+        imagenesId: [],
+        fechaTweet: null,
+      );
+    }
+    return listaTweets;
   }
+}
+
+// Quitando urls de los tweets text
+String procesadoTextoTweet(String texto) {
+  final pattern = RegExp(r' https?://\S+');
+  texto = texto.replaceAll(pattern, '');
+  return texto;
+}
+
+// String? sacandoLaURLdelTweet(String texto) {
+//   final pattern = RegExp(r'https?://\S+');
+//   final String? url = pattern.stringMatch(texto);
+//   return url;
+// }
+
+String? sacandoLaURLdelTweet(String texto) {
+  final inicio = texto.indexOf("https://");
+  if (inicio == -1) return null;
+  // final fin = texto.indexOf(" ", inicio);
+  final fin = texto.length;
+  texto = texto.substring(inicio, fin);
+  return texto;
+}
+
+//Quita .jpg y Agreega ?format=jpg&name=large a la URL de la imagen
+String redimencionamientoImagenJPG(String urlImagen) {
+  final pattern = RegExp(r'.jpg');
+  urlImagen = urlImagen.replaceAll(pattern, '?format=jpg&name=large');
+  return urlImagen;
 }
 
 // tweets_Kyary() async {

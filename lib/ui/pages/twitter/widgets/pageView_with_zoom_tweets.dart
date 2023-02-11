@@ -3,8 +3,8 @@ import 'package:kyari_app/ui/common/tokens/colores.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
-class PageViewZOOM extends StatefulWidget {
-  const PageViewZOOM({
+class PageViewZOOMTweets extends StatefulWidget {
+  const PageViewZOOMTweets({
     Key? key,
     required this.index,
     // required this.pageController,
@@ -13,10 +13,10 @@ class PageViewZOOM extends StatefulWidget {
   // final PageController pageController;
   final int index;
   @override
-  State<PageViewZOOM> createState() => _PageViewZOOMState();
+  State<PageViewZOOMTweets> createState() => _PageViewZOOMTweetsState();
 }
 
-class _PageViewZOOMState extends State<PageViewZOOM>
+class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
     with SingleTickerProviderStateMixin {
   // final imagenesTEMPORALES = [
   //   'https://pbs.twimg.com/media/FlTzHPNWAAE3uKr?format=jpg&name=large',
@@ -42,15 +42,16 @@ class _PageViewZOOMState extends State<PageViewZOOM>
     animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200))
       ..addListener(() => controllerTransform.value = animationMatrix!.value)
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          removeOverlay();
-        }
-      });
+      ..addStatusListener(
+        (status) {
+          if (status == AnimationStatus.completed) {
+            removeOverlay();
+          }
+        },
+      );
 
-    _pageControllerPropio =
-        Provider.of<NoticiasProvider>(context, listen: false)
-            .getPageControllerList[widget.index];
+    _pageControllerPropio = Provider.of<TwitterSDKKyary>(context, listen: false)
+        .getPageControllerList[widget.index];
 
     super.initState();
   }
@@ -59,16 +60,14 @@ class _PageViewZOOMState extends State<PageViewZOOM>
   void dispose() {
     controllerTransform.dispose();
     animationController.dispose();
-    // _pageControllerPropio.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Consumer<NoticiasProvider>(
-        builder: (context, noticiasProvider, child) => SizedBox(
+      child: Consumer<TwitterSDKKyary>(
+        builder: (context, twitterSDKKyary, child) => SizedBox(
           width: double.infinity,
           height: 400,
           child: Material(
@@ -77,13 +76,14 @@ class _PageViewZOOMState extends State<PageViewZOOM>
             child: Padding(
               padding: const EdgeInsets.all(3),
               child: PageView.builder(
-                itemCount: noticiasProvider
-                    .getNoticiasCargadas[widget.index].urlImagenes!.length,
+                itemCount: twitterSDKKyary
+                        .getTweetsKyary![widget.index].imagenesTweet?.length ??
+                    0,
                 scrollDirection: Axis.horizontal,
                 controller: _pageControllerPropio,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, indexx) {
-                  noticiasProvider.setSlotPageViewList(
+                  twitterSDKKyary.setSlotPageViewList(
                       slot: widget.index, valor: indexx);
                   return buildImage();
                 },
@@ -117,20 +117,20 @@ class _PageViewZOOMState extends State<PageViewZOOM>
           scale = details.scale;
           entry!.markNeedsBuild();
         },
-        child: Consumer<NoticiasProvider>(
-          builder: (context, noticiasProvider, child) => Listener(
+        child: Consumer<TwitterSDKKyary>(
+          builder: (context, twitterSDKKyary, child) => Listener(
             onPointerDown: (event) {
               events.add(event);
               print('Un nuevo Toque');
             },
             onPointerUp: (event) {
               events.clear();
-              noticiasProvider.setListViewSeMueve = true;
+              twitterSDKKyary.setListViewSeMueve = true;
               print('Se destoco jajaja');
             },
             onPointerMove: (event) {
               if (events.length == 2) {
-                noticiasProvider.setListViewSeMueve = false;
+                twitterSDKKyary.setListViewSeMueve = false;
               }
             },
             child: AspectRatio(
@@ -143,9 +143,9 @@ class _PageViewZOOMState extends State<PageViewZOOM>
                   placeholder:
                       const AssetImage('assets/loadings/kyaryLoading_1.gif'),
                   image: NetworkImage(
-                    noticiasProvider
-                            .getNoticiasCargadas[widget.index].urlImagenes![
-                        noticiasProvider.getSlotPageView[widget.index]],
+                    twitterSDKKyary
+                            .getTweetsKyary![widget.index].imagenesTweet![
+                        twitterSDKKyary.getSlotPageView[widget.index]],
                   ),
                 ),
               ),
@@ -169,12 +169,13 @@ class _PageViewZOOMState extends State<PageViewZOOM>
         return Stack(
           children: [
             Positioned.fill(
-                child: Opacity(
-              opacity: opacity,
-              child: Container(
-                color: Colors.black,
+              child: Opacity(
+                opacity: opacity,
+                child: Container(
+                  color: Colors.black,
+                ),
               ),
-            )),
+            ),
             Positioned(
               left: offset.dx,
               top: offset.dy,

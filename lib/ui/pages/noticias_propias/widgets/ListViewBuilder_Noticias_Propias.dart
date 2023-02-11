@@ -35,7 +35,7 @@ class ListViewBuilderNoticiasPropias extends StatelessWidget {
                       Stack(
                         alignment: AlignmentDirectional.center,
                         children: [
-                          PageViewZOOM(
+                          PageViewZOOMNoticias(
                             index: index,
                           ),
                           Row(

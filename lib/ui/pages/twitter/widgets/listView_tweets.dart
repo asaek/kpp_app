@@ -3,6 +3,7 @@ import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:kyari_app/ui/common/tokens/colores.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:kyari_app/ui/helpers/url_launcher.dart';
+import 'package:kyari_app/ui/pages/twitter/widgets/Widgets_twitter.dart';
 import 'package:provider/provider.dart';
 
 class ListTweets extends StatelessWidget {
@@ -10,11 +11,11 @@ class ListTweets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<NoticiasProvider>(
-      builder: (context, noticiasProvider, child) => ListView.builder(
-        itemCount: noticiasProvider.getNoticiasCargadas.length,
+    return Consumer<TwitterSDKKyary>(
+      builder: (context, twitterSDKKyary, child) => ListView.builder(
+        itemCount: twitterSDKKyary.getTweetsKyary?.length ?? 0,
         scrollDirection: Axis.vertical,
-        physics: (noticiasProvider.getListViewSeMueve)
+        physics: (twitterSDKKyary.getListViewSeMueve)
             ? const BouncingScrollPhysics()
             : const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
@@ -34,9 +35,9 @@ class ListTweets extends StatelessWidget {
                       Stack(
                         alignment: AlignmentDirectional.center,
                         children: [
-                          // PageViewZOOM(
-                          //   index: index,
-                          // ),
+                          PageViewZOOMTweets(
+                            index: index,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -52,15 +53,15 @@ class ListTweets extends StatelessWidget {
                                     size: 45,
                                   ),
                                   onTap: () {
-                                    final listaControllers =
-                                        noticiasProvider.getPageControllerList;
-                                    print(
-                                        'Pagina actual del controller $index --- ${listaControllers[index].page}');
+                                    // final listaControllers =
+                                    //     twitterSDKKyary.getPageControllerList;
+                                    // print(
+                                    //     'Pagina actual del controller $index --- ${listaControllers[index].page}');
 
-                                    listaControllers[index].previousPage(
-                                        duration:
-                                            const Duration(milliseconds: 200),
-                                        curve: Curves.easeIn);
+                                    // listaControllers[index].previousPage(
+                                    //     duration:
+                                    //         const Duration(milliseconds: 200),
+                                    //     curve: Curves.easeIn);
 
                                     print('Me precionaste');
                                   },
@@ -78,15 +79,15 @@ class ListTweets extends StatelessWidget {
                                     size: 45,
                                   ),
                                   onTap: () {
-                                    final listaControllers =
-                                        noticiasProvider.getPageControllerList;
+                                    // final listaControllers =
+                                    //     twitterSDKKyary.getPageControllerList;
 
-                                    print(
-                                        'Pagina actual del controller $index --- ${listaControllers[index].page}');
-                                    listaControllers[index].nextPage(
-                                        duration:
-                                            const Duration(milliseconds: 200),
-                                        curve: Curves.easeIn);
+                                    // print(
+                                    //     'Pagina actual del controller $index --- ${listaControllers[index].page}');
+                                    // listaControllers[index].nextPage(
+                                    //     duration:
+                                    //         const Duration(milliseconds: 200),
+                                    //     curve: Curves.easeIn);
                                     print('Me precionaste');
                                   },
                                 ),
@@ -95,11 +96,11 @@ class ListTweets extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Text(
-                        noticiasProvider.getNoticiasCargadas[index].titulo,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 25),
-                      ),
+                      // Text(
+                      //   twitterSDKKyary.getTweetsKyary[index].titulo,
+                      //   style:
+                      //       const TextStyle(color: Colors.white, fontSize: 25),
+                      // ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 10,
@@ -107,27 +108,39 @@ class ListTweets extends StatelessWidget {
                         ),
                         child: TextNoticia(
                           text:
-                              noticiasProvider.getNoticiasCargadas[index].texto,
+                              twitterSDKKyary.getTweetsKyary![index].textoTweet,
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 25, bottom: 20),
                         child: Align(
                           alignment: Alignment.centerRight,
-                          child: GestureDetector(
-                            child: Text(
-                              URLhost(
-                                  urlString: noticiasProvider
-                                      .getNoticiasCargadas[index].fuente),
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 255, 0, 85),
-                                fontSize: 19,
-                              ),
-                            ),
-                            onTap: () => URLauncher(
-                                urlString: noticiasProvider
-                                    .getNoticiasCargadas[index].fuente),
-                          ),
+                          child: (twitterSDKKyary
+                                      .getTweetsKyary![index].tweetURL ==
+                                  null)
+                              ? const Text(
+                                  'Sin URL',
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 252, 198, 216),
+                                    fontSize: 19,
+                                  ),
+                                )
+                              : GestureDetector(
+                                  child: Text(
+                                    URLhost(
+                                      urlString: twitterSDKKyary
+                                          .getTweetsKyary![index].tweetURL!,
+                                    ),
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 255, 0, 85),
+                                      fontSize: 19,
+                                    ),
+                                  ),
+                                  onTap: () => URLauncher(
+                                    urlString: twitterSDKKyary
+                                        .getTweetsKyary![index].tweetURL!,
+                                  ),
+                                ),
                         ),
                       ),
                     ],
