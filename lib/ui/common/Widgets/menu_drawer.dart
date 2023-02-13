@@ -83,18 +83,14 @@ class MenuDrawer extends StatelessWidget {
                   builder: (context, buttonDrawerProvider, _) => Column(
                     children: [
                       Stack(
-                        children: const [
-                          FadeInImage(
+                        children: [
+                          Image.asset(
+                            'assets/Kyary_mexicanoen_casa.png',
                             height: 200,
                             width: double.infinity,
                             fit: BoxFit.cover,
-                            placeholder: AssetImage(
-                                'assets/loadings/kyaryLoading_3.gif'),
-                            image: NetworkImage(
-                              'https://cdn-japantimes.com/wp-content/uploads/2015/05/z6-sp-expomilano1-a-20150501-e1430724912692.jpg',
-                            ),
                           ),
-                          Positioned(
+                          const Positioned(
                             bottom: 10.0,
                             left: 15.0,
                             child: Text(
@@ -111,7 +107,7 @@ class MenuDrawer extends StatelessWidget {
                       //Aqui se creara las figuras  de colores el blur y mas -----------------
                       const _OpcionDeDrawer(
                         numeroBoton: 0,
-                        titulo: 'Blog Noticias',
+                        titulo: 'Blog Mexicano',
                         key: ValueKey(0),
                       ),
                       const _OpcionDeDrawer(

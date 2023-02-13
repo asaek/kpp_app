@@ -53,15 +53,15 @@ class ListTweets extends StatelessWidget {
                                     size: 45,
                                   ),
                                   onTap: () {
-                                    // final listaControllers =
-                                    //     twitterSDKKyary.getPageControllerList;
-                                    // print(
-                                    //     'Pagina actual del controller $index --- ${listaControllers[index].page}');
+                                    final listaControllers =
+                                        twitterSDKKyary.getPageControllerList;
+                                    print(
+                                        'Pagina actual del controller $index --- ${listaControllers[index].page}');
 
-                                    // listaControllers[index].previousPage(
-                                    //     duration:
-                                    //         const Duration(milliseconds: 200),
-                                    //     curve: Curves.easeIn);
+                                    listaControllers[index].previousPage(
+                                        duration:
+                                            const Duration(milliseconds: 200),
+                                        curve: Curves.easeIn);
 
                                     print('Me precionaste');
                                   },
@@ -79,15 +79,15 @@ class ListTweets extends StatelessWidget {
                                     size: 45,
                                   ),
                                   onTap: () {
-                                    // final listaControllers =
-                                    //     twitterSDKKyary.getPageControllerList;
+                                    final listaControllers =
+                                        twitterSDKKyary.getPageControllerList;
 
-                                    // print(
-                                    //     'Pagina actual del controller $index --- ${listaControllers[index].page}');
-                                    // listaControllers[index].nextPage(
-                                    //     duration:
-                                    //         const Duration(milliseconds: 200),
-                                    //     curve: Curves.easeIn);
+                                    print(
+                                        'Pagina actual del controller $index --- ${listaControllers[index].page}');
+                                    listaControllers[index].nextPage(
+                                        duration:
+                                            const Duration(milliseconds: 200),
+                                        curve: Curves.easeIn);
                                     print('Me precionaste');
                                   },
                                 ),

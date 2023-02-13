@@ -56,7 +56,7 @@ class TextNoticia extends StatelessWidget {
       text,
       style: const TextStyle(
         color: Colors.black,
-        fontSize: 18,
+        fontSize: 25,
       ),
     );
   }

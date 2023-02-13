@@ -33,6 +33,9 @@ class MyApp extends StatelessWidget {
       home: MadreLienzoPage(),
       // initialRoute: '/Noticias_Propias',
       // routes: _routes,
+      theme: ThemeData(
+        primaryColor: Colors.orange,
+      ),
     );
   }
 }

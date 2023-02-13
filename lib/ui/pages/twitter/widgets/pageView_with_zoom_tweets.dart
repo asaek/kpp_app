@@ -96,64 +96,74 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
   }
 
   Widget buildImage() {
-    return Builder(builder: (context) {
-      // print('SE BUILDEO');
-      return InteractiveViewer(
-        transformationController: controllerTransform,
-        clipBehavior: Clip.none,
-        panEnabled: false,
-        minScale: minScale,
-        maxScale: maxScale,
-        onInteractionStart: (details) {
-          if (details.pointerCount < 2) return;
-          showOverlay(context);
-        },
-        onInteractionEnd: (details) {
-          resetAnimation();
-        },
-        onInteractionUpdate: (details) {
-          if (entry == null) return;
-
-          scale = details.scale;
-          entry!.markNeedsBuild();
-        },
-        child: Consumer<TwitterSDKKyary>(
-          builder: (context, twitterSDKKyary, child) => Listener(
-            onPointerDown: (event) {
-              events.add(event);
-              print('Un nuevo Toque');
-            },
-            onPointerUp: (event) {
-              events.clear();
-              twitterSDKKyary.setListViewSeMueve = true;
-              print('Se destoco jajaja');
-            },
-            onPointerMove: (event) {
-              if (events.length == 2) {
-                twitterSDKKyary.setListViewSeMueve = false;
-              }
-            },
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: ClipRRect(
-                borderRadius: edgesImage,
-                child: FadeInImage(
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  placeholder:
-                      const AssetImage('assets/loadings/kyaryLoading_1.gif'),
-                  image: NetworkImage(
-                    twitterSDKKyary
-                            .getTweetsKyary![widget.index].imagenesTweet![
-                        twitterSDKKyary.getSlotPageView[widget.index]],
+    return Builder(
+      builder: (context) {
+        // print('SE BUILDEO');
+        return InteractiveViewer(
+          transformationController: controllerTransform,
+          clipBehavior: Clip.none,
+          panEnabled: false,
+          minScale: minScale,
+          maxScale: maxScale,
+          onInteractionStart: (details) {
+            if (details.pointerCount < 2) return;
+            showOverlay(context);
+          },
+          onInteractionEnd: (details) {
+            resetAnimation();
+          },
+          onInteractionUpdate: (details) {
+            if (entry == null) return;
+            scale = details.scale;
+            entry!.markNeedsBuild();
+          },
+          child: Consumer<TwitterSDKKyary>(
+            builder: (context, twitterSDKKyary, child) {
+              final cosa =
+                  twitterSDKKyary.getTweetsKyary?[widget.index].imagenesTweet;
+              print(
+                  twitterSDKKyary.getTweetsKyary?[widget.index].imagenesTweet);
+              return Listener(
+                onPointerDown: (event) {
+                  events.add(event);
+                  print('Un nuevo Toque');
+                },
+                onPointerUp: (event) {
+                  events.clear();
+                  twitterSDKKyary.setListViewSeMueve = true;
+                  print('Se destoco jajaja');
+                },
+                onPointerMove: (event) {
+                  if (events.length == 2) {
+                    twitterSDKKyary.setListViewSeMueve = false;
+                  }
+                },
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: ClipRRect(
+                    borderRadius: edgesImage,
+                    child: (twitterSDKKyary
+                                .getTweetsKyary![widget.index].imagenesTweet ==
+                            null)
+                        ? Image.asset('assets/Kyary_mexicanoen_casa.png')
+                        : FadeInImage(
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            placeholder: const AssetImage(
+                                'assets/loadings/kyaryLoading_1.gif'),
+                            image: NetworkImage(twitterSDKKyary
+                                    .getTweetsKyary![widget.index]
+                                    .imagenesTweet![
+                                twitterSDKKyary.getSlotPageView[widget.index]]),
+                          ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 
   void showOverlay(BuildContext context) {

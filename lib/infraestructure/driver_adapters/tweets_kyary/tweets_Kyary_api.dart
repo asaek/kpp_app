@@ -70,16 +70,25 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
       tweetAdd.textoTweet = procesadoTextoTweet(tweet.text);
       tweetAdd.tweetURL = sacandoLaURLdelTweet(tweet.text);
       if (tweet.attachments == null) {
+        tweetAdd.imagenesTweet = [
+          'https://m.media-amazon.com/images/I/81yO1W6s7iL._AC_SL1500_.jpg'
+        ];
         listaTweets.add(tweetAdd);
       } else {
         final List<String> imagenesTweet = [];
         final List<String>? mediaKeysData = tweet.attachments?.mediaKeys;
 
         if (mediaKeysData!.length == 1) {
-          imagenesTweet
-              .add(redimencionamientoImagenJPG(imagenesTweetsMedia[0].url!));
-          tweetAdd.imagenesId!.add(mediaKeysData[0]);
+          for (MediaData imagenInclude in imagenesTweetsMedia) {
+            if (mediaKeysData[0] == imagenInclude.key) {
+              imagenesTweet.add((imagenInclude.url == null)
+                  ? 'https://m.media-amazon.com/images/I/81yO1W6s7iL._AC_SL1500_.jpg'
+                  : redimencionamientoImagenJPG(imagenInclude.url!));
+              tweetAdd.imagenesId!.add(imagenInclude.key);
+            }
+          }
           tweetAdd.imagenesTweet = List<String>.from(imagenesTweet);
+          // print(tweetAdd);
           imagenesTweet.clear();
           listaTweets.add(tweetAdd);
         } else {

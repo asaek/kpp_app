@@ -99,7 +99,7 @@ class ListViewBuilderNoticiasPropias extends StatelessWidget {
                       Text(
                         noticiasProvider.getNoticiasCargadas[index].titulo,
                         style:
-                            const TextStyle(color: Colors.white, fontSize: 25),
+                            const TextStyle(color: Colors.white, fontSize: 28),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
