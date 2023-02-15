@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kyari_app/ui/common/tokens/colores.dart';
+import 'package:kyari_app/ui/common/tokens/tiempo_animations.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
@@ -73,24 +73,38 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
         builder: (context, noticiasProvider, child) => SizedBox(
           width: double.infinity,
           height: 400,
-          child: Material(
-            borderRadius: edgesImage,
-            color: Color_All_Interface_X,
-            child: Padding(
-              padding: const EdgeInsets.all(3),
-              child: PageView.builder(
-                itemCount: noticiasProvider
-                    .getNoticiasCargadas[widget.index].urlImagenes!.length,
-                scrollDirection: Axis.horizontal,
-                controller: _pageControllerPropio,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, indexx) {
-                  noticiasProvider.setSlotPageViewList(
-                      slot: widget.index, valor: indexx);
-                  return buildImage();
-                },
-              ),
-            ),
+          child: Consumer<ThemesTrajesProvider>(
+            builder: (context, themesTrajesProvider, child) {
+              final colorTheme = themesTrajesProvider.getThemeTrajeObjeto;
+              return TweenAnimationBuilder(
+                duration: const Duration(milliseconds: tiempoPrincipalColor),
+                tween: ColorTween(
+                  begin: colorTheme.principalColor,
+                  end: colorTheme.principalColor,
+                ),
+                builder: (context, colorSecundario, child) => Material(
+                  borderRadius: edgesImage,
+                  color: colorSecundario,
+                  child: Padding(
+                    padding: const EdgeInsets.all(3),
+                    child: PageView.builder(
+                      itemCount: noticiasProvider
+                          .getNoticiasCargadas[widget.index]
+                          .urlImagenes!
+                          .length,
+                      scrollDirection: Axis.horizontal,
+                      controller: _pageControllerPropio,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, indexx) {
+                        noticiasProvider.setSlotPageViewList(
+                            slot: widget.index, valor: indexx);
+                        return buildImage();
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),

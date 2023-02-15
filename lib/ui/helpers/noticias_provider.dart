@@ -32,11 +32,6 @@ class NoticiasProvider with ChangeNotifier {
 
   List<PageController> get getPageControllerList => _pageControllerList;
 
-  // addPageControllerToList(PageController dato) {
-  //   _pageControllerList.add(dato);
-  //   print('Se agrego');
-  // }
-
   final List<int> _slotPageViewList = [0, 0, 0, 0];
   List<int> get getSlotPageView => _slotPageViewList;
   setSlotPageViewList({required int slot, required int valor}) {

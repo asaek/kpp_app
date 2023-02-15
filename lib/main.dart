@@ -11,6 +11,8 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DrawerProvider>(create: (_) => DrawerProvider()),
+        ChangeNotifierProvider<ThemesTrajesProvider>(
+            create: (_) => ThemesTrajesProvider()),
         ChangeNotifierProvider<TwitterSDKKyary>(
             create: (_) => TwitterSDKKyary()),
         ChangeNotifierProvider<MadreLienzoProvider>(
@@ -31,11 +33,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MadreLienzoPage(),
-      // initialRoute: '/Noticias_Propias',
-      // routes: _routes,
-      theme: ThemeData(
-        primaryColor: Colors.orange,
-      ),
     );
   }
 }

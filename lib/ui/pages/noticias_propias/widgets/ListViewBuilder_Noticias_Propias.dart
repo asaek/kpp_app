@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:kyari_app/ui/common/tokens/colores.dart';
+import 'package:kyari_app/ui/common/tokens/tiempo_animations.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:kyari_app/ui/helpers/url_launcher.dart';
 import 'package:kyari_app/ui/pages/noticias_propias/widgets/widgets_noticias_page.dart';
@@ -26,113 +27,134 @@ class ListViewBuilderNoticiasPropias extends StatelessWidget {
             child: Column(
               children: [
                 (index == 0) ? const SizedBox(height: 60) : const SizedBox(),
-                Material(
-                  color: Color_Panel_Noticia,
-                  borderRadius: edgesImage,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          PageViewZOOMNoticias(
-                            index: index,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Material(
-                                elevation: 0,
-                                color: Colors.transparent,
-                                shape: const CircleBorder(),
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: const Icon(
-                                    Icons.arrow_back,
-                                    color: Color_All_Interface_X,
-                                    size: 45,
-                                  ),
-                                  onTap: () {
-                                    final listaControllers =
-                                        noticiasProvider.getPageControllerList;
-                                    print(
-                                        'Pagina actual del controller $index --- ${listaControllers[index].page}');
+                Consumer<ThemesTrajesProvider>(
+                  builder: (context, themesTrajesProvider, child) {
+                    final colorTheme = themesTrajesProvider.getThemeTrajeObjeto;
 
-                                    listaControllers[index].previousPage(
-                                        duration:
-                                            const Duration(milliseconds: 200),
-                                        curve: Curves.easeIn);
-
-                                    print('Me precionaste');
-                                  },
+                    return TweenAnimationBuilder(
+                      duration:
+                          const Duration(milliseconds: tiempoSecundarioColor),
+                      tween: ColorTween(
+                        begin: colorTheme.secundarioColor,
+                        end: colorTheme.secundarioColor,
+                      ),
+                      builder: (context, colorSecundario, child) => Material(
+                        color: colorSecundario,
+                        borderRadius: edgesImage,
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 20),
+                            Stack(
+                              alignment: AlignmentDirectional.center,
+                              children: [
+                                PageViewZOOMNoticias(
+                                  index: index,
                                 ),
-                              ),
-                              Material(
-                                elevation: 0,
-                                color: Colors.transparent,
-                                shape: const CircleBorder(),
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: const Icon(
-                                    Icons.arrow_forward,
-                                    color: Color_All_Interface_X,
-                                    size: 45,
-                                  ),
-                                  onTap: () {
-                                    final listaControllers =
-                                        noticiasProvider.getPageControllerList;
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Material(
+                                      elevation: 0,
+                                      color: Colors.transparent,
+                                      shape: const CircleBorder(),
+                                      child: InkWell(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        child: const Icon(
+                                          Icons.arrow_back,
+                                          color: Color_All_Interface_X,
+                                          size: 45,
+                                        ),
+                                        onTap: () {
+                                          final listaControllers =
+                                              noticiasProvider
+                                                  .getPageControllerList;
+                                          print(
+                                              'Pagina actual del controller $index --- ${listaControllers[index].page}');
 
-                                    print(
-                                        'Pagina actual del controller $index --- ${listaControllers[index].page}');
-                                    listaControllers[index].nextPage(
-                                        duration:
-                                            const Duration(milliseconds: 200),
-                                        curve: Curves.easeIn);
-                                    print('Me precionaste');
-                                  },
+                                          listaControllers[index].previousPage(
+                                              duration: const Duration(
+                                                  milliseconds: 200),
+                                              curve: Curves.easeIn);
+
+                                          print('Me precionaste');
+                                        },
+                                      ),
+                                    ),
+                                    Material(
+                                      elevation: 0,
+                                      color: Colors.transparent,
+                                      shape: const CircleBorder(),
+                                      child: InkWell(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        child: const Icon(
+                                          Icons.arrow_forward,
+                                          color: Color_All_Interface_X,
+                                          size: 45,
+                                        ),
+                                        onTap: () {
+                                          final listaControllers =
+                                              noticiasProvider
+                                                  .getPageControllerList;
+
+                                          print(
+                                              'Pagina actual del controller $index --- ${listaControllers[index].page}');
+                                          listaControllers[index].nextPage(
+                                              duration: const Duration(
+                                                  milliseconds: 200),
+                                              curve: Curves.easeIn);
+                                          print('Me precionaste');
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Text(
-                        noticiasProvider.getNoticiasCargadas[index].titulo,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 28),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 10,
-                        ),
-                        child: TextNoticia(
-                          text:
-                              noticiasProvider.getNoticiasCargadas[index].texto,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25, bottom: 20),
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: GestureDetector(
-                            child: Text(
-                              URLhost(
-                                  urlString: noticiasProvider
-                                      .getNoticiasCargadas[index].fuente),
+                              ],
+                            ),
+                            Text(
+                              noticiasProvider
+                                  .getNoticiasCargadas[index].titulo,
                               style: const TextStyle(
-                                color: Color.fromARGB(255, 255, 0, 85),
-                                fontSize: 19,
+                                  color: Colors.white, fontSize: 28),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 10,
+                              ),
+                              child: TextNoticia(
+                                text: noticiasProvider
+                                    .getNoticiasCargadas[index].texto,
                               ),
                             ),
-                            onTap: () => URLauncher(
-                                urlString: noticiasProvider
-                                    .getNoticiasCargadas[index].fuente),
-                          ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 25, bottom: 20),
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: GestureDetector(
+                                  child: Text(
+                                    URLhost(
+                                        urlString: noticiasProvider
+                                            .getNoticiasCargadas[index].fuente),
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 255, 0, 85),
+                                      fontSize: 19,
+                                    ),
+                                  ),
+                                  onTap: () => URLauncher(
+                                      urlString: noticiasProvider
+                                          .getNoticiasCargadas[index].fuente),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ],
             ),

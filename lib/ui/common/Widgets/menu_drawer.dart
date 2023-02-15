@@ -117,34 +117,34 @@ class MenuDrawer extends StatelessWidget {
                       ),
                       const _OpcionDeDrawer(
                         numeroBoton: 2,
-                        titulo: 'Reloj',
+                        titulo: 'Configuracion',
                         key: ValueKey(2),
                       ),
-                      const _OpcionDeDrawer(
-                        numeroBoton: 3,
-                        titulo: 'Merca de la Patrona',
-                        // key: ValueKey(3),
-                      ),
-                      const _OpcionDeDrawer(
-                        numeroBoton: 4,
-                        titulo: 'Cuidado de Kyary',
-                        // key: ValueKey(4),
-                      ),
-                      const _OpcionDeDrawer(
-                        numeroBoton: 5,
-                        titulo: 'Wallpapers Kyary',
-                        // key: ValueKey(5),
-                      ),
-                      const _OpcionDeDrawer(
-                        numeroBoton: 6,
-                        titulo: 'Evolucion Kyary',
-                        // key: ValueKey(6),
-                      ),
-                      const _OpcionDeDrawer(
-                        numeroBoton: 7,
-                        titulo: 'Enlaces Fans Mexico',
-                        // key: ValueKey(7),
-                      ),
+                      // const _OpcionDeDrawer(
+                      //   numeroBoton: 3,
+                      //   titulo: 'Merca de la Patrona',
+                      //   // key: ValueKey(3),
+                      // ),
+                      // const _OpcionDeDrawer(
+                      //   numeroBoton: 4,
+                      //   titulo: 'Cuidado de Kyary',
+                      //   // key: ValueKey(4),
+                      // ),
+                      // const _OpcionDeDrawer(
+                      //   numeroBoton: 5,
+                      //   titulo: 'Wallpapers Kyary',
+                      //   // key: ValueKey(5),
+                      // ),
+                      // const _OpcionDeDrawer(
+                      //   numeroBoton: 6,
+                      //   titulo: 'Evolucion Kyary',
+                      //   // key: ValueKey(6),
+                      // ),
+                      // const _OpcionDeDrawer(
+                      //   numeroBoton: 7,
+                      //   titulo: 'Enlaces Fans Mexico',
+                      //   // key: ValueKey(7),
+                      // ),
                       Expanded(
                         child: Material(
                           color: colorBackGound,
@@ -243,7 +243,16 @@ class _OpcionDeDrawer extends StatelessWidget {
                     .setNombrePagActual = '   Tweets';
 
                 // Navigator.pop(context);
+              }
 
+              if (numeroBoton == 2) {
+                Provider.of<MadreLienzoProvider>(context, listen: false)
+                    .setPaginaActual = ConfiguracionPage();
+
+                Provider.of<MadreLienzoProvider>(context, listen: false)
+                    .setNombrePagActual = '   Configuracion Pamyu';
+
+                // Navigator.pop(context);
               }
             },
           ),
