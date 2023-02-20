@@ -184,45 +184,51 @@ class _OpcionDeDrawer extends StatelessWidget {
         return Material(
           color: Colors.transparent,
           child: InkWell(
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              curve: Curves.easeInOut,
-              color: (buttonDrawerProvider.getSeleccionado == numeroBoton)
-                  ? const Color.fromARGB(141, 255, 70, 70)
-                  : colorBackGound,
-              height: (buttonDrawerProvider.getSeleccionado == numeroBoton)
-                  ? 80
-                  : 60,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: Center(
-                      child: Text(
-                        titulo,
-                        style: TextStyle(
-                          color: (buttonDrawerProvider.getSeleccionado ==
-                                  numeroBoton)
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: (buttonDrawerProvider.getSeleccionado ==
-                                  numeroBoton)
-                              ? 22
-                              : 18,
-                          fontWeight: (buttonDrawerProvider.getSeleccionado ==
-                                  numeroBoton)
-                              ? FontWeight.bold
-                              : FontWeight.w300,
+            child: Consumer<ThemesTrajesProvider>(
+              builder: (context, themesTrajesProvider, child) {
+                final colorTheme = themesTrajesProvider.getThemeTrajeObjeto;
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeInOut,
+                  color: (buttonDrawerProvider.getSeleccionado == numeroBoton)
+                      ? colorTheme.principalColor.withOpacity(0.4)
+                      : colorBackGound,
+                  height: (buttonDrawerProvider.getSeleccionado == numeroBoton)
+                      ? 80
+                      : 60,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: Center(
+                          child: Text(
+                            titulo,
+                            style: TextStyle(
+                              color: (buttonDrawerProvider.getSeleccionado ==
+                                      numeroBoton)
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: (buttonDrawerProvider.getSeleccionado ==
+                                      numeroBoton)
+                                  ? 22
+                                  : 18,
+                              fontWeight:
+                                  (buttonDrawerProvider.getSeleccionado ==
+                                          numeroBoton)
+                                      ? FontWeight.bold
+                                      : FontWeight.w300,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
             onTap: () {
               buttonDrawerProvider.setSeleccionado = numeroBoton;

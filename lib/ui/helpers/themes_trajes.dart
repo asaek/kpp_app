@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kyari_app/domain/models/models.dart';
-import 'package:kyari_app/ui/common/Widgets/themes_trajes.dart';
+import 'package:kyari_app/ui/common/atoms/themes_trajes.dart';
 
 class ThemesTrajesProvider with ChangeNotifier {
   // ThemeTrajeObjeto _themeTrajeObjeto = ThemeTrajeObjeto(

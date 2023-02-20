@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kyari_app/ui/common/tokens/colores.dart';
+import 'package:kyari_app/ui/common/tokens/tiempo_animations.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
@@ -70,25 +70,38 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
         builder: (context, twitterSDKKyary, child) => SizedBox(
           width: double.infinity,
           height: 400,
-          child: Material(
-            borderRadius: edgesImage,
-            color: Color_All_Interface_X,
-            child: Padding(
-              padding: const EdgeInsets.all(3),
-              child: PageView.builder(
-                itemCount: twitterSDKKyary
-                        .getTweetsKyary![widget.index].imagenesTweet?.length ??
-                    0,
-                scrollDirection: Axis.horizontal,
-                controller: _pageControllerPropio,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, indexx) {
-                  twitterSDKKyary.setSlotPageViewList(
-                      slot: widget.index, valor: indexx);
-                  return buildImage();
-                },
-              ),
-            ),
+          child: Consumer<ThemesTrajesProvider>(
+            builder: (context, themesTrajesProvider, child) {
+              final colorTheme = themesTrajesProvider.getThemeTrajeObjeto;
+
+              return TweenAnimationBuilder(
+                duration: const Duration(milliseconds: tiempoPrincipalColor),
+                tween: ColorTween(
+                  begin: colorTheme.principalColor,
+                  end: colorTheme.principalColor,
+                ),
+                builder: (context, colorPrincipal, child) => Material(
+                  borderRadius: edgesImage,
+                  color: colorPrincipal,
+                  child: Padding(
+                    padding: const EdgeInsets.all(3),
+                    child: PageView.builder(
+                      itemCount: twitterSDKKyary.getTweetsKyary![widget.index]
+                              .imagenesTweet?.length ??
+                          0,
+                      scrollDirection: Axis.horizontal,
+                      controller: _pageControllerPropio,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, indexx) {
+                        twitterSDKKyary.setSlotPageViewList(
+                            slot: widget.index, valor: indexx);
+                        return buildImage();
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),

@@ -12,7 +12,7 @@ final List<ThemeTrajeObjeto> themesTraje = [
   ThemeTrajeObjeto(
     nombreTraje: 'Fashion Monsta',
     principalColor: Colors.black,
-    secundarioColor: const Color.fromARGB(255, 255, 0, 0),
+    secundarioColor: const Color.fromARGB(255, 240, 0, 0),
     terceroColor: const Color.fromARGB(255, 254, 117, 163),
     textColor: Colors.white,
   ),
