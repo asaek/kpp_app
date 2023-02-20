@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:kyari_app/ui/common/tokens/tiempo_animations.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:kyari_app/ui/pages/pages.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class MenuDrawer extends StatelessWidget {
     final widthDrawer = size.width * 0.65;
 
     return Drawer(
-      elevation: 0,
+      elevation: 20,
       width: widthDrawer,
       shape: const RoundedRectangleBorder(),
       child: SizedBox(
@@ -25,129 +26,208 @@ class MenuDrawer extends StatelessWidget {
           // color: Colors.pinkAccent,
           // borderRadius: BorderRadius.circular(20),
           child: ClipRRect(
-            child: Stack(
-              // alignment: AlignmentDirectional.centerEnd,
+            child: Column(
               children: [
-                Positioned(
-                  right: 0,
-                  top: 200,
-                  child: Transform.rotate(
-                    angle: -pi / 3.0,
-                    child: Container(
-                      width: 200,
+                Stack(
+                  children: [
+                    Image.asset(
+                      'assets/Kyary_mexicanoen_casa.png',
                       height: 200,
-                      decoration: BoxDecoration(
-                        color: Colors.pink,
-                        borderRadius: BorderRadius.circular(20.0),
-                        gradient: const LinearGradient(
-                          colors: [
-                            Color.fromRGBO(235, 98, 188, 1),
-                            Color.fromRGBO(241, 142, 172, 1),
-                          ],
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                    const Positioned(
+                      bottom: 10.0,
+                      left: 15.0,
+                      child: Text(
+                        "Kyary Pamyu Pamyu",
+                        style: TextStyle(
+                          color: Colors.pinkAccent,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-                Positioned(
-                  left: 20,
-                  bottom: 0,
-                  child: Transform.rotate(
-                    angle: -pi / 10.0,
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.pink,
-                        borderRadius: BorderRadius.circular(20.0),
-                        gradient: const LinearGradient(
-                          colors: [
-                            Color.fromRGBO(235, 98, 188, 1),
-                            Color.fromRGBO(241, 142, 172, 1),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                ClipRRect(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                    child: Container(
-                      height: double.infinity,
-                      // color: Colors.pinkAccent,
-                    ),
-                  ),
-                ),
-                Consumer<ButtonDrawerProvider>(
-                  builder: (context, buttonDrawerProvider, _) => Column(
+                SizedBox(
+                  height: (size.height - 200),
+                  width: widthDrawer,
+                  child: Stack(
                     children: [
-                      Stack(
-                        children: [
-                          Image.asset(
-                            'assets/Kyary_mexicanoen_casa.png',
-                            height: 200,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
+                      Positioned(
+                        left: 30,
+                        top: 30,
+                        child: Consumer<ThemesTrajesProvider>(
+                          builder: (context, themesTrajesProvider, child) {
+                            final colorTheme =
+                                themesTrajesProvider.getThemeTrajeObjeto;
+                            return TweenAnimationBuilder(
+                              duration: const Duration(
+                                  milliseconds: tiempoPrincipalColor),
+                              tween: ColorTween(
+                                begin: colorTheme.principalColor,
+                                end: colorTheme.principalColor,
+                              ),
+                              builder: (context, colorPrincipal, child) =>
+                                  Transform.rotate(
+                                angle: -pi / 1.1,
+                                child: Container(
+                                  width: 110,
+                                  height: 110,
+                                  decoration: BoxDecoration(
+                                    color: Colors.pink,
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        colorPrincipal!,
+                                        colorTheme.secundarioColor,
+                                        // Color.fromRGBO(235, 98, 188, 1),
+                                        // Color.fromRGBO(241, 142, 172, 1),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Positioned(
+                        left: 65,
+                        bottom: 365,
+                        child: Consumer<ThemesTrajesProvider>(
+                          builder: (context, themesTrajesProvider, child) {
+                            final colorTheme =
+                                themesTrajesProvider.getThemeTrajeObjeto;
+                            return TweenAnimationBuilder(
+                              duration: const Duration(
+                                  milliseconds: tiempoPrincipalColor),
+                              tween: ColorTween(
+                                begin: colorTheme.principalColor,
+                                end: colorTheme.principalColor,
+                              ),
+                              builder: (context, colorPrincipal, child) =>
+                                  Transform.rotate(
+                                angle: -pi / 0.6,
+                                child: Container(
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Colors.pink,
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        colorPrincipal!,
+                                        colorTheme.secundarioColor,
+                                        // Color.fromRGBO(235, 98, 188, 1),
+                                        // Color.fromRGBO(241, 142, 172, 1),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Positioned(
+                        right: 35,
+                        bottom: 40,
+                        child: Consumer<ThemesTrajesProvider>(
+                          builder: (context, themesTrajesProvider, child) {
+                            final colorTheme =
+                                themesTrajesProvider.getThemeTrajeObjeto;
+                            return TweenAnimationBuilder(
+                              duration: const Duration(
+                                  milliseconds: tiempoPrincipalColor),
+                              tween: ColorTween(
+                                begin: colorTheme.principalColor,
+                                end: colorTheme.principalColor,
+                              ),
+                              builder: (context, colorPrincipal, child) =>
+                                  Transform.rotate(
+                                angle: -pi / 3.0,
+                                child: Container(
+                                  width: 200,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    color: Colors.pink,
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        colorPrincipal!,
+                                        colorTheme.secundarioColor,
+                                        // Color.fromRGBO(235, 98, 188, 1),
+                                        // Color.fromRGBO(241, 142, 172, 1),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      ClipRRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                          child: Container(
+                            height: double.infinity,
+                            // color: Colors.pinkAccent,
                           ),
-                          const Positioned(
-                            bottom: 10.0,
-                            left: 15.0,
-                            child: Text(
-                              "Kyary Pamyu Pamyu",
-                              style: TextStyle(
-                                color: Colors.pinkAccent,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Consumer<ButtonDrawerProvider>(
+                        builder: (context, buttonDrawerProvider, _) => Column(
+                          children: [
+                            //Aqui se creara las figuras  de colores el blur y mas -----------------
+                            const _OpcionDeDrawer(
+                              numeroBoton: 0,
+                              titulo: 'Blog Mexicano',
+                              key: ValueKey(0),
+                            ),
+                            const _OpcionDeDrawer(
+                              numeroBoton: 1,
+                              titulo: 'Twitter',
+                              key: ValueKey(1),
+                            ),
+                            const _OpcionDeDrawer(
+                              numeroBoton: 2,
+                              titulo: 'Configuracion',
+                              key: ValueKey(2),
+                            ),
+                            // const _OpcionDeDrawer(
+                            //   numeroBoton: 3,
+                            //   titulo: 'Merca de la Patrona',
+                            //   // key: ValueKey(3),
+                            // ),
+                            // const _OpcionDeDrawer(
+                            //   numeroBoton: 4,
+                            //   titulo: 'Cuidado de Kyary',
+                            //   // key: ValueKey(4),
+                            // ),
+                            // const _OpcionDeDrawer(
+                            //   numeroBoton: 5,
+                            //   titulo: 'Wallpapers Kyary',
+                            //   // key: ValueKey(5),
+                            // ),
+                            // const _OpcionDeDrawer(
+                            //   numeroBoton: 6,
+                            //   titulo: 'Evolucion Kyary',
+                            //   // key: ValueKey(6),
+                            // ),
+                            // const _OpcionDeDrawer(
+                            //   numeroBoton: 7,
+                            //   titulo: 'Enlaces Fans Mexico',
+                            //   // key: ValueKey(7),
+                            // ),
+                            Expanded(
+                              child: Material(
+                                color: colorBackGound,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      //Aqui se creara las figuras  de colores el blur y mas -----------------
-                      const _OpcionDeDrawer(
-                        numeroBoton: 0,
-                        titulo: 'Blog Mexicano',
-                        key: ValueKey(0),
-                      ),
-                      const _OpcionDeDrawer(
-                        numeroBoton: 1,
-                        titulo: 'Twitter',
-                        key: ValueKey(1),
-                      ),
-                      const _OpcionDeDrawer(
-                        numeroBoton: 2,
-                        titulo: 'Configuracion',
-                        key: ValueKey(2),
-                      ),
-                      // const _OpcionDeDrawer(
-                      //   numeroBoton: 3,
-                      //   titulo: 'Merca de la Patrona',
-                      //   // key: ValueKey(3),
-                      // ),
-                      // const _OpcionDeDrawer(
-                      //   numeroBoton: 4,
-                      //   titulo: 'Cuidado de Kyary',
-                      //   // key: ValueKey(4),
-                      // ),
-                      // const _OpcionDeDrawer(
-                      //   numeroBoton: 5,
-                      //   titulo: 'Wallpapers Kyary',
-                      //   // key: ValueKey(5),
-                      // ),
-                      // const _OpcionDeDrawer(
-                      //   numeroBoton: 6,
-                      //   titulo: 'Evolucion Kyary',
-                      //   // key: ValueKey(6),
-                      // ),
-                      // const _OpcionDeDrawer(
-                      //   numeroBoton: 7,
-                      //   titulo: 'Enlaces Fans Mexico',
-                      //   // key: ValueKey(7),
-                      // ),
-                      Expanded(
-                        child: Material(
-                          color: colorBackGound,
+                          ],
                         ),
                       ),
                     ],
