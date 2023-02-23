@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:kyari_app/ui/common/atoms/themes_trajes.dart';
 import 'package:kyari_app/ui/common/tokens/tiempo_animations.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
@@ -25,16 +28,37 @@ class TituloBanner extends StatelessWidget {
               ),
               builder: (context, value, _) => Material(
                 color: value,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    titulo,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w300,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      titulo,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
-                  ),
+                    GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          right: 10,
+                          top: 7,
+                          bottom: 7,
+                        ),
+                        child: Image.asset('assets/btn_aleatorio.png'),
+                      ),
+                      onTap: () {
+                        final Random cosaRandom = Random();
+                        final itemSeleccionad =
+                            themesTraje[cosaRandom.nextInt(themesTraje.length)];
+                        showToast(context, itemSeleccionad.nombreTraje);
+                        Provider.of<ThemesTrajesProvider>(context,
+                                listen: false)
+                            .setThemeTrajeObjeto = itemSeleccionad;
+                      },
+                    ),
+                  ],
                 ),
               ),
             );
@@ -43,4 +67,36 @@ class TituloBanner extends StatelessWidget {
       ),
     );
   }
+}
+
+void showToast(BuildContext context, String message) {
+  OverlayState? overlayState = Overlay.of(context);
+  OverlayEntry overlayEntry = OverlayEntry(
+    builder: (context) => Positioned(
+      bottom: 50,
+      left: 0,
+      right: 0,
+      child: Container(
+        alignment: Alignment.center,
+        color: Colors.black54,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24.0,
+            vertical: 12.0,
+          ),
+          child: Text(
+            message,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+  overlayState?.insert(overlayEntry);
+  Future.delayed(const Duration(seconds: 1), () {
+    overlayEntry.remove();
+  });
 }
