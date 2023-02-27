@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kyari_app/ui/common/atoms/themes_trajes.dart';
 import 'package:kyari_app/ui/common/tokens/tiempo_animations.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
@@ -52,7 +53,17 @@ class TituloBanner extends StatelessWidget {
                         final Random cosaRandom = Random();
                         final itemSeleccionad =
                             themesTraje[cosaRandom.nextInt(themesTraje.length)];
-                        showToast(context, itemSeleccionad.nombreTraje);
+                        // showToast(context, itemSeleccionad.nombreTraje);
+
+                        Fluttertoast.showToast(
+                          msg: itemSeleccionad.nombreTraje,
+                          toastLength: Toast.LENGTH_SHORT,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: itemSeleccionad.principalColor,
+                          textColor: itemSeleccionad.textColor,
+                          fontSize: 22.0,
+                        );
+
                         Provider.of<ThemesTrajesProvider>(context,
                                 listen: false)
                             .setThemeTrajeObjeto = itemSeleccionad;
@@ -69,34 +80,35 @@ class TituloBanner extends StatelessWidget {
   }
 }
 
-void showToast(BuildContext context, String message) {
-  OverlayState? overlayState = Overlay.of(context);
-  OverlayEntry overlayEntry = OverlayEntry(
-    builder: (context) => Positioned(
-      bottom: 50,
-      left: 0,
-      right: 0,
-      child: Container(
-        alignment: Alignment.center,
-        color: Colors.black54,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24.0,
-            vertical: 12.0,
-          ),
-          child: Text(
-            message,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
-  overlayState?.insert(overlayEntry);
-  Future.delayed(const Duration(seconds: 1), () {
-    overlayEntry.remove();
-  });
-}
+// void showToast(BuildContext context, String message) {
+//   OverlayState? overlayState = Overlay.of(context);
+//   OverlayEntry overlayEntry = OverlayEntry(
+//     builder: (context) => Positioned(
+//       bottom: 50,
+//       left: 0,
+//       right: 0,
+//       child: Container(
+//         alignment: Alignment.center,
+//         color: Colors.black54,
+//         child: Padding(
+//           padding: const EdgeInsets.symmetric(
+//             horizontal: 24.0,
+//             vertical: 12.0,
+//           ),
+//           child: Text(
+//             message,
+//             style: const TextStyle(
+//               color: Colors.white,
+//               fontSize: 16.0,
+//               decoration: null,
+//             ),
+//           ),
+//         ),
+//       ),
+//     ),
+//   );
+//   overlayState?.insert(overlayEntry);
+//   Future.delayed(const Duration(seconds: 1), () {
+//     overlayEntry.remove();
+//   });
+// }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kyari_app/ui/common/tokens/tiempo_animations.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
@@ -7,10 +6,8 @@ class PageViewZOOMNoticias extends StatefulWidget {
   const PageViewZOOMNoticias({
     Key? key,
     required this.index,
-    // required this.pageController,
   }) : super(key: key);
 
-  // final PageController pageController;
   final int index;
   @override
   State<PageViewZOOMNoticias> createState() => _PageViewZOOMNoticiasState();
@@ -18,13 +15,8 @@ class PageViewZOOMNoticias extends StatefulWidget {
 
 class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
     with SingleTickerProviderStateMixin {
-  // final imagenesTEMPORALES = [
-  //   'https://pbs.twimg.com/media/FlTzHPNWAAE3uKr?format=jpg&name=large',
-  //   'https://pbs.twimg.com/media/FlTzHPOXoAcqokd?format=jpg&name=large',
-  //   'https://pbs.twimg.com/media/FlTzHPMWYAIbRpO?format=jpg&name=large'
-  // ];
   final events = [];
-  final edgesImage = BorderRadius.circular(25);
+  final edgesImage = BorderRadius.circular(10);
 
   late AnimationController animationController;
   late TransformationController controllerTransform;
@@ -33,7 +25,7 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
   double scale = 1;
   double maxScale = 5.0;
   double minScale = 1;
-
+  final double alturaImagen = 550;
   late PageController _pageControllerPropio;
 
   @override
@@ -61,7 +53,6 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
   void dispose() {
     controllerTransform.dispose();
     animationController.dispose();
-    // _pageControllerPropio.dispose();
 
     super.dispose();
   }
@@ -72,38 +63,17 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
       child: Consumer<NoticiasProvider>(
         builder: (context, noticiasProvider, child) => SizedBox(
           width: double.infinity,
-          height: 400,
-          child: Consumer<ThemesTrajesProvider>(
-            builder: (context, themesTrajesProvider, child) {
-              final colorTheme = themesTrajesProvider.getThemeTrajeObjeto;
-              return TweenAnimationBuilder(
-                duration: const Duration(milliseconds: tiempoPrincipalColor),
-                tween: ColorTween(
-                  begin: colorTheme.principalColor,
-                  end: colorTheme.principalColor,
-                ),
-                builder: (context, colorSecundario, child) => Material(
-                  borderRadius: edgesImage,
-                  color: colorSecundario,
-                  child: Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: PageView.builder(
-                      itemCount: noticiasProvider
-                          .getNoticiasCargadas[widget.index]
-                          .urlImagenes!
-                          .length,
-                      scrollDirection: Axis.horizontal,
-                      controller: _pageControllerPropio,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, indexx) {
-                        noticiasProvider.setSlotPageViewList(
-                            slot: widget.index, valor: indexx);
-                        return buildImage();
-                      },
-                    ),
-                  ),
-                ),
-              );
+          height: alturaImagen,
+          child: PageView.builder(
+            itemCount: noticiasProvider
+                .getNoticiasCargadas[widget.index].urlImagenes!.length,
+            scrollDirection: Axis.horizontal,
+            controller: _pageControllerPropio,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, indexx) {
+              noticiasProvider.setSlotPageViewList(
+                  slot: widget.index, valor: indexx);
+              return buildImage();
             },
           ),
         ),
@@ -195,6 +165,7 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
               left: offset.dx,
               top: offset.dy,
               width: size.width,
+              height: alturaImagen,
               child: buildImage(),
             ),
           ],

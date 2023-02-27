@@ -18,11 +18,6 @@ class PageViewZOOMTweets extends StatefulWidget {
 
 class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
     with SingleTickerProviderStateMixin {
-  // final imagenesTEMPORALES = [
-  //   'https://pbs.twimg.com/media/FlTzHPNWAAE3uKr?format=jpg&name=large',
-  //   'https://pbs.twimg.com/media/FlTzHPOXoAcqokd?format=jpg&name=large',
-  //   'https://pbs.twimg.com/media/FlTzHPMWYAIbRpO?format=jpg&name=large'
-  // ];
   final events = [];
   final edgesImage = BorderRadius.circular(25);
 
@@ -33,6 +28,7 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
   double scale = 1;
   double maxScale = 5.0;
   double minScale = 1;
+  final double alturaImagen = 550;
 
   late PageController _pageControllerPropio;
 
@@ -69,7 +65,7 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
       child: Consumer<TwitterSDKKyary>(
         builder: (context, twitterSDKKyary, child) => SizedBox(
           width: double.infinity,
-          height: 400,
+          height: alturaImagen,
           child: Consumer<ThemesTrajesProvider>(
             builder: (context, themesTrajesProvider, child) {
               final colorTheme = themesTrajesProvider.getThemeTrajeObjeto;
@@ -80,25 +76,18 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
                   begin: colorTheme.principalColor,
                   end: colorTheme.principalColor,
                 ),
-                builder: (context, colorPrincipal, child) => Material(
-                  borderRadius: edgesImage,
-                  color: colorPrincipal,
-                  child: Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: PageView.builder(
-                      itemCount: twitterSDKKyary.getTweetsKyary![widget.index]
-                              .imagenesTweet?.length ??
-                          0,
-                      scrollDirection: Axis.horizontal,
-                      controller: _pageControllerPropio,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, indexx) {
-                        twitterSDKKyary.setSlotPageViewList(
-                            slot: widget.index, valor: indexx);
-                        return buildImage();
-                      },
-                    ),
-                  ),
+                builder: (context, colorPrincipal, child) => PageView.builder(
+                  itemCount: twitterSDKKyary.getTweetsKyary![widget.index]
+                          .imagenesTweet?.length ??
+                      0,
+                  scrollDirection: Axis.horizontal,
+                  controller: _pageControllerPropio,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, indexx) {
+                    twitterSDKKyary.setSlotPageViewList(
+                        slot: widget.index, valor: indexx);
+                    return buildImage();
+                  },
                 ),
               );
             },
@@ -203,6 +192,7 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
               left: offset.dx,
               top: offset.dy,
               width: size.width,
+              height: alturaImagen,
               child: buildImage(),
             ),
           ],

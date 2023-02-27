@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_translator/google_translator.dart';
 import 'package:kyari_app/ui/common/tokens/tiuupografia.dart';
 
 class OurText extends StatelessWidget {
@@ -54,10 +55,11 @@ class TextNoticia extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      textAlign: TextAlign.center,
       style: const TextStyle(
         color: Colors.black,
-        fontSize: 25,
+        fontSize: 22,
       ),
-    );
+    ).translate();
   }
 }

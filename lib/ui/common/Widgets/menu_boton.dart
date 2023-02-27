@@ -73,10 +73,10 @@ class _Boton_menuState extends State<Boton_menu>
 
                     return TweenAnimationBuilder(
                       duration:
-                          const Duration(milliseconds: tiempoPrincipalColor),
+                          const Duration(milliseconds: tiempoSecundarioColor),
                       tween: ColorTween(
-                        begin: colorTheme.principalColor,
-                        end: colorTheme.principalColor,
+                        begin: colorTheme.secundarioColor,
+                        end: colorTheme.secundarioColor,
                       ),
                       builder: (context, colorMaterial, child) => Material(
                         color: colorMaterial,
@@ -109,10 +109,10 @@ class _Boton_menuState extends State<Boton_menu>
                               children: [
                                 TweenAnimationBuilder(
                                   duration: const Duration(
-                                      milliseconds: tiempoSecundarioColor),
+                                      milliseconds: tiempoPrincipalColor),
                                   tween: ColorTween(
-                                    begin: colorTheme.secundarioColor,
-                                    end: colorTheme.secundarioColor,
+                                    begin: colorTheme.principalColor,
+                                    end: colorTheme.principalColor,
                                   ),
                                   builder: (context, colorSecundarioContainer,
                                           child) =>
