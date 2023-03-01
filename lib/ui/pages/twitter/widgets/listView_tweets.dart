@@ -6,13 +6,40 @@ import 'package:kyari_app/ui/helpers/url_launcher.dart';
 import 'package:kyari_app/ui/pages/twitter/widgets/Widgets_twitter.dart';
 import 'package:provider/provider.dart';
 
-class ListTweets extends StatelessWidget {
+class ListTweets extends StatefulWidget {
   const ListTweets({super.key});
+
+  @override
+  State<ListTweets> createState() => _ListTweetsState();
+}
+
+class _ListTweetsState extends State<ListTweets> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    print('Kyary que esta pasando');
+
+    _scrollController.addListener(() {
+      print('Posicion Pixeles: ${_scrollController.position.pixels}');
+      print(_scrollController.position.maxScrollExtent);
+      if (_scrollController.position.pixels + 500 >=
+          _scrollController.position.maxScrollExtent) {}
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<TwitterSDKKyary>(
       builder: (context, twitterSDKKyary, child) => ListView.builder(
+        controller: _scrollController,
         itemCount: twitterSDKKyary.getTweetsKyary?.length ?? 0,
         scrollDirection: Axis.vertical,
         physics: (twitterSDKKyary.getListViewSeMueve)
@@ -97,51 +124,61 @@ class ListTweets extends StatelessWidget {
                             ),
                           ],
                         ),
-                        // Text(
-                        //   twitterSDKKyary.getTweetsKyary[index].titulo,
-                        //   style:
-                        //       const TextStyle(color: Colors.white, fontSize: 25),
-                        // ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 10,
-                          ),
-                          child: TextNoticia(
-                            text: twitterSDKKyary
-                                .getTweetsKyary![index].textoTweet,
-                          ),
+                        Consumer<TraduccionIdiomaProvider>(
+                          builder: (context, traduccionIdiomaProvider, child) {
+                            final activadaTraduccion =
+                                traduccionIdiomaProvider.getTraduccionActivada;
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 10,
+                              ),
+                              child: (activadaTraduccion)
+                                  ? TextNoticiaTraducidad(
+                                      text: twitterSDKKyary
+                                          .getTweetsKyary![index].textoTweet,
+                                    )
+                                  : TextNoticia(
+                                      text: twitterSDKKyary
+                                          .getTweetsKyary![index].textoTweet,
+                                    ),
+                            );
+                          },
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 25, bottom: 20),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: (twitterSDKKyary
-                                        .getTweetsKyary![index].tweetURL ==
-                                    null)
-                                ? const Text(
-                                    'Sin URL',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 252, 198, 216),
-                                      fontSize: 19,
-                                    ),
-                                  )
-                                : GestureDetector(
-                                    child: Text(
-                                      URLhost(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              (twitterSDKKyary
+                                          .getTweetsKyary![index].tweetURL ==
+                                      null)
+                                  ? const Text(
+                                      'Sin URL',
+                                      style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 252, 198, 216),
+                                        fontSize: 19,
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      child: Text(
+                                        URLhost(
+                                          urlString: twitterSDKKyary
+                                              .getTweetsKyary![index].tweetURL!,
+                                        ),
+                                        style: const TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 255, 0, 85),
+                                          fontSize: 19,
+                                        ),
+                                      ),
+                                      onTap: () => URLauncher(
                                         urlString: twitterSDKKyary
                                             .getTweetsKyary![index].tweetURL!,
                                       ),
-                                      style: const TextStyle(
-                                        color: Color.fromARGB(255, 255, 0, 85),
-                                        fontSize: 19,
-                                      ),
                                     ),
-                                    onTap: () => URLauncher(
-                                      urlString: twitterSDKKyary
-                                          .getTweetsKyary![index].tweetURL!,
-                                    ),
-                                  ),
+                            ],
                           ),
                         ),
                       ],

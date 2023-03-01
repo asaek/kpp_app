@@ -128,43 +128,69 @@ class ConfiguracionPage extends StatelessWidget {
                     themesTrajesProvider.setThemeTrajeObjeto = valor!;
                   },
                 ),
-                TweenAnimationBuilder(
-                  duration: const Duration(milliseconds: tiempoSecundarioColor),
-                  tween: ColorTween(
-                    begin: colorTheme.secundarioColor,
-                    end: colorTheme.secundarioColor,
-                  ),
-                  builder: (context, colorContainer, _) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Material(
-                        color: colorContainer,
-                        child: Container(
-                          width: double.infinity,
-                          height: 30,
-                          alignment: Alignment.center,
-                          // color: Colors.transparent,
-                          child: TweenAnimationBuilder(
-                            duration:
-                                const Duration(milliseconds: tiempoTextoColor),
-                            tween: ColorTween(
-                              begin: colorTheme.textColor,
-                              end: colorTheme.textColor,
-                            ),
-                            builder: (context, colorTexto, _) => Text(
-                              'Idioma',
-                              style: TextStyle(
-                                color: colorTexto,
-                                fontSize: 21,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // TweenAnimationBuilder(
+                //   duration: const Duration(milliseconds: tiempoSecundarioColor),
+                //   tween: ColorTween(
+                //     begin: colorTheme.secundarioColor,
+                //     end: colorTheme.secundarioColor,
+                //   ),
+                //   builder: (context, colorContainer, _) => Padding(
+                //     padding: const EdgeInsets.symmetric(horizontal: 20),
+                //     child: ClipRRect(
+                //       borderRadius: BorderRadius.circular(10),
+                //       child: Material(
+                //         color: colorContainer,
+                //         child: Container(
+                //           width: double.infinity,
+                //           height: 30,
+                //           alignment: Alignment.center,
+                //           // color: Colors.transparent,
+                //           child: TweenAnimationBuilder(
+                //             duration:
+                //                 const Duration(milliseconds: tiempoTextoColor),
+                //             tween: ColorTween(
+                //               begin: colorTheme.textColor,
+                //               end: colorTheme.textColor,
+                //             ),
+                //             builder: (context, colorTexto, _) => Text(
+                //               'Idioma',
+                //               style: TextStyle(
+                //                 color: colorTexto,
+                //                 fontSize: 21,
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // Consumer<TraduccionIdiomaProvider>(
+                //   builder: (context, traduccionIdiomaProvider, child) => Column(
+                //     children: [
+                //       RadioListTile<String>(
+                //         value: idiomas[0],
+                //         title: Text(idiomas[0]),
+                //         activeColor: themesTrajesProvider
+                //             .getThemeTrajeObjeto.principalColor,
+                //         groupValue: traduccionIdiomaProvider.getIdiomaActual,
+                //         onChanged: (valor) {
+                //           traduccionIdiomaProvider.setIdiomaActual = valor!;
+                //         },
+                //       ),
+                //       RadioListTile<String>(
+                //         value: idiomas[1],
+                //         title: Text(idiomas[1]),
+                //         activeColor: themesTrajesProvider
+                //             .getThemeTrajeObjeto.principalColor,
+                //         groupValue: traduccionIdiomaProvider.getIdiomaActual,
+                //         onChanged: (valor) {
+                //           traduccionIdiomaProvider.setIdiomaActual = valor!;
+                //         },
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             );
           },

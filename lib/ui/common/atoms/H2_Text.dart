@@ -60,6 +60,22 @@ class TextNoticia extends StatelessWidget {
         color: Colors.black,
         fontSize: 22,
       ),
+    );
+  }
+}
+
+class TextNoticiaTraducidad extends StatelessWidget {
+  final String text;
+  const TextNoticiaTraducidad({Key? key, required this.text}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        color: Colors.black,
+        fontSize: 22,
+      ),
     ).translate();
   }
 }

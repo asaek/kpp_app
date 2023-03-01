@@ -197,34 +197,76 @@ class MenuDrawer extends StatelessWidget {
                               titulo: 'Configuracion',
                               key: ValueKey(2),
                             ),
-                            // const _OpcionDeDrawer(
-                            //   numeroBoton: 3,
-                            //   titulo: 'Merca de la Patrona',
-                            //   // key: ValueKey(3),
-                            // ),
-                            // const _OpcionDeDrawer(
-                            //   numeroBoton: 4,
-                            //   titulo: 'Cuidado de Kyary',
-                            //   // key: ValueKey(4),
-                            // ),
-                            // const _OpcionDeDrawer(
-                            //   numeroBoton: 5,
-                            //   titulo: 'Wallpapers Kyary',
-                            //   // key: ValueKey(5),
-                            // ),
-                            // const _OpcionDeDrawer(
-                            //   numeroBoton: 6,
-                            //   titulo: 'Evolucion Kyary',
-                            //   // key: ValueKey(6),
-                            // ),
-                            // const _OpcionDeDrawer(
-                            //   numeroBoton: 7,
-                            //   titulo: 'Enlaces Fans Mexico',
-                            //   // key: ValueKey(7),
-                            // ),
+
                             Expanded(
                               child: Material(
-                                color: colorBackGound,
+                                color: Colors.transparent,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 100,
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Consumer<TraduccionIdiomaProvider>(
+                                            builder: (context,
+                                                traduccionIdiomaProvider,
+                                                child) {
+                                              final traduccionActiada =
+                                                  traduccionIdiomaProvider
+                                                      .getTraduccionActivada;
+
+                                              return Consumer<
+                                                  ThemesTrajesProvider>(
+                                                builder: (context,
+                                                    themesTrajesProvider,
+                                                    child) {
+                                                  final colorTheme =
+                                                      themesTrajesProvider
+                                                          .getThemeTrajeObjeto;
+                                                  return TweenAnimationBuilder(
+                                                    duration: const Duration(
+                                                      milliseconds:
+                                                          tiempoSecundarioColor,
+                                                    ),
+                                                    tween: ColorTween(
+                                                      begin: colorTheme
+                                                          .secundarioColor,
+                                                      end: colorTheme
+                                                          .secundarioColor,
+                                                    ),
+                                                    builder: (context, coolor,
+                                                            child) =>
+                                                        Switch(
+                                                      activeColor: coolor,
+                                                      inactiveThumbColor:
+                                                          coolor,
+                                                      value: traduccionActiada,
+                                                      onChanged: (value) {
+                                                        traduccionIdiomaProvider
+                                                                .setTraduccionActivada =
+                                                            value;
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
+                                          const Text(
+                                            'Traduccion',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],

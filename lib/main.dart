@@ -16,6 +16,8 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DrawerProvider>(create: (_) => DrawerProvider()),
+        ChangeNotifierProvider<TraduccionIdiomaProvider>(
+            create: (_) => TraduccionIdiomaProvider()),
         ChangeNotifierProvider<ThemesTrajesProvider>(
             create: (_) => ThemesTrajesProvider()),
         ChangeNotifierProvider<TwitterSDKKyary>(

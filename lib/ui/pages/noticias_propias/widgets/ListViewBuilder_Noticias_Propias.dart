@@ -147,15 +147,28 @@ class ListViewBuilderNoticiasPropias extends StatelessWidget {
                               fontSize: 30,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 10,
-                            ),
-                            child: TextNoticia(
-                              text: noticiasProvider
-                                  .getNoticiasCargadas[index].texto,
-                            ),
+                          Consumer<TraduccionIdiomaProvider>(
+                            builder:
+                                (context, traduccionIdiomaProvider, child) {
+                              final activadaTraduccion =
+                                  traduccionIdiomaProvider
+                                      .getTraduccionActivada;
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 10,
+                                ),
+                                child: (activadaTraduccion)
+                                    ? TextNoticiaTraducidad(
+                                        text: noticiasProvider
+                                            .getNoticiasCargadas[index].texto,
+                                      )
+                                    : TextNoticia(
+                                        text: noticiasProvider
+                                            .getNoticiasCargadas[index].texto,
+                                      ),
+                              );
+                            },
                           ),
                           Padding(
                             padding:
