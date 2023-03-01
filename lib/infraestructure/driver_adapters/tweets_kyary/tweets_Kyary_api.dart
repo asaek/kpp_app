@@ -52,7 +52,7 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
         TweetField.entities,
         TweetField.geo,
       ],
-      maxResults: 10,
+      maxResults: 100,
     );
 
     final tweetsKyaryData = tweets.data;

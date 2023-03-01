@@ -15,6 +15,13 @@ class TwitterSDKKyary with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _loadingMoreTweets = false;
+  bool get getLoadingMoreTweets => _loadingMoreTweets;
+  set setLoadingMoreTweets(bool dato) {
+    _loadingMoreTweets = dato;
+    notifyListeners();
+  }
+
   final List<PageController> _pageControllerList =
       List.generate(10, (index) => PageController());
 
