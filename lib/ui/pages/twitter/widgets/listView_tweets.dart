@@ -93,6 +93,8 @@ class _ListTweetsState extends State<ListTweets> {
                               children: [
                                 PageViewZOOMTweets(
                                   index: index,
+                                  // getTweetsKyary:
+                                  //     twitterSDKKyary.getTweetsKyary!,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -118,10 +120,10 @@ class _ListTweetsState extends State<ListTweets> {
                                           //     'Pagina actual del controller $index --- ${listaControllers[index].page}');
 
                                           listaControllers[index].previousPage(
-                                              duration: const Duration(
-                                                  milliseconds: 200),
-                                              curve: Curves.easeIn);
-
+                                            duration: const Duration(
+                                                milliseconds: 200),
+                                            curve: Curves.easeIn,
+                                          );
                                           // print('Me precionaste');
                                         },
                                       ),

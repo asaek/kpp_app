@@ -6,6 +6,7 @@ import 'package:kyari_app/ui/common/atoms/themes_trajes.dart';
 import 'package:kyari_app/ui/common/tokens/tiempo_animations.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
+import 'package:twitter_api_v2/twitter_api_v2.dart';
 
 class TituloBanner extends StatelessWidget {
   final String titulo;
@@ -63,7 +64,7 @@ class TituloBanner extends StatelessWidget {
                           textColor: itemSeleccionad.textColor,
                           fontSize: 22.0,
                         );
-
+                        PaginationControl.forward();
                         Provider.of<ThemesTrajesProvider>(context,
                                 listen: false)
                             .setThemeTrajeObjeto = itemSeleccionad;

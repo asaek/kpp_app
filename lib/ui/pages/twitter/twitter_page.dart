@@ -17,6 +17,13 @@ class TwitterPage extends StatelessWidget {
         builder: (context, twitterSDKKyary, _) {
           if (snapshot.hasData) {
             twitterSDKKyary.setTweetsKyary = snapshot.data!;
+            // Se asigna la cantidad de pageController a utilizarse
+            twitterSDKKyary.setPageControllerList = List.generate(
+              snapshot.data!.length,
+              (index) => PageController(),
+            );
+
+            twitterSDKKyary.setCantidadSlotsPageView = snapshot.data!.length;
           }
           return AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),

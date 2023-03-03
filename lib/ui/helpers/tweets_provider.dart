@@ -22,16 +22,31 @@ class TwitterSDKKyary with ChangeNotifier {
     notifyListeners();
   }
 
-  final List<PageController> _pageControllerList =
-      List.generate(10, (index) => PageController());
+  // TweetsKyaryApi instanciaTweetsKyaryApi = TweetsKyaryApi();
+
+  late List<PageController> _pageControllerList = [];
+  // List.generate(10, (index) => PageController());
+
+  // List<PageController> pageControllerList = List.generate(
+  //     instanciaTweetsKyaryApi.getListaTweets.length,
+  //     (index) => PageController());
 
   List<PageController> get getPageControllerList => _pageControllerList;
+  set setPageControllerList(List<PageController> dato) {
+    _pageControllerList = dato;
+    // notifyListeners();
+  }
 
-  final List<int> _slotPageViewList = List.generate(10, (index) => 0);
+  late List<int> _slotPageViewList;
+  // final List<int> _slotPageViewList = List.generate(10, (index) => 0);
 
   List<int> get getSlotPageView => _slotPageViewList;
   setSlotPageViewList({required int slot, required int valor}) {
     _slotPageViewList[slot] = valor;
     print('Aca seteado $_slotPageViewList');
+  }
+
+  set setCantidadSlotsPageView(int cantidadSlots) {
+    _slotPageViewList = List.generate(cantidadSlots, (index) => 0);
   }
 }

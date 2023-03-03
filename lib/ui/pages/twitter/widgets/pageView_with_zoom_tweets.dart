@@ -7,11 +7,14 @@ class PageViewZOOMTweets extends StatefulWidget {
   const PageViewZOOMTweets({
     Key? key,
     required this.index,
+    // required this.getTweetsKyary,
+
     // required this.pageController,
   }) : super(key: key);
 
   // final PageController pageController;
   final int index;
+  // final List<TweetKyaryObjeto> getTweetsKyary;
   @override
   State<PageViewZOOMTweets> createState() => _PageViewZOOMTweetsState();
 }

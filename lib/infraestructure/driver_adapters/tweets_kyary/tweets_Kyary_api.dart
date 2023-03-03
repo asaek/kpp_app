@@ -1,9 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:kyari_app/domain/models/tweets_kyary/gateway/tweets_kyary_gateway.dart';
 import 'package:kyari_app/domain/models/tweets_kyary/modelo_tweet_Kyary.dart';
 import 'package:kyari_app/infraestructure/helpers/tweetsKyary/TweetsKyaryHelper.dart';
+import 'package:kyari_app/ui/helpers/tweets_provider.dart';
 import 'package:twitter_api_v2/twitter_api_v2.dart';
 
-class TweetsKyaryApi extends TweetsKyaryGateway {
+class TweetsKyaryApi extends TweetsKyaryGateway with ChangeNotifier {
+  int periodoMeses = 1;
+  List<TweetKyaryObjeto> _listaTweets = [];
+  List<TweetKyaryObjeto> get getListaTweets => _listaTweets;
+  set setlistaTweets(List<TweetKyaryObjeto> dato) {
+    _listaTweets = dato;
+    notifyListeners();
+  }
+
   final TwitterApi twitter = TwitterApi(
     bearerToken:
         'AAAAAAAAAAAAAAAAAAAAALmzSQEAAAAAbklyR2aDd%2BZr6XX6YToyG7rltJs%3D1SZ9qO7APcKBlGioeMLPDLa0zbtO2sxO6ASDkyZV8S2Hq3jCtW',
@@ -29,10 +39,40 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
 
   @override
   Future<List<TweetKyaryObjeto>> getTweetsKyary() async {
+    print('LLamado');
     final TweetsKyaryMapper tweetsKyaryMapper = TweetsKyaryMapper();
 
-    final tweets = await twitter.tweets.searchRecent(
-      query: 'from:pamyurin',
+    // final tweets = await twitter.tweets.searchRecent(
+    //   query: 'from:pamyurin',
+    //   mediaFields: [
+    //     MediaField.mediaKey,
+    //     MediaField.url,
+    //   ],
+    //   expansions: [
+    //     TweetExpansion.attachmentsMediaKeys,
+    //     TweetExpansion.attachmentsPollIds,
+    //   ],
+    //   userFields: [
+    //     UserField.location,
+    //     UserField.username,
+    //     UserField.description,
+    //   ],
+    //   tweetFields: [
+    //     TweetField.text,
+    //     TweetField.attachments,
+    //     TweetField.entities,
+    //     TweetField.geo,
+    //   ],
+    //   maxResults: 100,
+    // );
+    final fechaActual = DateTime.now();
+    final tweets = await twitter.tweets.lookupTweets(
+      userId: '220332457',
+      maxResults: 100,
+      startTime:
+          DateTime(fechaActual.year, fechaActual.month - periodoMeses, 1),
+      endTime:
+          DateTime(fechaActual.year, fechaActual.month, fechaActual.day + 1),
       mediaFields: [
         MediaField.mediaKey,
         MediaField.url,
@@ -52,11 +92,13 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
         TweetField.entities,
         TweetField.geo,
       ],
-      maxResults: 100,
+      // paging: (event) {
+      //   // event.hasPreviousPage;
+      //   return PaginationControl.forward();
+      // },
     );
 
     final tweetsKyaryData = tweets.data;
-    final List<TweetKyaryObjeto> listaTweets = [];
     TweetKyaryObjeto tweetAdd = TweetKyaryObjeto(
       textoTweet: '',
       tweetId: '',
@@ -73,7 +115,7 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
         tweetAdd.imagenesTweet = [
           'https://m.media-amazon.com/images/I/81yO1W6s7iL._AC_SL1500_.jpg'
         ];
-        listaTweets.add(tweetAdd);
+        _listaTweets.add(tweetAdd);
       } else {
         final List<String> imagenesTweet = [];
         final List<String>? mediaKeysData = tweet.attachments?.mediaKeys;
@@ -90,7 +132,7 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
           tweetAdd.imagenesTweet = List<String>.from(imagenesTweet);
           // print(tweetAdd);
           imagenesTweet.clear();
-          listaTweets.add(tweetAdd);
+          _listaTweets.add(tweetAdd);
         } else {
           for (var mediaKeyData in mediaKeysData) {
             for (var imageKeyMedia in imagenesTweetsMedia) {
@@ -104,9 +146,10 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
 
           tweetAdd.imagenesTweet = List<String>.from(imagenesTweet);
           imagenesTweet.clear();
-          listaTweets.add(tweetAdd);
+          _listaTweets.add(tweetAdd);
         }
       }
+
       tweetAdd = TweetKyaryObjeto(
         textoTweet: '',
         tweetId: '',
@@ -114,7 +157,12 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
         fechaTweet: null,
       );
     }
-    return listaTweets;
+    periodoMeses = periodoMeses + 1;
+    TwitterSDKKyary instanciaTwitterSDKKyary = TwitterSDKKyary();
+    instanciaTwitterSDKKyary.setPageControllerList =
+        List.generate(_listaTweets.length, (index) => PageController());
+
+    return _listaTweets;
   }
 }
 
