@@ -1,18 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:kyari_app/domain/models/tweets_kyary/gateway/tweets_kyary_gateway.dart';
 import 'package:kyari_app/domain/models/tweets_kyary/modelo_tweet_Kyary.dart';
 import 'package:kyari_app/infraestructure/helpers/tweetsKyary/TweetsKyaryHelper.dart';
-import 'package:kyari_app/ui/helpers/tweets_provider.dart';
 import 'package:twitter_api_v2/twitter_api_v2.dart';
 
-class TweetsKyaryApi extends TweetsKyaryGateway with ChangeNotifier {
+class TweetsKyaryApi extends TweetsKyaryGateway {
   int periodoMeses = 1;
-  List<TweetKyaryObjeto> _listaTweets = [];
-  List<TweetKyaryObjeto> get getListaTweets => _listaTweets;
-  set setlistaTweets(List<TweetKyaryObjeto> dato) {
-    _listaTweets = dato;
-    notifyListeners();
-  }
+  final List<TweetKyaryObjeto> _listaTweets = [];
+  // List<TweetKyaryObjeto> get getListaTweets => _listaTweets;
+  // set setlistaTweets(List<TweetKyaryObjeto> dato) {
+  //   _listaTweets = dato;
+  //   notifyListeners();
+  // }
 
   final TwitterApi twitter = TwitterApi(
     bearerToken:
@@ -158,9 +156,9 @@ class TweetsKyaryApi extends TweetsKyaryGateway with ChangeNotifier {
       );
     }
     periodoMeses = periodoMeses + 1;
-    TwitterSDKKyary instanciaTwitterSDKKyary = TwitterSDKKyary();
-    instanciaTwitterSDKKyary.setPageControllerList =
-        List.generate(_listaTweets.length, (index) => PageController());
+    // TwitterSDKKyary instanciaTwitterSDKKyary = TwitterSDKKyary();
+    // instanciaTwitterSDKKyary.setPageControllerList =
+    //     List.generate(_listaTweets.length, (index) => PageController());
 
     return _listaTweets;
   }

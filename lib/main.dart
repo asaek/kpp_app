@@ -16,6 +16,8 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DrawerProvider>(create: (_) => DrawerProvider()),
+        ChangeNotifierProvider<ControlListViewProvider>(
+            create: (_) => ControlListViewProvider()),
         ChangeNotifierProvider<TraduccionIdiomaProvider>(
             create: (_) => TraduccionIdiomaProvider()),
         ChangeNotifierProvider<ThemesTrajesProvider>(

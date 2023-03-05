@@ -39,7 +39,9 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
   void initState() {
     controllerTransform = TransformationController();
     animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 200))
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    )
       ..addListener(() => controllerTransform.value = animationMatrix!.value)
       ..addStatusListener(
         (status) {
@@ -122,12 +124,12 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
             scale = details.scale;
             entry!.markNeedsBuild();
           },
-          child: Consumer<TwitterSDKKyary>(
-            builder: (context, twitterSDKKyary, child) {
-              final cosa =
-                  twitterSDKKyary.getTweetsKyary?[widget.index].imagenesTweet;
-              print(
-                  twitterSDKKyary.getTweetsKyary?[widget.index].imagenesTweet);
+          child: Consumer<ControlListViewProvider>(
+            builder: (context, controlListViewProvider, child) {
+              // final cosa =
+              //     twitterSDKKyary.getTweetsKyary?[widget.index].imagenesTweet;
+              // print(
+              //     twitterSDKKyary.getTweetsKyary?[widget.index].imagenesTweet);
               return Listener(
                 onPointerDown: (event) {
                   events.add(event);
@@ -135,32 +137,35 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
                 },
                 onPointerUp: (event) {
                   events.clear();
-                  twitterSDKKyary.setListViewSeMueve = true;
+                  controlListViewProvider.setListViewSeMueve = true;
                   print('Se destoco jajaja');
                 },
                 onPointerMove: (event) {
                   if (events.length == 2) {
-                    twitterSDKKyary.setListViewSeMueve = false;
+                    controlListViewProvider.setListViewSeMueve = false;
                   }
                 },
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: ClipRRect(
-                    borderRadius: edgesImage,
-                    child: (twitterSDKKyary
-                                .getTweetsKyary![widget.index].imagenesTweet ==
-                            null)
-                        ? Image.asset('assets/Kyary_mexicanoen_casa.png')
-                        : FadeInImage(
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            placeholder: const AssetImage(
-                                'assets/loadings/kyaryLoading_1.gif'),
-                            image: NetworkImage(twitterSDKKyary
-                                    .getTweetsKyary![widget.index]
-                                    .imagenesTweet![
-                                twitterSDKKyary.getSlotPageView[widget.index]]),
-                          ),
+                  child: Consumer<TwitterSDKKyary>(
+                    builder: (context, twitterSDKKyary, child) => ClipRRect(
+                      borderRadius: edgesImage,
+                      child: (twitterSDKKyary.getTweetsKyary![widget.index]
+                                  .imagenesTweet ==
+                              null)
+                          ? Image.asset('assets/Kyary_mexicanoen_casa.png')
+                          : FadeInImage(
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                              placeholder: const AssetImage(
+                                  'assets/loadings/kyaryLoading_1.gif'),
+                              image: NetworkImage(twitterSDKKyary
+                                      .getTweetsKyary![widget.index]
+                                      .imagenesTweet![
+                                  twitterSDKKyary
+                                      .getSlotPageView[widget.index]]),
+                            ),
+                    ),
                   ),
                 ),
               );
