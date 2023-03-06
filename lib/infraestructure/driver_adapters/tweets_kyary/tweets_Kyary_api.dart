@@ -1,11 +1,13 @@
 import 'package:kyari_app/domain/models/tweets_kyary/gateway/tweets_kyary_gateway.dart';
 import 'package:kyari_app/domain/models/tweets_kyary/modelo_tweet_Kyary.dart';
-import 'package:kyari_app/infraestructure/helpers/tweetsKyary/TweetsKyaryHelper.dart';
 import 'package:twitter_api_v2/twitter_api_v2.dart';
 
 class TweetsKyaryApi extends TweetsKyaryGateway {
   int periodoMeses = 1;
   final List<TweetKyaryObjeto> _listaTweets = [];
+  final List<TweetKyaryObjeto> _listaTweetsEnviar = [];
+  int maxResultadosTweets = 0;
+
   // List<TweetKyaryObjeto> get getListaTweets => _listaTweets;
   // set setlistaTweets(List<TweetKyaryObjeto> dato) {
   //   _listaTweets = dato;
@@ -37,8 +39,8 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
 
   @override
   Future<List<TweetKyaryObjeto>> getTweetsKyary() async {
-    print('LLamado');
-    final TweetsKyaryMapper tweetsKyaryMapper = TweetsKyaryMapper();
+    print(_listaTweets);
+    // final TweetsKyaryMapper tweetsKyaryMapper = TweetsKyaryMapper();
 
     // final tweets = await twitter.tweets.searchRecent(
     //   query: 'from:pamyurin',
@@ -63,14 +65,23 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
     //   ],
     //   maxResults: 100,
     // );
-    final fechaActual = DateTime.now();
+
+    // final fechaActual = DateTime.now();
+
+    print(maxResultadosTweets);
+    maxResultadosTweets = maxResultadosTweets + 30;
+    print(maxResultadosTweets);
+    // int cantidadAnteriorResultados = _listaTweets.length;
+    // _listaTweets.clear();
     final tweets = await twitter.tweets.lookupTweets(
       userId: '220332457',
-      maxResults: 100,
-      startTime:
-          DateTime(fechaActual.year, fechaActual.month - periodoMeses, 1),
-      endTime:
-          DateTime(fechaActual.year, fechaActual.month, fechaActual.day + 1),
+      maxResults: maxResultadosTweets,
+
+      // startTime:
+      //     DateTime(fechaActual.year, fechaActual.month - periodoMeses, 1),
+      // endTime:
+      //     DateTime(fechaActual.year, fechaActual.month, fechaActual.day + 1),
+
       mediaFields: [
         MediaField.mediaKey,
         MediaField.url,
@@ -90,6 +101,7 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
         TweetField.entities,
         TweetField.geo,
       ],
+
       // paging: (event) {
       //   // event.hasPreviousPage;
       //   return PaginationControl.forward();
@@ -109,15 +121,17 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
       tweetAdd.tweetId = tweet.id;
       tweetAdd.textoTweet = procesadoTextoTweet(tweet.text);
       tweetAdd.tweetURL = sacandoLaURLdelTweet(tweet.text);
+      // Cuando no trae foto
       if (tweet.attachments == null) {
         tweetAdd.imagenesTweet = [
           'https://m.media-amazon.com/images/I/81yO1W6s7iL._AC_SL1500_.jpg'
         ];
         _listaTweets.add(tweetAdd);
+        // Cuando si trae foto
       } else {
         final List<String> imagenesTweet = [];
         final List<String>? mediaKeysData = tweet.attachments?.mediaKeys;
-
+        // Creo que es cuando era un retweet
         if (mediaKeysData!.length == 1) {
           for (MediaData imagenInclude in imagenesTweetsMedia) {
             if (mediaKeysData[0] == imagenInclude.key) {
@@ -131,6 +145,7 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
           // print(tweetAdd);
           imagenesTweet.clear();
           _listaTweets.add(tweetAdd);
+          // trae fotos normales y mass de 2
         } else {
           for (var mediaKeyData in mediaKeysData) {
             for (var imageKeyMedia in imagenesTweetsMedia) {
@@ -155,12 +170,18 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
         fechaTweet: null,
       );
     }
-    periodoMeses = periodoMeses + 1;
+    // periodoMeses = periodoMeses + 1;
     // TwitterSDKKyary instanciaTwitterSDKKyary = TwitterSDKKyary();
     // instanciaTwitterSDKKyary.setPageControllerList =
     //     List.generate(_listaTweets.length, (index) => PageController());
+    print(_listaTweets);
 
-    return _listaTweets;
+    for (int i = 0; i < maxResultadosTweets - 30; i++) {
+      _listaTweets.removeAt(i);
+    }
+
+    _listaTweetsEnviar.addAll(_listaTweets);
+    return _listaTweetsEnviar;
   }
 }
 

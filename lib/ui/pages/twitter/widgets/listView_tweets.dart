@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kyari_app/config/use_case_config.dart';
 import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:kyari_app/ui/common/tokens/colores.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
@@ -15,21 +16,24 @@ class ListTweets extends StatefulWidget {
 
 class _ListTweetsState extends State<ListTweets> {
   final ScrollController _scrollController = ScrollController();
-  bool isLoading = false;
+  UseCaseConfig useCaseConfig = UseCaseConfig();
 
   @override
   void initState() {
     super.initState();
     print('Kyary que esta pasando');
 
-    _scrollController.addListener(() {
-      // print('Posicion Pixeles: ${_scrollController.position.pixels}');
-      // print(_scrollController.position.maxScrollExtent);
-      if (_scrollController.position.pixels + 500 >=
-          _scrollController.position.maxScrollExtent) {
-        // cargandoDatos();
-      }
-    });
+    _scrollController.addListener(
+      () {
+        // print('Posicion Pixeles: ${_scrollController.position.pixels}');
+        // print(_scrollController.position.maxScrollExtent);
+
+        if (_scrollController.position.pixels + 500 >=
+            _scrollController.position.maxScrollExtent) {
+          cargandoDatos();
+        }
+      },
+    );
   }
 
   @override
@@ -39,22 +43,44 @@ class _ListTweetsState extends State<ListTweets> {
   }
 
   Future cargandoDatos() async {
+    bool isLoading =
+        Provider.of<ControlListViewProvider>(context, listen: false)
+            .getLoadingMoreTweets;
+
     if (isLoading) return;
+    // isLoading = true;
     Provider.of<ControlListViewProvider>(context, listen: false)
         .setLoadingMoreTweets = true;
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
 
-    print('Posicion Pixeles: ${_scrollController.position.pixels}');
+    final twweets30Cargados =
+        await useCaseConfig.getTweetsCase.getTweetsKyary();
+
+    Provider.of<TwitterSDKKyary>(context, listen: false).setPageControllerList =
+        twweets30Cargados.length;
+
+    Provider.of<TwitterSDKKyary>(context, listen: false)
+        .setCantidadSlotsPageView = twweets30Cargados.length;
+
+    Provider.of<TwitterSDKKyary>(context, listen: false)
+        .agregandoTweetsKyary(twweets30Cargados);
+
+    print('Cantidad de Tweets:        ${twweets30Cargados.length}');
+
     if (_scrollController.position.pixels + 100 <=
         _scrollController.position.maxScrollExtent) return;
-    Provider.of<ControlListViewProvider>(context, listen: false)
-        .setLoadingMoreTweets = false;
+
     _scrollController.animateTo(
       _scrollController.position.pixels + 120,
       duration: const Duration(milliseconds: 300),
       curve: Curves.fastOutSlowIn,
     );
+    print('MOVIMIENTO');
+
+    // isLoading = false;
+    Provider.of<ControlListViewProvider>(context, listen: false)
+        .setLoadingMoreTweets = false;
   }
 
   @override

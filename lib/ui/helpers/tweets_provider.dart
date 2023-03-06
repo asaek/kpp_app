@@ -8,6 +8,11 @@ class TwitterSDKKyary with ChangeNotifier {
     _tweetsKyary = List<TweetKyaryObjeto>.from(dato);
   }
 
+  agregandoTweetsKyary(List<TweetKyaryObjeto> dato) {
+    _tweetsKyary.addAll(dato);
+    notifyListeners();
+  }
+
   // TweetsKyaryApi instanciaTweetsKyaryApi = TweetsKyaryApi();
 
   late List<PageController> _pageControllerList = [];
@@ -26,7 +31,7 @@ class TwitterSDKKyary with ChangeNotifier {
   List<int> get getSlotPageView => _slotPageViewList;
   setSlotPageViewList({required int slot, required int valor}) {
     _slotPageViewList[slot] = valor;
-    print('Aca seteado $_slotPageViewList');
+    // print('Aca seteado $_slotPageViewList');
   }
 
   set setCantidadSlotsPageView(int listaSlots) {
