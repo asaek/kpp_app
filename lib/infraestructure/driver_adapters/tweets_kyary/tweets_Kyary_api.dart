@@ -1,13 +1,25 @@
-import 'package:kyari_app/domain/models/tweets_kyary/gateway/tweets_kyary_gateway.dart';
+import 'package:flutter/material.dart';
 import 'package:kyari_app/domain/models/tweets_kyary/modelo_tweet_Kyary.dart';
 import 'package:twitter_api_v2/twitter_api_v2.dart';
 
-class TweetsKyaryApi extends TweetsKyaryGateway {
-  int periodoMeses = 1;
+class TweetsKyaryApi with ChangeNotifier {
+  // int periodoMeses = 1;
   final List<TweetKyaryObjeto> _listaTweets = [];
   final List<TweetKyaryObjeto> _listaTweetsEnviar = [];
-  int maxResultadosTweets = 0;
+  static const int _cantidadTweetsXCarga = 10;
+  // static const int _cantidadMaximaTweets = 100;
 
+  int _maxResultadosTweets = 0;
+  int get getMaxResultadosTweets => _maxResultadosTweets;
+  set setMaxResultadosTweets(int dato) {
+    _maxResultadosTweets = dato;
+    // notifyListeners();
+  }
+
+  refrescadoReset() {
+    _maxResultadosTweets = 0;
+    _listaTweetsEnviar.clear();
+  }
   // List<TweetKyaryObjeto> get getListaTweets => _listaTweets;
   // set setlistaTweets(List<TweetKyaryObjeto> dato) {
   //   _listaTweets = dato;
@@ -39,7 +51,7 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
 
   @override
   Future<List<TweetKyaryObjeto>> getTweetsKyary() async {
-    print(_listaTweets);
+    // print(_listaTweets);
     // final TweetsKyaryMapper tweetsKyaryMapper = TweetsKyaryMapper();
 
     // final tweets = await twitter.tweets.searchRecent(
@@ -68,14 +80,13 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
 
     // final fechaActual = DateTime.now();
 
-    print(maxResultadosTweets);
-    maxResultadosTweets = maxResultadosTweets + 30;
-    print(maxResultadosTweets);
     // int cantidadAnteriorResultados = _listaTweets.length;
-    // _listaTweets.clear();
+    _maxResultadosTweets = _maxResultadosTweets + _cantidadTweetsXCarga;
+
+    _listaTweets.clear();
     final tweets = await twitter.tweets.lookupTweets(
       userId: '220332457',
-      maxResults: maxResultadosTweets,
+      maxResults: _maxResultadosTweets,
 
       // startTime:
       //     DateTime(fechaActual.year, fechaActual.month - periodoMeses, 1),
@@ -176,11 +187,13 @@ class TweetsKyaryApi extends TweetsKyaryGateway {
     //     List.generate(_listaTweets.length, (index) => PageController());
     print(_listaTweets);
 
-    for (int i = 0; i < maxResultadosTweets - 30; i++) {
-      _listaTweets.removeAt(i);
+    for (int i = 0; i < _maxResultadosTweets - _cantidadTweetsXCarga; i++) {
+      _listaTweets.removeAt(0);
     }
 
     _listaTweetsEnviar.addAll(_listaTweets);
+    print('Cantidad de Tweets:        ${_listaTweetsEnviar.length}');
+
     return _listaTweetsEnviar;
   }
 }

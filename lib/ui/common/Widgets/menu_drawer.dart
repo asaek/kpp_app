@@ -14,7 +14,7 @@ class MenuDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final widthDrawer = size.width * 0.65;
-
+    // bool mostrarModal = true;
     return Drawer(
       elevation: 20,
       width: widthDrawer,
@@ -248,6 +248,10 @@ class MenuDrawer extends StatelessWidget {
                                                         traduccionIdiomaProvider
                                                                 .setTraduccionActivada =
                                                             value;
+                                                        if (value) {
+                                                          _mostrarDialogo(
+                                                              context);
+                                                        }
                                                       },
                                                     ),
                                                   );
@@ -388,4 +392,28 @@ class _OpcionDeDrawer extends StatelessWidget {
       },
     );
   }
+}
+
+void _mostrarDialogo(context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        // title: const Text('Traducido'),
+        content: const Text(
+          'Las traducciones pueden contener errores, son traducciones de Google Translate, Kyary No acosa a nadie, Desearia que me acosara a mi.',
+          textAlign: TextAlign.center,
+        ),
+
+        actions: <Widget>[
+          MaterialButton(
+            child: const Text('Aceptar'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

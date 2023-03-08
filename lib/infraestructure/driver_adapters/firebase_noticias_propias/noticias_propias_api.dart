@@ -1,15 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:kyari_app/domain/models/Noticias_Propias/gateway/noticia_gateway.dart';
 import 'package:kyari_app/domain/models/Noticias_Propias/modelo_noticia.dart';
 import 'package:kyari_app/infraestructure/helpers/maps/noticias_propias_mapper.dart';
 
-class NoticiaPropiaApi extends NoticiaPropiaGateway {
+class NoticiaPropiaApi with ChangeNotifier {
   final String _baseURL = 'kyary-app-default-rtdb.firebaseio.com';
   final NoticiaMapper _noticiaMapper = NoticiaMapper();
 
-  @override
   Future<List<NoticiaPropiaObjeto>> getAllNoticias() async {
     final url = Uri.https(_baseURL, 'noticiasPropias.json');
     final resp = await http.get(url);

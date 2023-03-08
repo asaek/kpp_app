@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_translator/google_translator.dart';
+import 'package:kyari_app/infraestructure/driver_adapters/firebase_noticias_propias/noticias_propias_api.dart';
+import 'package:kyari_app/infraestructure/driver_adapters/tweets_kyary/tweets_Kyary_api.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:kyari_app/ui/pages/pages.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +18,9 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DrawerProvider>(create: (_) => DrawerProvider()),
+        ChangeNotifierProvider<TweetsKyaryApi>(create: (_) => TweetsKyaryApi()),
+        ChangeNotifierProvider<NoticiaPropiaApi>(
+            create: (_) => NoticiaPropiaApi()),
         ChangeNotifierProvider<ControlListViewProvider>(
             create: (_) => ControlListViewProvider()),
         ChangeNotifierProvider<TraduccionIdiomaProvider>(
