@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kyari_app/domain/models/models.dart';
+import 'package:kyari_app/data/models/models.dart';
 
 final List<ThemeTrajeObjeto> themesTraje = [
   ThemeTrajeObjeto(

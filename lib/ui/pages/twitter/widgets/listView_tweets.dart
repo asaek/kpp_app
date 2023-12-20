@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kyari_app/infraestructure/driver_adapters/tweets_kyary/tweets_Kyary_api.dart';
 import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:kyari_app/ui/common/tokens/colores.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
@@ -23,29 +22,28 @@ class _ListTweetsState extends State<ListTweets> {
     super.initState();
     print('Kyary que esta pasando');
 
-    _scrollController.addListener(
-      () {
-        // print('Posicion Pixeles: ${_scrollController.position.pixels}');
-        // print(_scrollController.position.maxScrollExtent);
+    _scrollController.addListener(() {
+      // print('Posicion Pixeles: ${_scrollController.position.pixels}');
+      // print(_scrollController.position.maxScrollExtent);
 
-        if (_scrollController.position.pixels + 200 >=
-            _scrollController.position.maxScrollExtent) {
-          cargandoDatos();
-        } else {
-          Provider.of<ControlListViewProvider>(context, listen: false)
-              .setLoadingMoreTweets = false;
-        }
-      },
-    );
+      if (_scrollController.position.pixels + 200 >=
+          _scrollController.position.maxScrollExtent) {
+        cargandoDatosTwitter();
+      } else {
+        Provider.of<ControlListViewProvider>(context, listen: false)
+            .setLoadingMoreTweets = false;
+      }
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+    _scrollController.removeListener(() {});
     _scrollController.dispose();
   }
 
-  Future cargandoDatos() async {
+  Future cargandoDatosTwitter() async {
     bool isLoading =
         Provider.of<ControlListViewProvider>(context, listen: false)
             .getLoadingMoreTweets;

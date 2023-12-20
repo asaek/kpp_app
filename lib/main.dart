@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:google_translator/google_translator.dart';
-import 'package:kyari_app/infraestructure/driver_adapters/firebase_noticias_propias/noticias_propias_api.dart';
-import 'package:kyari_app/infraestructure/driver_adapters/tweets_kyary/tweets_Kyary_api.dart';
+import 'package:kyari_app/config/go_router/go_router.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
-import 'package:kyari_app/ui/pages/pages.dart';
 import 'package:provider/provider.dart';
 
+//! que mierdas hace esto aqui sacarlo con el paquete  de  flutter_dotenv
 const String apiKey = "AIzaSyAR_UcgIsG3VLzybZSf7bW1fSaAzBs_HqE";
 
 void main() {
-  return runApp(AppState());
+  return runApp(const AppState());
 }
 
 class AppState extends StatelessWidget {
+  const AppState({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DrawerProvider>(create: (_) => DrawerProvider()),
-        ChangeNotifierProvider<TweetsKyaryApi>(create: (_) => TweetsKyaryApi()),
-        ChangeNotifierProvider<NoticiaPropiaApi>(
-            create: (_) => NoticiaPropiaApi()),
+        // ChangeNotifierProvider<TwitterTweetsApi>(
+        //     create: (_) => TwitterTweetsApi()),
+        // ChangeNotifierProvider<NoticiaPropiaApi>(
+        //     create: (_) => NoticiaPropiaApi()),
         ChangeNotifierProvider<ControlListViewProvider>(
             create: (_) => ControlListViewProvider()),
         ChangeNotifierProvider<TraduccionIdiomaProvider>(
@@ -36,12 +38,14 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider<ButtonDrawerProvider>(
             create: (_) => ButtonDrawerProvider()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     );
   }
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GoogleTranslatorInit(
@@ -53,9 +57,10 @@ class MyApp extends StatelessWidget {
 
       // automaticDetection: , In case you don't know the user language will want to traslate,
       // cacheDuration: Duration(days: 13), The duration of the cache translation.
-      builder: () => MaterialApp(
+      builder: () => MaterialApp.router(
+        title: 'Kyari App',
+        routerConfig: appRouter,
         debugShowCheckedModeBanner: false,
-        home: MadreLienzoPage(),
       ),
     );
   }

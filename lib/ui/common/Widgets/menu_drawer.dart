@@ -1,10 +1,10 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kyari_app/ui/common/tokens/tiempo_animations.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:kyari_app/ui/pages/pages.dart';
+import 'package:kyari_app/ui/pages/test_token/test_token.dart';
 import 'package:provider/provider.dart';
 
 class MenuDrawer extends StatelessWidget {
@@ -55,120 +55,6 @@ class MenuDrawer extends StatelessWidget {
                   width: widthDrawer,
                   child: Stack(
                     children: [
-                      Positioned(
-                        left: 30,
-                        top: 30,
-                        child: Consumer<ThemesTrajesProvider>(
-                          builder: (context, themesTrajesProvider, child) {
-                            final colorTheme =
-                                themesTrajesProvider.getThemeTrajeObjeto;
-                            return TweenAnimationBuilder(
-                              duration: const Duration(
-                                  milliseconds: tiempoPrincipalColor),
-                              tween: ColorTween(
-                                begin: colorTheme.principalColor,
-                                end: colorTheme.principalColor,
-                              ),
-                              builder: (context, colorPrincipal, child) =>
-                                  Transform.rotate(
-                                angle: -pi / 1.1,
-                                child: Container(
-                                  width: 110,
-                                  height: 110,
-                                  decoration: BoxDecoration(
-                                    color: Colors.pink,
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        colorPrincipal!,
-                                        colorTheme.secundarioColor,
-                                        // Color.fromRGBO(235, 98, 188, 1),
-                                        // Color.fromRGBO(241, 142, 172, 1),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      Positioned(
-                        left: 65,
-                        bottom: 365,
-                        child: Consumer<ThemesTrajesProvider>(
-                          builder: (context, themesTrajesProvider, child) {
-                            final colorTheme =
-                                themesTrajesProvider.getThemeTrajeObjeto;
-                            return TweenAnimationBuilder(
-                              duration: const Duration(
-                                  milliseconds: tiempoPrincipalColor),
-                              tween: ColorTween(
-                                begin: colorTheme.principalColor,
-                                end: colorTheme.principalColor,
-                              ),
-                              builder: (context, colorPrincipal, child) =>
-                                  Transform.rotate(
-                                angle: -pi / 0.6,
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.pink,
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        colorPrincipal!,
-                                        colorTheme.secundarioColor,
-                                        // Color.fromRGBO(235, 98, 188, 1),
-                                        // Color.fromRGBO(241, 142, 172, 1),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      Positioned(
-                        right: 35,
-                        bottom: 40,
-                        child: Consumer<ThemesTrajesProvider>(
-                          builder: (context, themesTrajesProvider, child) {
-                            final colorTheme =
-                                themesTrajesProvider.getThemeTrajeObjeto;
-                            return TweenAnimationBuilder(
-                              duration: const Duration(
-                                  milliseconds: tiempoPrincipalColor),
-                              tween: ColorTween(
-                                begin: colorTheme.principalColor,
-                                end: colorTheme.principalColor,
-                              ),
-                              builder: (context, colorPrincipal, child) =>
-                                  Transform.rotate(
-                                angle: -pi / 3.0,
-                                child: Container(
-                                  width: 200,
-                                  height: 200,
-                                  decoration: BoxDecoration(
-                                    color: Colors.pink,
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        colorPrincipal!,
-                                        colorTheme.secundarioColor,
-                                        // Color.fromRGBO(235, 98, 188, 1),
-                                        // Color.fromRGBO(241, 142, 172, 1),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
                       ClipRRect(
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
@@ -197,7 +83,11 @@ class MenuDrawer extends StatelessWidget {
                               titulo: 'Configuracion',
                               key: ValueKey(2),
                             ),
-
+                            const _OpcionDeDrawer(
+                              numeroBoton: 3,
+                              titulo: 'Prueba Token',
+                              key: ValueKey(3),
+                            ),
                             Expanded(
                               child: Material(
                                 color: Colors.transparent,
@@ -383,6 +273,15 @@ class _OpcionDeDrawer extends StatelessWidget {
 
                 Provider.of<MadreLienzoProvider>(context, listen: false)
                     .setNombrePagActual = '   Configuracion Pamyu';
+
+                // Navigator.pop(context);
+              }
+              if (numeroBoton == 3) {
+                Provider.of<MadreLienzoProvider>(context, listen: false)
+                    .setPaginaActual = const Example();
+
+                Provider.of<MadreLienzoProvider>(context, listen: false)
+                    .setNombrePagActual = '   Test Token';
 
                 // Navigator.pop(context);
               }

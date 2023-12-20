@@ -37,7 +37,7 @@ class TituloBanner extends StatelessWidget {
                       titulo,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: 30,
                         fontWeight: FontWeight.w300,
                       ),
                     ),

@@ -4,6 +4,9 @@ import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
 class MadreLienzoPage extends StatelessWidget {
+  static const routerName = '/Madre_Lienzo_Page';
+
+  const MadreLienzoPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Consumer<DrawerProvider>(

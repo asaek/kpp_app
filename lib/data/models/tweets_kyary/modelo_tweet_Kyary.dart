@@ -1,11 +1,12 @@
-class TweetKyaryObjeto {
-  TweetKyaryObjeto(
-      {required this.tweetId,
-      this.imagenesTweet,
-      required this.textoTweet,
-      this.imagenesId,
-      this.fechaTweet,
-      this.tweetURL});
+class TweetKyaryObjetoModel {
+  TweetKyaryObjetoModel({
+    required this.tweetId,
+    this.imagenesTweet,
+    required this.textoTweet,
+    this.imagenesId,
+    this.fechaTweet,
+    this.tweetURL,
+  });
 
   String tweetId;
   List<String>? imagenesTweet;

@@ -2,10 +2,10 @@
 //
 //     final noticiaPropia = noticiaPropiaFromMap(jsonString);
 
-import 'dart:convert';
+// import 'dart:convert';
 
-class NoticiaPropiaObjeto {
-  NoticiaPropiaObjeto({
+class NoticiaPropiaObjetoModel {
+  NoticiaPropiaObjetoModel({
     required this.titulo,
     required this.urlImagenes,
     required this.texto,
@@ -22,7 +22,7 @@ class NoticiaPropiaObjeto {
   // factory NoticiaPropia.fromJson(String str) =>
   //     NoticiaPropia.fromMapa(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  // String toJson() => json.encode(toMap());
 
   // factory NoticiaPropia.fromMapa(Map<String, dynamic> json) {
   //   final List<String> urlImagenesTEMPORAL = [];
@@ -42,11 +42,11 @@ class NoticiaPropiaObjeto {
   //   );
   // }
 
-  Map<String, dynamic> toMap() => {
-        "titulo": titulo,
-        "url_imagenes": List<dynamic>.from(urlImagenes!.map((x) => x)),
-        "texto": texto,
-        "fuente": fuente,
-        "idFirebase": idFirebase,
-      };
+  // Map<String, dynamic> toMap() => {
+  //       "titulo": titulo,
+  //       "url_imagenes": List<dynamic>.from(urlImagenes!.map((x) => x)),
+  //       "texto": texto,
+  //       "fuente": fuente,
+  //       "idFirebase": idFirebase,
+  //     };
 }

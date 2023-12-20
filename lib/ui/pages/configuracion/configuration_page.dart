@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:kyari_app/domain/models/models.dart';
+import 'package:kyari_app/data/models/models.dart';
 import 'package:kyari_app/ui/common/atoms/themes_trajes.dart';
 import 'package:kyari_app/ui/common/tokens/tiempo_animations.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
 class ConfiguracionPage extends StatelessWidget {
+  const ConfiguracionPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

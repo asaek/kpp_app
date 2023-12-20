@@ -208,7 +208,7 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
       }),
     );
 
-    final overlay = Overlay.of(context)!;
+    final overlay = Overlay.of(context);
     overlay.insert(entry!);
   }
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:kyari_app/domain/models/models.dart';
+import 'package:kyari_app/data/models/models.dart';
 
 class TwitterSDKKyary with ChangeNotifier {
-  List<TweetKyaryObjeto> _tweetsKyary = [];
-  List<TweetKyaryObjeto>? get getTweetsKyary => _tweetsKyary;
-  set setTweetsKyary(List<TweetKyaryObjeto> dato) {
-    _tweetsKyary = List<TweetKyaryObjeto>.from(dato);
+  List<TweetKyaryObjetoModel> _tweetsKyary = [];
+  List<TweetKyaryObjetoModel>? get getTweetsKyary => _tweetsKyary;
+  set setTweetsKyary(List<TweetKyaryObjetoModel> dato) {
+    _tweetsKyary = List<TweetKyaryObjetoModel>.from(dato);
   }
 
-  agregandoTweetsKyary(List<TweetKyaryObjeto> dato) {
+  agregandoTweetsKyary(List<TweetKyaryObjetoModel> dato) {
     _tweetsKyary.addAll(dato);
     notifyListeners();
   }

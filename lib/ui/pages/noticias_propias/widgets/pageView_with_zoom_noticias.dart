@@ -51,9 +51,10 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
 
   @override
   void dispose() {
+    entry?.remove();
+    // _pageControllerPropio.dispose();
     controllerTransform.dispose();
     animationController.dispose();
-
     super.dispose();
   }
 
