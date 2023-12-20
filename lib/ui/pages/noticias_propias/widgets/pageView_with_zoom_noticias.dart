@@ -43,7 +43,7 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
       );
 
     _pageControllerPropio =
-        Provider.of<NoticiasProvider>(context, listen: false)
+        Provider.of<BlogPropioProvider>(context, listen: false)
             .getPageControllerList[widget.index];
 
     super.initState();
@@ -61,7 +61,7 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Consumer<NoticiasProvider>(
+      child: Consumer<BlogPropioProvider>(
         builder: (context, noticiasProvider, child) => SizedBox(
           width: double.infinity,
           height: alturaImagen,
@@ -104,7 +104,7 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
           scale = details.scale;
           entry!.markNeedsBuild();
         },
-        child: Consumer<NoticiasProvider>(
+        child: Consumer<BlogPropioProvider>(
           builder: (context, noticiasProvider, child) => Listener(
             onPointerDown: (event) {
               events.add(event);
@@ -173,8 +173,8 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
         );
       }),
     );
-
-    final overlay = Overlay.of(context)!;
+    // Aqui iba un ! al final
+    final overlay = Overlay.of(context);
     overlay.insert(entry!);
   }
 

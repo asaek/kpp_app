@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kyari_app/data/models/models.dart';
 
-class NoticiasProvider with ChangeNotifier {
+class BlogPropioProvider with ChangeNotifier {
   List<NoticiaPropiaObjetoModel> _noticiasCargadas = [];
   List<NoticiaPropiaObjetoModel> get getNoticiasCargadas => _noticiasCargadas;
   set setNoticiasCargadas(List<NoticiaPropiaObjetoModel> dato) {

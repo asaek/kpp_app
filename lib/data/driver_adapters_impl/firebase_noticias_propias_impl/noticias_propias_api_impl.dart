@@ -25,5 +25,3 @@ class NoticiaPropiaApi implements FirebaseNoticias {
     throw Exception('No fue posible conectar a la URL');
   }
 }
-
-// ! No se si sirva revisar XD

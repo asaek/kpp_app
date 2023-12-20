@@ -6,12 +6,14 @@ import 'package:kyari_app/ui/common/tokens/tiempo_animations.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
-class Boton_menu extends StatefulWidget {
+class BotonMenu extends StatefulWidget {
+  const BotonMenu({super.key});
+
   @override
-  State<Boton_menu> createState() => _Boton_menuState();
+  State<BotonMenu> createState() => _BotonMenuState();
 }
 
-class _Boton_menuState extends State<Boton_menu>
+class _BotonMenuState extends State<BotonMenu>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 

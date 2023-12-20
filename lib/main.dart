@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_translator/google_translator.dart';
 import 'package:kyari_app/config/go_router/go_router.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
-//! que mierdas hace esto aqui sacarlo con el paquete  de  flutter_dotenv
-const String apiKey = "AIzaSyAR_UcgIsG3VLzybZSf7bW1fSaAzBs_HqE";
+Future<void> main() async {
+  await dotenv.load(
+    fileName: ".env",
+  );
 
-void main() {
   return runApp(const AppState());
 }
 
@@ -33,8 +35,8 @@ class AppState extends StatelessWidget {
             create: (_) => TwitterSDKKyary()),
         ChangeNotifierProvider<MadreLienzoProvider>(
             create: (_) => MadreLienzoProvider()),
-        ChangeNotifierProvider<NoticiasProvider>(
-            create: (_) => NoticiasProvider()),
+        ChangeNotifierProvider<BlogPropioProvider>(
+            create: (_) => BlogPropioProvider()),
         ChangeNotifierProvider<ButtonDrawerProvider>(
             create: (_) => ButtonDrawerProvider()),
       ],
@@ -45,11 +47,11 @@ class AppState extends StatelessWidget {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  static final String googleTranslate = dotenv.env['API_KEY_GOOGLE_TRANSLATE']!;
   @override
   Widget build(BuildContext context) {
     return GoogleTranslatorInit(
-      apiKey,
+      googleTranslate,
       translateFrom: const Locale('ja'),
       translateTo: const Locale('es'),
       automaticDetection: true,

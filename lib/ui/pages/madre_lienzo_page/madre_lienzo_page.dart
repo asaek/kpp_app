@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
+
+import 'widgets/widgets.dart';
 
 class MadreLienzoPage extends StatelessWidget {
   static const routerName = '/Madre_Lienzo_Page';
@@ -11,8 +12,8 @@ class MadreLienzoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DrawerProvider>(
       builder: (context, drawerProvider, child) => Scaffold(
-        endDrawer: MenuDrawer(),
-        floatingActionButton: Boton_menu(),
+        endDrawer: const MenuDrawer(),
+        floatingActionButton: const BotonMenu(),
         drawerScrimColor: Colors.transparent,
         onEndDrawerChanged: (isOpened) {
           drawerProvider.setIsOpenDrawer = isOpened;

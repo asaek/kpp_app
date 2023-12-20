@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../pages/pages.dart';
+
 class MadreLienzoProvider with ChangeNotifier {
-  Widget _paginaActual = BlogNoticiasPage();
+  Widget _paginaActual = const BlogNoticiasPage();
   Widget get getPaginaActual => _paginaActual;
   set setPaginaActual(Widget dato) {
     _paginaActual = dato;

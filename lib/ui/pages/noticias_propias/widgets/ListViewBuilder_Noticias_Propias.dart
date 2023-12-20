@@ -43,7 +43,6 @@ class _ListViewBuilderNoticiasPropiasState
     _scrollController.removeListener(() {});
     _scrollController.dispose();
 
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -93,7 +92,7 @@ class _ListViewBuilderNoticiasPropiasState
 
     return Stack(
       children: [
-        Consumer<NoticiasProvider>(
+        Consumer<BlogPropioProvider>(
           builder: (context, noticiasProvider, child) => RefreshIndicator(
             onRefresh: refrescarBlog,
             color: Provider.of<ThemesTrajesProvider>(context, listen: true)
@@ -108,8 +107,6 @@ class _ListViewBuilderNoticiasPropiasState
                   ? const BouncingScrollPhysics()
                   : const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                final edgesTarjeta = BorderRadius.circular(10);
-
                 return Padding(
                   padding:
                       const EdgeInsets.only(bottom: 15, left: 10, right: 10),
