@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 
+class NoticiasPropiasProvider with ChangeNotifier {}
 
-
-// ! Aquui debe de ir el provider que maneje la conexion con el driver_adapter
-// ! @param NoticiaPropiaApi y se tiene que agregar la injeccion de dependecias 
+// ! Estoy viendo lo de la implementacion de Provider
+// ! y ver como se usan la inyeccion de depedencias eso se lo pregunte a 
+// ! chatGPT

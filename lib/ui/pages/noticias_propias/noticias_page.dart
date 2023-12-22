@@ -20,10 +20,6 @@ import '../../../data/driver_adapters_impl/firebase_noticias_propias_impl/notici
 //   }
 // }
 
-// ! tengo que crear un provider para que maneje la conexion con el repositorie
-// ! y que tambien tenga injeccion de dependencias
-
-// * Lo que esta sucediendo es que el provider es la implementacion del
 class BlogNoticiasPage extends StatelessWidget {
   const BlogNoticiasPage({super.key});
 
