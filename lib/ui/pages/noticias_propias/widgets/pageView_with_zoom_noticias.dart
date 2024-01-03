@@ -43,7 +43,7 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
       );
 
     _pageControllerPropio =
-        Provider.of<BlogPropioProvider>(context, listen: false)
+        Provider.of<NoticiasPropiasProvider>(context, listen: false)
             .getPageControllerList[widget.index];
 
     super.initState();
@@ -61,13 +61,13 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Consumer<BlogPropioProvider>(
+      child: Consumer<NoticiasPropiasProvider>(
         builder: (context, noticiasProvider, child) => SizedBox(
           width: double.infinity,
           height: alturaImagen,
           child: PageView.builder(
             itemCount: noticiasProvider
-                .getNoticiasCargadas[widget.index].urlImagenes!.length,
+                .getNoticiasCargadas![widget.index].urlImagenes!.length,
             scrollDirection: Axis.horizontal,
             controller: _pageControllerPropio,
             physics: const NeverScrollableScrollPhysics(),
@@ -104,7 +104,7 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
           scale = details.scale;
           entry!.markNeedsBuild();
         },
-        child: Consumer<BlogPropioProvider>(
+        child: Consumer<NoticiasPropiasProvider>(
           builder: (context, noticiasProvider, child) => Listener(
             onPointerDown: (event) {
               events.add(event);
@@ -131,7 +131,7 @@ class _PageViewZOOMNoticiasState extends State<PageViewZOOMNoticias>
                       const AssetImage('assets/loadings/kyaryLoading_1.gif'),
                   image: NetworkImage(
                     noticiasProvider
-                            .getNoticiasCargadas[widget.index].urlImagenes![
+                            .getNoticiasCargadas![widget.index].urlImagenes![
                         noticiasProvider.getSlotPageView[widget.index]],
                   ),
                 ),

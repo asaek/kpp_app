@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/driver_adapters_impl/firebase_noticias_propias_impl/noticias_propias_api_impl.dart';
+import '../../helpers/helpers.dart';
+import 'widgets/widgets_noticias_page.dart';
 
 // class BlogNoticiasPage extends StatelessWidget {
 //   const BlogNoticiasPage({super.key});
@@ -26,18 +27,17 @@ class BlogNoticiasPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Provider.of<NoticiaPropiaApi>(context, listen: false)
+        future: Provider.of<NoticiasPropiasProvider>(context, listen: false)
             .getAllNoticias(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final noticiasProvider =
-                Provider.of<NoticiasProvider>(context, listen: false);
-            noticiasProvider.setNoticiasCargadas = snapshot.data!;
+            // Provider.of<NoticiasPropiasProvider>(context, listen: false).setCatidadSlotsPageViewList =
+            //     snapshot.data!.length;
 
-            noticiasProvider.setCatidadSlotsPageViewList =
-                snapshot.data!.length;
-
-            noticiasProvider.setPageControllerList = snapshot.data!.length;
+            Provider.of<NoticiasPropiasProvider>(context, listen: false)
+                .setPageControllerList = snapshot.data!.length;
+            Provider.of<NoticiasPropiasProvider>(context, listen: false)
+                .setCatidadSlotsPageViewList = snapshot.data!.length;
           }
 
           return AnimatedSwitcher(

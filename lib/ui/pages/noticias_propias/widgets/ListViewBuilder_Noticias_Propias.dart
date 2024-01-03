@@ -25,13 +25,13 @@ class _ListViewBuilderNoticiasPropiasState
       print('Pixeles:  ${_scrollController.position.pixels} ');
 
       // Para cargar mas elementos
-      // if (_scrollController.position.pixels + 200 >=
-      //     _scrollController.position.maxScrollExtent) {
-      //   cargandoDatosBlog();
-      // } else {
-      //   Provider.of<ControlListViewProvider>(context, listen: false)
-      //       .setLoadingMoreTweets = false;
-      // }
+      if (_scrollController.position.pixels + 200 >=
+          _scrollController.position.maxScrollExtent) {
+        cargandoDatosBlog();
+      } else {
+        Provider.of<ControlListViewProvider>(context, listen: false)
+            .setLoadingMoreTweets = false;
+      }
 
       print(_scrollController.position.pixels);
     });
@@ -46,41 +46,41 @@ class _ListViewBuilderNoticiasPropiasState
     super.dispose();
   }
 
-  // Future cargandoDatosBlog() async {
-  //   bool isLoading =
-  //       Provider.of<ControlListViewProvider>(context, listen: false)
-  //           .getLoadingMoreTweets;
+  Future cargandoDatosBlog() async {
+    bool isLoading =
+        Provider.of<ControlListViewProvider>(context, listen: false)
+            .getLoadingMoreTweets;
 
-  //   if (isLoading) return;
-  //   Provider.of<ControlListViewProvider>(context, listen: false)
-  //       .setLoadingMoreTweets = true;
+    if (isLoading) return;
+    Provider.of<ControlListViewProvider>(context, listen: false)
+        .setLoadingMoreTweets = true;
 
-  //   await Future.delayed(const Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 800));
 
-  //   if (_scrollController.position.pixels + 100 <=
-  //       _scrollController.position.maxScrollExtent) return;
+    if (_scrollController.position.pixels + 100 <=
+        _scrollController.position.maxScrollExtent) return;
 
-  //   _scrollController.animateTo(
-  //     _scrollController.position.pixels + 200,
-  //     duration: const Duration(milliseconds: 300),
-  //     curve: Curves.fastOutSlowIn,
-  //   );
+    _scrollController.animateTo(
+      _scrollController.position.pixels + 200,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.fastOutSlowIn,
+    );
 
-  //   // final themeNow = Provider.of<ThemesTrajesProvider>(context, listen: false)
-  //   //     .getThemeTrajeObjeto;
+    // final themeNow = Provider.of<ThemesTrajesProvider>(context, listen: false)
+    //     .getThemeTrajeObjeto;
 
-  //   // Fluttertoast.showToast(
-  //   //   msg: 'Maximo 100 Tweets Por ahora',
-  //   //   toastLength: Toast.LENGTH_SHORT,
-  //   //   timeInSecForIosWeb: 1,
-  //   //   backgroundColor: themeNow.secundarioColor,
-  //   //   textColor: themeNow.textColor,
-  //   //   fontSize: 22.0,
-  //   // );
+    // Fluttertoast.showToast(
+    //   msg: 'Maximo 100 Tweets Por ahora',
+    //   toastLength: Toast.LENGTH_SHORT,
+    //   timeInSecForIosWeb: 1,
+    //   backgroundColor: themeNow.secundarioColor,
+    //   textColor: themeNow.textColor,
+    //   fontSize: 22.0,
+    // );
 
-  //   Provider.of<ControlListViewProvider>(context, listen: false)
-  //       .setLoadingMoreTweets = false;
-  // }
+    Provider.of<ControlListViewProvider>(context, listen: false)
+        .setLoadingMoreTweets = false;
+  }
 
   Future refrescarBlog() async {
     await Future.delayed(const Duration(milliseconds: 1500));
@@ -92,7 +92,7 @@ class _ListViewBuilderNoticiasPropiasState
 
     return Stack(
       children: [
-        Consumer<BlogPropioProvider>(
+        Consumer<NoticiasPropiasProvider>(
           builder: (context, noticiasProvider, child) => RefreshIndicator(
             onRefresh: refrescarBlog,
             color: Provider.of<ThemesTrajesProvider>(context, listen: true)
@@ -101,7 +101,7 @@ class _ListViewBuilderNoticiasPropiasState
             displacement: 100,
             child: ListView.builder(
               controller: _scrollController,
-              itemCount: noticiasProvider.getNoticiasCargadas.length,
+              itemCount: noticiasProvider.getNoticiasCargadas!.length,
               scrollDirection: Axis.vertical,
               physics: (noticiasProvider.getListViewSeMueve)
                   ? const BouncingScrollPhysics()
@@ -185,6 +185,7 @@ class _ListViewBuilderNoticiasPropiasState
                                                 final listaControllers =
                                                     noticiasProvider
                                                         .getPageControllerList;
+
                                                 // print(
                                                 //     'Pagina actual del controller $index --- ${listaControllers[index].page}');
 
@@ -238,7 +239,7 @@ class _ListViewBuilderNoticiasPropiasState
                                 const SizedBox(height: 8),
                                 Text(
                                   noticiasProvider
-                                      .getNoticiasCargadas[index].titulo,
+                                      .getNoticiasCargadas![index].titulo,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     color: Color.fromARGB(255, 90, 90, 90),
@@ -259,12 +260,12 @@ class _ListViewBuilderNoticiasPropiasState
                                       child: (activadaTraduccion)
                                           ? TextNoticiaTraducidad(
                                               text: noticiasProvider
-                                                  .getNoticiasCargadas[index]
+                                                  .getNoticiasCargadas![index]
                                                   .texto,
                                             )
                                           : TextNoticia(
                                               text: noticiasProvider
-                                                  .getNoticiasCargadas[index]
+                                                  .getNoticiasCargadas![index]
                                                   .texto,
                                             ),
                                     );
@@ -279,7 +280,7 @@ class _ListViewBuilderNoticiasPropiasState
                                       child: Text(
                                         URLhost(
                                           urlString: noticiasProvider
-                                              .getNoticiasCargadas[index]
+                                              .getNoticiasCargadas![index]
                                               .fuente,
                                         ),
                                         style: const TextStyle(
@@ -290,7 +291,7 @@ class _ListViewBuilderNoticiasPropiasState
                                       ),
                                       onTap: () => URLauncher(
                                           urlString: noticiasProvider
-                                              .getNoticiasCargadas[index]
+                                              .getNoticiasCargadas![index]
                                               .fuente),
                                     ),
                                   ),

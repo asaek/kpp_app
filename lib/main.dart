@@ -5,6 +5,9 @@ import 'package:kyari_app/config/go_router/go_router.dart';
 import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
+import 'data/driver_adapters_impl/firebase_noticias_propias_impl/noticias_propias_api_impl.dart';
+import 'data/repositories/firebase_noticias_repo_impl/firebase_noticias_repo_impl.dart';
+
 Future<void> main() async {
   await dotenv.load(
     fileName: ".env",
@@ -20,11 +23,16 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider<FirebaseNoticiasRepoImpl>(create: (_) {
+          return FirebaseNoticiasRepoImpl(NoticiaPropiaApi());
+        }),
+
+        ChangeNotifierProvider<NoticiasPropiasProvider>(
+          create: (context) =>
+              NoticiasPropiasProvider(context.read<FirebaseNoticiasRepoImpl>()),
+        ),
+
         ChangeNotifierProvider<DrawerProvider>(create: (_) => DrawerProvider()),
-        // ChangeNotifierProvider<TwitterTweetsApi>(
-        //     create: (_) => TwitterTweetsApi()),
-        // ChangeNotifierProvider<NoticiaPropiaApi>(
-        //     create: (_) => NoticiaPropiaApi()),
         ChangeNotifierProvider<ControlListViewProvider>(
             create: (_) => ControlListViewProvider()),
         ChangeNotifierProvider<TraduccionIdiomaProvider>(
@@ -35,8 +43,8 @@ class AppState extends StatelessWidget {
             create: (_) => TwitterSDKKyary()),
         ChangeNotifierProvider<MadreLienzoProvider>(
             create: (_) => MadreLienzoProvider()),
-        ChangeNotifierProvider<BlogPropioProvider>(
-            create: (_) => BlogPropioProvider()),
+        // ChangeNotifierProvider<BlogPropioProvider>(
+        //     create: (_) => BlogPropioProvider()),
         ChangeNotifierProvider<ButtonDrawerProvider>(
             create: (_) => ButtonDrawerProvider()),
       ],
