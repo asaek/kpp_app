@@ -40,16 +40,6 @@ class MadreLienzoPage extends StatelessWidget {
             ],
           ),
         ),
-        // body: (madreLienzoProvider.getPaginaSeleccionada == 0)
-        //     ? Stack(
-        //         children: [
-        //           BlogNoticiasPage(),
-        //           const TituloBanner(
-        //             titulo: '   Blog Noticias',
-        //           ),
-        //         ],
-        //       )
-        //     : const TwitterPage(),
       ),
     );
   }

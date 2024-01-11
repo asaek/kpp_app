@@ -47,3 +47,8 @@ class NoticiasPropiasProvider with ChangeNotifier {
     return getNoticiasCargadas!;
   }
 }
+
+
+// ! Se termino la clean arqchitecture con pprovider
+// ! se tiene que revisar el tema de los controladores de las paginas
+// ! y revisar comok se controla el ListView

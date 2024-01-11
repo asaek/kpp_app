@@ -14,7 +14,7 @@ class NoticiaPropiaApi implements FirebaseNoticias {
   Future<List<NoticiaPropiaEntitie>> getAllNoticias() async {
     final url = Uri.https(_baseURL, 'noticiasPropias.json');
     final resp = await http.get(url);
-
+    //! nesecito usar una mejor seguridad para el manejo de errores
     if (resp.statusCode == 200) {
       final Map<String, dynamic> jsonRaw = json.decode(resp.body);
       final List<NoticiaPropiaEntitie> noticias =
