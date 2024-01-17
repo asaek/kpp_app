@@ -48,32 +48,9 @@ class _ListViewBuilderNoticiasPropiasState
   }
 
   //! Esto se tiene que sacar de aqui XD
-  Future cargandoTweets() async {
-    bool isLoading =
-        Provider.of<ControlListViewProvider>(context, listen: false)
-            .getLoadingMoreTweets;
-
-    if (isLoading) return;
-    Provider.of<ControlListViewProvider>(context, listen: false)
-        .setLoadingMoreTweets = true;
-
-    await Future.delayed(const Duration(milliseconds: 800));
-
-    if (_scrollController.position.pixels + 100 <=
-        _scrollController.position.maxScrollExtent) return;
-
-    _scrollController.animateTo(
-      _scrollController.position.pixels + 200,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.fastOutSlowIn,
-    );
-
-    Provider.of<ControlListViewProvider>(context, listen: false)
-        .setLoadingMoreTweets = false;
-  }
 
   //! Esto se tiene que sacar de aqui x2 XD
-  Future refrescarBlog() async {
+  Future refrescarNoticiasPropias() async {
     await Future.delayed(const Duration(milliseconds: 1500));
   }
 
@@ -88,7 +65,7 @@ class _ListViewBuilderNoticiasPropiasState
     return [
       Consumer<NoticiasPropiasProvider>(
         builder: (context, noticiasProvider, child) => RefreshIndicator(
-          onRefresh: refrescarBlog,
+          onRefresh: refrescarNoticiasPropias,
           color: Provider.of<ThemesTrajesProvider>(context, listen: true)
               .getThemeTrajeObjeto
               .secundarioColor,
