@@ -9,9 +9,6 @@ class MadreLienzoPageProviders extends ChangeNotifier {
     final ThemeTrajeObjeto trajeSiguiente =
         seleccionarTrajeAlAzar(trajes: themesTraje);
 
-    //!  ya solamente se tiene que sacar esto como dijo chatGPT
-    //! El llamado del toast va en el provider
-
     mostrarToast(
       mensaje: trajeSiguiente.nombreTraje,
       backgroundColor: trajeSiguiente.principalColor,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kyari_app/ui/common/common_widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../common/common_widgets.dart';
 import '../../helpers/helpers.dart';
 import 'widgets/widgets_noticias_page.dart';
 
@@ -30,7 +30,17 @@ class BlogNoticiasPage extends StatelessWidget {
           ),
           child: (snapshot.hasData)
               ? const ListViewBuilderNoticiasPropias()
+              // ? Container(
+              //     color: Colors.green,
+              //     width: 200,
+              //     height: 200,
+              //   )
               : const LoadingGIF2(),
+          // : Container(
+          //     color: Colors.red,
+          //     width: 200,
+          //     height: 200,
+          //   ),
         );
       },
     );

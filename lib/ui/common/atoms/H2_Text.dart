@@ -41,7 +41,10 @@ class H1 extends StatelessWidget {
 
 class H2 extends StatelessWidget {
   final String text;
-  const H2({Key? key, required this.text}) : super(key: key);
+  const H2({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return OurText(text: text, colorText: Colors.black, fontSize: H2_SIZE);
@@ -49,16 +52,23 @@ class H2 extends StatelessWidget {
 }
 
 class TextNoticia extends StatelessWidget {
+  final Color colorText;
   final String text;
-  const TextNoticia({Key? key, required this.text}) : super(key: key);
+  const TextNoticia({
+    Key? key,
+    required this.text,
+    required this.colorText,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       textAlign: TextAlign.center,
-      style: const TextStyle(
-        color: Colors.black,
-        fontSize: 22,
+      maxLines: 4,
+      style: TextStyle(
+        color: colorText,
+        fontSize: 15,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
@@ -66,15 +76,21 @@ class TextNoticia extends StatelessWidget {
 
 class TextNoticiaTraducidad extends StatelessWidget {
   final String text;
-  const TextNoticiaTraducidad({Key? key, required this.text}) : super(key: key);
+  final Color colorText;
+
+  const TextNoticiaTraducidad(
+      {Key? key, required this.text, required this.colorText})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       textAlign: TextAlign.center,
-      style: const TextStyle(
-        color: Colors.black,
+      maxLines: 4,
+      style: TextStyle(
+        color: colorText,
         fontSize: 22,
+        overflow: TextOverflow.ellipsis,
       ),
     ).translate();
   }

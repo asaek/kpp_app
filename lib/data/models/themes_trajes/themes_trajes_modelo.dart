@@ -6,7 +6,7 @@ class ThemeTrajeObjeto {
       required this.secundarioColor,
       this.terceroColor,
       this.titleColor,
-      this.textColor,
+      required this.textColor,
       required this.nombreTraje,
       this.titleStyle,
       this.textStyle});
@@ -15,7 +15,7 @@ class ThemeTrajeObjeto {
   Color secundarioColor;
   Color? terceroColor;
   Color? titleColor;
-  Color? textColor;
+  Color textColor;
   String nombreTraje;
   TextStyle? titleStyle;
   TextStyle? textStyle;

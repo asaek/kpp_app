@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import 'data/driver_adapters_impl/firebase_noticias_propias_impl/noticias_propias_api_impl.dart';
 import 'data/repositories/firebase_noticias_repo_impl/firebase_noticias_repo_impl.dart';
+import 'ui/helpers/commons_providers/commons_providers.dart';
 import 'ui/helpers/madre_lienzo_page/madre_lienzo_page.dart';
 
 Future<void> main() async {

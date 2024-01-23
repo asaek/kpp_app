@@ -25,8 +25,8 @@ class MadreLienzoProvider with ChangeNotifier {
   }
 
   // no se esta usando solo es referencia
-  List<String> paginasList = [
-    '   Blog Noticias',
-    '   Tweets',
-  ];
+  // List<String> paginasList = [
+  //   '   Blog Noticias',
+  //   '   Tweets',
+  // ];
 }

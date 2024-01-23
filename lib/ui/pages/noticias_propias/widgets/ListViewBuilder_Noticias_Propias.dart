@@ -7,6 +7,10 @@ import 'package:kyari_app/ui/helpers/url_launcher.dart';
 import 'package:kyari_app/ui/pages/noticias_propias/widgets/widgets_noticias_page.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../domain/entities/entities.dart';
+import '../../../common/atoms/border_radius.dart';
+import '../../../helpers/commons_providers/commons_providers.dart';
+
 class ListViewBuilderNoticiasPropias extends StatefulWidget {
   const ListViewBuilderNoticiasPropias({super.key});
 
@@ -22,8 +26,8 @@ class _ListViewBuilderNoticiasPropiasState
   @override
   void initState() {
     _scrollController.addListener(() {
-      print('maxScrollExtend:  ${_scrollController.position.maxScrollExtent} ');
-      print('Pixeles:  ${_scrollController.position.pixels} ');
+      // print('maxScrollExtend:  ${_scrollController.position.maxScrollExtent} ');
+      // print('Pixeles:  ${_scrollController.position.pixels} ');
 
       // Para cargar mas elementos
       if (_scrollController.position.pixels + 200 >=
@@ -34,7 +38,7 @@ class _ListViewBuilderNoticiasPropiasState
             .setLoadingMoreTweets = false;
       }
 
-      print(_scrollController.position.pixels);
+      // print(_scrollController.position.pixels);
     });
     super.initState();
   }
@@ -46,8 +50,6 @@ class _ListViewBuilderNoticiasPropiasState
 
     super.dispose();
   }
-
-  //! Esto se tiene que sacar de aqui XD
 
   //! Esto se tiene que sacar de aqui x2 XD
   Future refrescarNoticiasPropias() async {
@@ -71,6 +73,7 @@ class _ListViewBuilderNoticiasPropiasState
               .secundarioColor,
           displacement: 100,
           child: ListView.builder(
+            padding: EdgeInsets.zero,
             controller: _scrollController,
             itemCount: noticiasProvider.getNoticiasCargadas!.length,
             scrollDirection: Axis.vertical,
@@ -83,7 +86,7 @@ class _ListViewBuilderNoticiasPropiasState
                 child: Column(
                   children: [
                     (index == 0)
-                        ? const SizedBox(height: 60)
+                        ? const SizedBox(height: 12)
                         : const SizedBox(),
                     Consumer<ThemesTrajesProvider>(
                       builder: (context, themesTrajesProvider, child) {
@@ -92,12 +95,14 @@ class _ListViewBuilderNoticiasPropiasState
 
                         return TweenAnimationBuilder(
                           duration: const Duration(
-                              milliseconds: tiempoSecundarioColor),
+                            milliseconds: tiempoSecundarioColor,
+                          ),
                           tween: ColorTween(
                             begin: colorTheme.secundarioColor,
                             end: colorTheme.secundarioColor,
                           ),
-                          builder: (context, colorSecundario, child) => Column(
+                          builder: (context, colorSecundario, child) => Stack(
+                            alignment: AlignmentDirectional.bottomCenter,
                             children: [
                               ImagenesNoticia(
                                 colorTheme: colorTheme,
@@ -106,17 +111,9 @@ class _ListViewBuilderNoticiasPropiasState
                                     noticiasProvider.getPageControllerList,
                               ),
                               const SizedBox(height: 8),
-                              TituloNoticia(
-                                titulo: noticiasProvider
-                                    .getNoticiasCargadas![index].titulo,
-                              ),
-                              ContenidoTraduccionNoticia(
-                                texto: noticiasProvider
-                                    .getNoticiasCargadas![index].texto,
-                              ),
-                              FuenteNoticia(
-                                fuente: noticiasProvider
-                                    .getNoticiasCargadas![index].fuente,
+                              ContenedorNoticia(
+                                noticia: noticiasProvider
+                                    .getNoticiasCargadas![index],
                               ),
                             ],
                           ),
@@ -134,6 +131,57 @@ class _ListViewBuilderNoticiasPropiasState
           .getLoadingMoreTweets)
         const CicrulaProgresIndicator(),
     ];
+  }
+}
+
+class ContenedorNoticia extends StatelessWidget {
+  final NoticiaPropiaEntitie noticia;
+
+  const ContenedorNoticia({
+    super.key,
+    required this.noticia,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeTrajeObjeto trajeSeleccionado =
+        Provider.of<ThemesTrajesProvider>(context, listen: false)
+            .getThemeTrajeObjeto;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
+      child: SizedBox(
+        height: 150,
+        width: double.infinity,
+        child: ClipRRect(
+          borderRadius: borderRadiusCuadroTextoNoticia,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: tiempoSecundarioColor),
+            color: Provider.of<ThemesTrajesProvider>(context, listen: true)
+                .getThemeTrajeObjeto
+                .terceroColor!
+                .withOpacity(0.7),
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                TituloNoticia(
+                  titulo: noticia.titulo,
+                  colorText: trajeSeleccionado.textColor,
+                ),
+                ContenidoTraduccionNoticia(
+                  texto: noticia.texto,
+                  colorText: trajeSeleccionado.textColor,
+                ),
+                // FuenteNoticia(
+                //   fuente: noticiasProvider
+                //       .getNoticiasCargadas![index].fuente,
+                // ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -188,9 +236,11 @@ class ImagenesNoticia extends StatelessWidget {
 
 class TituloNoticia extends StatelessWidget {
   final String titulo;
+  final Color colorText;
   const TituloNoticia({
     super.key,
     required this.titulo,
+    required this.colorText,
   });
 
   @override
@@ -198,19 +248,22 @@ class TituloNoticia extends StatelessWidget {
     return Text(
       titulo,
       textAlign: TextAlign.center,
-      style: const TextStyle(
-        color: Color.fromARGB(255, 90, 90, 90),
-        fontSize: 30,
+      style: TextStyle(
+        color: colorText,
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
       ),
     );
   }
 }
 
 class ContenidoTraduccionNoticia extends StatelessWidget {
+  final Color colorText;
   final String texto;
   const ContenidoTraduccionNoticia({
     super.key,
     required this.texto,
+    required this.colorText,
   });
 
   @override
@@ -227,9 +280,11 @@ class ContenidoTraduccionNoticia extends StatelessWidget {
           child: (activadaTraduccion)
               ? TextNoticiaTraducidad(
                   text: texto,
+                  colorText: colorText,
                 )
               : TextNoticia(
                   text: texto,
+                  colorText: colorText,
                 ),
         );
       },
