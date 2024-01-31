@@ -10,7 +10,7 @@ class MadreLienzoProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  String _nombrePagActual = '   Blog Noticias';
+  String _nombrePagActual = 'Blog Noticias';
   String get getNOmbrePagActual => _nombrePagActual;
   set setNombrePagActual(String dato) {
     _nombrePagActual = dato;

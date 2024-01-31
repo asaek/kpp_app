@@ -6,7 +6,9 @@ import 'package:kyari_app/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
 import 'data/driver_adapters_impl/firebase_noticias_propias_impl/noticias_propias_api_impl.dart';
+import 'data/driver_adapters_impl/tweets_kyary/tweets_Kyary_api.dart';
 import 'data/repositories/firebase_noticias_repo_impl/firebase_noticias_repo_impl.dart';
+import 'data/repositories/tweets_kyary_repo_impl/tweets_kyary_repo_impl.dart';
 import 'ui/helpers/commons_providers/commons_providers.dart';
 import 'ui/helpers/madre_lienzo_page/madre_lienzo_page.dart';
 
@@ -27,13 +29,26 @@ class AppState extends StatelessWidget {
       providers: [
         //! Inyeccion de dependencias
         Provider<FirebaseNoticiasRepoImpl>(create: (_) {
-          return FirebaseNoticiasRepoImpl(NoticiaPropiaApi());
+          return FirebaseNoticiasRepoImpl(NoticiaPropiaDriverAdapterImpl());
         }),
 
         //! Este Provider depende de la injeccion de FirebaseNoticiasRepoImpl para obtener la instancia del repo
         ChangeNotifierProvider<NoticiasPropiasProvider>(
           create: (context) =>
               NoticiasPropiasProvider(context.read<FirebaseNoticiasRepoImpl>()),
+        ),
+
+        // //! Inyeccion de dependencias
+        Provider<TweetsKyaryRepoImpl>(
+          create: (context) {
+            return TweetsKyaryRepoImpl(TwitterTweetsDriverAdapterImpl());
+          },
+        ),
+
+        // //! Este Provider depende de la injeccion de FirebaseNoticiasRepoImpl para obtener la instancia del repo
+        ChangeNotifierProvider<TwitterKyaryProvider>(
+          create: (context) =>
+              TwitterKyaryProvider(context.read<TweetsKyaryRepoImpl>()),
         ),
 
         ChangeNotifierProvider<MadreLienzoPageProviders>(
@@ -47,8 +62,7 @@ class AppState extends StatelessWidget {
             create: (_) => TraduccionIdiomaProvider()),
         ChangeNotifierProvider<ThemesTrajesProvider>(
             create: (_) => ThemesTrajesProvider()),
-        ChangeNotifierProvider<TwitterSDKKyary>(
-            create: (_) => TwitterSDKKyary()),
+
         ChangeNotifierProvider<MadreLienzoProvider>(
             create: (_) => MadreLienzoProvider()),
         // ChangeNotifierProvider<BlogPropioProvider>(

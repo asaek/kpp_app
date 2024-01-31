@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/repositories/firebase_noticias_repo_impl/firebase_noticias_repo_impl.dart';
-import '../../../domain/entities/entities.dart';
+import '../../../../data/repositories/firebase_noticias_repo_impl/firebase_noticias_repo_impl.dart';
+import '../../../../domain/entities/entities.dart';
 
 // typedef NoticiasStateCallback = Future<NoticiaPropiaEntitie> Function();
 
@@ -42,13 +42,8 @@ class NoticiasPropiasProvider with ChangeNotifier {
 
   Future<List<NoticiaPropiaEntitie>> getAllNoticias() async {
     final List<NoticiaPropiaEntitie> noticias =
-        await _firebaseNoticiasRepoImpl.getAllNoticias();
+        await _firebaseNoticiasRepoImpl.getNoticiasPropias();
     setNoticiasCargadas = noticias;
     return getNoticiasCargadas!;
   }
 }
-
-
-// ! Se termino la clean arqchitecture con pprovider
-// ! se tiene que revisar el tema de los controladores de las paginas
-// ! y revisar comok se controla el ListView

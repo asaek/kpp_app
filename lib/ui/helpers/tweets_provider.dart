@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:kyari_app/data/models/models.dart';
+import 'package:kyari_app/data/repositories/tweets_kyary_repo_impl/tweets_kyary_repo_impl.dart';
+import 'package:kyari_app/domain/entities/tweet_entitie/tweet_entitie.dart';
 
-class TwitterSDKKyary with ChangeNotifier {
-  List<TweetKyaryObjetoModel> _tweetsKyary = [];
-  List<TweetKyaryObjetoModel>? get getTweetsKyary => _tweetsKyary;
-  set setTweetsKyary(List<TweetKyaryObjetoModel> dato) {
-    _tweetsKyary = List<TweetKyaryObjetoModel>.from(dato);
+class TwitterKyaryProvider with ChangeNotifier {
+  final TweetsKyaryRepoImpl _tweetsKyaryRepoImpl;
+  TwitterKyaryProvider(this._tweetsKyaryRepoImpl);
+
+  List<TweetKyaryEntitie> _tweetsKyary = [];
+  List<TweetKyaryEntitie>? get getTweetsKyary => _tweetsKyary;
+  set setTweetsKyary(List<TweetKyaryEntitie> dato) {
+    _tweetsKyary = List<TweetKyaryEntitie>.from(dato);
   }
 
-  agregandoTweetsKyary(List<TweetKyaryObjetoModel> dato) {
+  agregandoTweetsKyary(List<TweetKyaryEntitie> dato) {
     _tweetsKyary.addAll(dato);
     notifyListeners();
   }
@@ -37,4 +41,13 @@ class TwitterSDKKyary with ChangeNotifier {
   set setCantidadSlotsPageView(int listaSlots) {
     _slotPageViewList = List.generate(listaSlots, (index) => 0);
   }
+
+  Future<List<TweetKyaryEntitie>> getAllTweetsKyary() async {
+    final List<TweetKyaryEntitie> tweets =
+        await _tweetsKyaryRepoImpl.getTweetsKyary();
+    setTweetsKyary = tweets;
+    return tweets;
+  }
 }
+
+// ! ver como consumir la API de twitter no me deja conectarme a ella

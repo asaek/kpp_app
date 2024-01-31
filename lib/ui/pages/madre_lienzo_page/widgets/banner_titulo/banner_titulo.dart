@@ -37,6 +37,7 @@ class Banner extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const IconoBanner(),
+          const SizedBox(width: 15),
           Text(
             titulo,
             style: TextStyle(

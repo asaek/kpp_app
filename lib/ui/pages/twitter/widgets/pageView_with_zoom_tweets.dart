@@ -53,8 +53,9 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
         },
       );
 
-    _pageControllerPropio = Provider.of<TwitterSDKKyary>(context, listen: false)
-        .getPageControllerList[widget.index];
+    _pageControllerPropio =
+        Provider.of<TwitterKyaryProvider>(context, listen: false)
+            .getPageControllerList[widget.index];
 
     super.initState();
   }
@@ -69,7 +70,7 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Consumer<TwitterSDKKyary>(
+      child: Consumer<TwitterKyaryProvider>(
         builder: (context, twitterSDKKyary, child) => SizedBox(
           width: double.infinity,
           height: alturaImagen,
@@ -149,7 +150,7 @@ class _PageViewZOOMTweetsState extends State<PageViewZOOMTweets>
                 },
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: Consumer<TwitterSDKKyary>(
+                  child: Consumer<TwitterKyaryProvider>(
                     builder: (context, twitterSDKKyary, child) => ClipRRect(
                       borderRadius: edgesImage,
                       child: (twitterSDKKyary.getTweetsKyary![widget.index]

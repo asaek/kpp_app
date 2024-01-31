@@ -1,5 +1,5 @@
 import '../../entities/entities.dart';
 
-abstract class TwitterTweetsDriverAdapter {
+abstract class TweetsKyaryRepo {
   Future<List<TweetKyaryEntitie>> getTweetsKyary();
 }

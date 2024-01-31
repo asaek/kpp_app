@@ -12,7 +12,7 @@ class MadreLienzoPageProviders extends ChangeNotifier {
     mostrarToast(
       mensaje: trajeSiguiente.nombreTraje,
       backgroundColor: trajeSiguiente.principalColor,
-      textColor: trajeSiguiente.textColor!,
+      textColor: trajeSiguiente.textColor,
     );
     return trajeSiguiente;
   }

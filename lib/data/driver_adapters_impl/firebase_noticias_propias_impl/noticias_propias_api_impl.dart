@@ -6,7 +6,7 @@ import '../../../domain/drivers_adapters/drivers_adapters.dart';
 import '../../../domain/entities/entities.dart';
 import '../../helpers/noticias_propias/noticias_propias_mapper.dart';
 
-class NoticiaPropiaApi implements FirebaseNoticias {
+class NoticiaPropiaDriverAdapterImpl implements NoticiaPropiaDriverAdapter {
   final String _baseURL = 'kyary-app-default-rtdb.firebaseio.com';
   final NoticiaMapper _noticiaMapper = NoticiaMapper();
 

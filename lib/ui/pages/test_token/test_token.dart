@@ -34,16 +34,15 @@ class _ExampleState extends State<Example> {
                   );
                   // ! Al parecer ahora es una mescla del login del usuario en twitter mas tu proyecto
                   // ! de twitter ahora sera de implementarlo junto a ver que sucede
-                  final response = await oauth2.executeAuthCodeFlowWithPKCE(
-                    scopes: Scope.values,
-                  );
 
+                  OAuthResponse? response = await oauth2
+                      .executeAuthCodeFlowWithPKCE(scopes: Scope.values);
                   print(response.accessToken);
                   print(response.refreshToken);
 
                   super.setState(() {
-                    _accessToken = response.accessToken;
-                    _refreshToken = response.refreshToken;
+                    _accessToken = response.accessToken ?? 'Fallo';
+                    _refreshToken = response.refreshToken ?? 'Fallo';
                   });
                 },
                 child: const Text('Push!'),

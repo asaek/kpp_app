@@ -1,5 +1,5 @@
 import '../../entities/entities.dart';
 
-abstract class FirebaseNoticias {
+abstract class NoticiaPropiaDriverAdapter {
   Future<List<NoticiaPropiaEntitie>> getAllNoticias();
 }

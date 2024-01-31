@@ -89,7 +89,7 @@ class TextNoticiaTraducidad extends StatelessWidget {
       maxLines: 4,
       style: TextStyle(
         color: colorText,
-        fontSize: 22,
+        fontSize: 15,
         overflow: TextOverflow.ellipsis,
       ),
     ).translate();

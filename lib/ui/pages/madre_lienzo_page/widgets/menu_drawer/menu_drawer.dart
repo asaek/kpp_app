@@ -258,15 +258,15 @@ class _OpcionDeDrawer extends StatelessWidget {
                     .setPaginaActual = const BlogNoticiasPage();
 
                 Provider.of<MadreLienzoProvider>(context, listen: false)
-                    .setNombrePagActual = '   Blog Noticias';
+                    .setNombrePagActual = 'Blog Noticias';
                 // Navigator.pop(context);
               }
               if (numeroBoton == 1) {
-                // Provider.of<MadreLienzoProvider>(context, listen: false)
-                //     .setPaginaActual = TwitterPage();
+                Provider.of<MadreLienzoProvider>(context, listen: false)
+                    .setPaginaActual = const TwitterPage();
 
                 Provider.of<MadreLienzoProvider>(context, listen: false)
-                    .setNombrePagActual = '   Tweets';
+                    .setNombrePagActual = 'Tweets';
 
                 // Navigator.pop(context);
               }
@@ -276,7 +276,7 @@ class _OpcionDeDrawer extends StatelessWidget {
                     .setPaginaActual = const ConfiguracionPage();
 
                 Provider.of<MadreLienzoProvider>(context, listen: false)
-                    .setNombrePagActual = '   Configuracion Pamyu';
+                    .setNombrePagActual = 'Conf Pamyu';
 
                 // Navigator.pop(context);
               }
@@ -285,7 +285,7 @@ class _OpcionDeDrawer extends StatelessWidget {
                     .setPaginaActual = const Example();
 
                 Provider.of<MadreLienzoProvider>(context, listen: false)
-                    .setNombrePagActual = '   Test Token';
+                    .setNombrePagActual = 'Test Token';
 
                 // Navigator.pop(context);
               }
